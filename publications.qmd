@@ -1,0 +1,12 @@
+---
+title: "Publications"
+subtitle: "Books, articles and chapters on modern British politics"
+listing:
+  contents: publications.yml
+  sort: "date desc"
+  template: _templates/publications.ejs
+  date-format: "YYYY"
+  categories: false
+---
+
+A fuller list, including conference papers and public writing, is on [Google Scholar](https://scholar.google.com/){.placeholder}.

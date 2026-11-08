@@ -1,0 +1,13 @@
+<script>
+// The address is assembled only when a visitor clicks, so it never appears in the page source
+document.querySelectorAll(".js-email").forEach(function (a) {
+  a.addEventListener("click", function (e) {
+    var addr = a.dataset.user + "@" + a.dataset.host;
+    if (a.getAttribute("href").indexOf("mailto:") !== 0) {
+      e.preventDefault();
+      a.textContent = addr;
+      a.setAttribute("href", "mailto:" + addr);
+    }
+  });
+});
+</script>

@@ -1,0 +1,207 @@
+/*-- scss:defaults --*/
+
+// Layout concept: a Commons-green band carries the name and a live chamber chart;
+// below it, calm paper-white bands of research, book, articles and projects.
+$forest: #0F2B22;        // bands: navbar, hero, footer
+$forest-2: #1B3F33;      // raised surface on the forest band
+$mint: #BFD8CB;          // secondary text on forest
+$paper: #F7F8F6;         // page ground
+$tint: #ECF1EE;          // alternate band
+$ink: #17201C;           // body text
+$slate: #56635C;         // secondary text
+$rule: #D8E0DB;          // hairlines
+$green: #22694D;         // links and accents on paper
+
+$body-bg: $paper;
+$body-color: $ink;
+$primary: $green;
+$link-color: $green;
+
+$font-family-sans-serif: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: "Newsreader", Georgia, "Times New Roman", serif;
+$headings-font-weight: 400;
+$font-size-base: 1.0625rem;
+$line-height-base: 1.6;
+
+$navbar-bg: $forest;
+$navbar-fg: #FFFFFF;
+$navbar-hl: $mint;
+$footer-bg: $forest;
+$footer-fg: $mint;
+
+/*-- scss:rules --*/
+
+body { -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4 { letter-spacing: -0.015em; text-wrap: balance; }
+a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid $green; outline-offset: 3px; border-radius: 2px; }
+
+// Navigation
+.navbar { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.navbar .navbar-title { font-family: $headings-font-family; font-size: 1.35rem; font-weight: 400; letter-spacing: -0.01em; }
+.navbar .nav-link { font-size: 0.95rem; color: rgba(255,255,255,0.82) !important; }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: #fff !important; }
+.navbar .nav-link.active { text-decoration: underline; text-underline-offset: 0.45em; }
+.nav-footer { font-size: 0.85rem; border-top: none; a { color: #fff; } }
+
+// Shared containers
+.wrap { max-width: 72rem; margin: 0 auto; padding-left: max(1.25rem, env(safe-area-inset-left)); padding-right: max(1.25rem, env(safe-area-inset-right)); }
+.band { padding-block: 4.5rem; }
+.band + .band { border-top: 1px solid $rule; }
+.band-tint { background: $tint; }
+.placeholder { background: rgba($green, 0.1); color: $slate; padding: 0.05em 0.35em; border-radius: 3px; }
+.page-layout-custom #quarto-content > main { padding: 0; }
+
+// Hero
+.hero {
+  background: $forest;
+  color: #fff;
+  padding-block: 4rem 4.5rem;
+  a { color: #fff; }
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; align-items: center; }
+.hero-name {
+  font-family: $headings-font-family;
+  font-weight: 300;
+  font-size: clamp(3.2rem, 7.5vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.5rem;
+  color: #fff;
+}
+.hero-lede { font-family: $headings-font-family; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.35; font-weight: 300; margin: 0 0 1.25rem; color: #fff; }
+.hero-role { color: $mint; font-size: 0.95rem; max-width: 30rem; margin: 0 0 2rem; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0;
+  a { text-decoration: none; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 0.45rem 1rem; font-size: 0.92rem; }
+  a:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+}
+
+// Chamber chart
+.hemi { margin: 0; background: $forest-2; border-radius: 20px; padding: 1.5rem 1.5rem 1.25rem; }
+.hemi-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.hemi-caption { color: $mint; font-size: 0.9rem; max-width: 16rem; }
+.hemi-year { font-family: $headings-font-family; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1; font-weight: 300; font-variant-numeric: lining-nums tabular-nums; }
+#hemicycle { width: 100%; height: auto; display: block; margin: 0.75rem 0 0.5rem; }
+#hemicycle circle { transition: cx 0.6s ease, cy 0.6s ease, fill 0.6s ease, opacity 0.4s ease; }
+.p-lab { fill: #E4003B; background: #E4003B; }
+.p-con { fill: #3A8FE0; background: #3A8FE0; }
+.p-lib { fill: #F6A21C; background: #F6A21C; }
+.p-snp { fill: #F2E36B; background: #F2E36B; }
+.p-other { fill: #8FA39A; background: #8FA39A; }
+.p-hidden { opacity: 0; }
+.hemi-legend { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-size: 0.88rem; color: $mint;
+  li { display: flex; align-items: center; gap: 0.45rem; }
+  b { color: #fff; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .swatch { width: 0.7rem; height: 0.7rem; border-radius: 50%; display: inline-block; }
+}
+.hemi-controls { display: flex; align-items: center; gap: 1rem;
+  button { flex: none; background: #fff; color: $forest; border: 0; border-radius: 999px; padding: 0.45rem 1rem; font: 500 0.88rem $font-family-sans-serif; cursor: pointer; }
+  button:hover { background: $mint; }
+  input[type=range] { flex: 1; min-width: 0; accent-color: #fff; }
+}
+.hemi-note { margin-top: 0.85rem; font-size: 0.8rem; color: $mint; a { color: $mint; } }
+@media (prefers-reduced-motion: reduce) { #hemicycle circle { transition: none; } }
+
+// Research themes
+.themes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+.theme h3 { font-size: 1.45rem; margin: 0 0 0.6rem; }
+.theme p { color: $slate; margin: 0; }
+
+// Book feature: cover beside title
+.book { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 3rem; align-items: center; }
+.book-cover img { width: 100%; max-width: 15rem; height: auto; display: block; border-radius: 4px; box-shadow: 0 18px 40px -18px rgba($forest, 0.55); }
+.book-body > p:first-child { color: $slate; font-size: 0.95rem; margin: 0 0 0.75rem; }
+.book-body h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.08; font-weight: 300; margin: 0 0 1rem; border: 0;
+  a { color: $ink; text-decoration: none; }
+  a:hover { color: $green; text-decoration: underline; }
+}
+.book-body p { max-width: 42rem; }
+.book-body h2 + p { color: $slate; }
+
+// Pill links
+a.pill-link { display: inline-block; text-decoration: none; border: 1px solid rgba($green, 0.45); color: $green; border-radius: 999px; padding: 0.45rem 1.05rem; font-size: 0.92rem; font-weight: 500; }
+a.pill-link:hover { background: $green; color: #fff; border-color: $green; }
+
+// Data and politics: statement beside three capabilities
+.band-data { background: #fff; }
+.data-pitch { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; }
+.data-intro h2 { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 300; line-height: 1.05; margin: 0 0 1.25rem; border: 0; }
+.data-intro p { font-size: 1.1rem; color: $ink; margin-bottom: 1.5rem; }
+.data-skills { display: flex; flex-direction: column; }
+.skill { padding: 1.15rem 0; border-top: 1px solid $rule; }
+.skill:last-child { border-bottom: 1px solid $rule; }
+.skill h3 { font-size: 1.35rem; margin: 0 0 0.35rem; }
+.skill p { color: $slate; margin: 0; }
+
+// Section heads with a "see all" link
+.section-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 1.5rem;
+  h2 { font-size: 2rem; margin: 0; border: 0; }
+  p { margin: 0; }
+}
+
+// Publication rows (home and Publications page)
+.pub-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid $rule; }
+.pub-row { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr) auto; gap: 1.25rem; padding: 1.15rem 0; border-bottom: 1px solid $rule; align-items: baseline; }
+.pub-year { color: $slate; font-variant-numeric: tabular-nums; }
+.pub-title { font-family: $headings-font-family; font-size: 1.3rem; line-height: 1.25; color: $ink; text-decoration: none; }
+.pub-title:hover { color: $green; text-decoration: underline; }
+.pub-meta { margin: 0.35rem 0 0; color: $slate; font-size: 0.92rem; }
+.pub-type { font-size: 0.8rem; color: $green; border: 1px solid rgba($green, 0.35); border-radius: 999px; padding: 0.1rem 0.6rem; }
+
+// Project tiles
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1.5rem; }
+.project-tile { display: flex; flex-direction: column; background: #fff; border: 1px solid $rule; border-radius: 16px; overflow: hidden; text-decoration: none; color: $ink;
+  img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: $tint; }
+  &:hover { border-color: $green; }
+  &:hover .project-title { text-decoration: underline; }
+}
+.project-text { padding: 1.1rem 1.25rem 1.3rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.project-title { font-family: $headings-font-family; font-size: 1.35rem; line-height: 1.2; }
+.project-desc { color: $slate; font-size: 0.93rem; }
+
+// About
+.about { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 3rem; }
+.about h2 { font-size: 2rem; border: 0; margin-top: 0; }
+.about-contact h3 { font-size: 1.2rem; margin-top: 0.4rem; }
+.about-contact p { margin: 0 0 0.5rem; }
+
+// Inner pages
+#title-block-header .title { font-family: $headings-font-family; font-weight: 300; font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.03em; }
+#title-block-header .subtitle { color: $slate; font-family: $font-family-sans-serif; font-size: 1.1rem; }
+main.content h2 { font-size: 1.75rem; border-bottom: 0; margin-top: 2.5rem; }
+.quarto-title-meta-heading { text-transform: none !important; letter-spacing: 0; }
+.quarto-category { text-transform: none !important; border-color: $rule !important; color: $slate !important; }
+dl dt { font-weight: 500; }
+code { color: $green; background: $tint; }
+.source-note { font-size: 0.88rem; color: $slate; border-left: 3px solid $rule; padding-left: 0.85rem; }
+
+// Phone and tablet
+@media (max-width: 900px) {
+  .book-cover img { max-width: 11rem; }
+  .hero-grid, .book, .about, .data-pitch { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .themes { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .band { padding-block: 3rem; }
+  .hemi { padding: 1.1rem; }
+}
+@media (max-width: 560px) {
+  .pub-row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  .pub-type { justify-self: start; }
+  .section-head { flex-direction: column; gap: 0.4rem; }
+}
+
+// The home page draws its own hero, so hide Quarto's title block there
+.page-layout-custom #title-block-header { display: none; }
+
+// Quarto adds its own top padding to some blocks; keep the band rhythm consistent
+#quarto-content .band { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+@media (max-width: 900px) { #quarto-content .band { padding-top: 3rem; padding-bottom: 3rem; } }
+
+// Breathing room above the first heading of the hero and of inner pages
+#quarto-content .hero { padding-top: 4rem; padding-bottom: 4.5rem; }
+#quarto-content #title-block-header { margin-top: 3rem; margin-bottom: 1.5rem; }
+@media (max-width: 900px) {
+  #quarto-content .hero { padding-top: 2.75rem; padding-bottom: 3rem; }
+  #quarto-content #title-block-header { margin-top: 2.25rem; }
+}

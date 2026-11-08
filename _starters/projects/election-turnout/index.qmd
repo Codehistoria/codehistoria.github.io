@@ -1,0 +1,53 @@
+---
+title: "Turnout at UK general elections, 1945–2024"
+description: "How many registered voters went to the polls at each general election since the Second World War."
+date: 2026-11-08
+categories: [Elections, Twentieth century]
+image: thumb.svg
+---
+
+[Example project. The chart is built with pandas and Plotly when the site renders. The figures need checking against the House of Commons Library before this goes live.]{.placeholder}
+
+```{python}
+#| echo: false
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.io as pio
+
+# Embed plotly.js in the page so the chart works without a third-party CDN
+pio.renderers.default = "notebook"
+
+df = pd.read_csv("../../data/turnout.csv")
+green = "#22694D"
+
+fig = go.Figure(go.Scatter(
+    x=df.year, y=df.turnout_pct,
+    mode="lines+markers",
+    line=dict(color=green, width=2),
+    marker=dict(size=6, color=green),
+    customdata=df.election,
+    hovertemplate="%{customdata}: %{y:.1f}%<extra></extra>",
+))
+fig.update_layout(
+    template="simple_white",
+    height=380,
+    margin=dict(l=10, r=10, t=10, b=10),
+    font=dict(family="Geist, sans-serif", size=13, color="#1D2420"),
+    plot_bgcolor="#F7F8F6", paper_bgcolor="#F7F8F6",
+    yaxis=dict(title="Turnout (%)", range=[55, 88], gridcolor="#D8E0DB", showgrid=True),
+    xaxis=dict(title=None, tickvals=[1945, 1955, 1964, 1974, 1983, 1992, 2001, 2010, 2019]),
+)
+fig.add_annotation(x=1950, y=83.9, text="1950: post-war high", showarrow=False, yshift=14, font=dict(size=12, color="#59635D"))
+fig.add_annotation(x=2001, y=59.4, text="2001: lowest since 1918", showarrow=False, yshift=-16, font=dict(size=12, color="#59635D"))
+fig.show(config={"displayModeBar": False})
+```
+
+## About the data
+
+Turnout is the number of valid votes cast as a percentage of the registered electorate. February and October 1974 are shown as separate elections.
+
+[Download the data (CSV)](../../data/turnout.csv)
+
+::: {.source-note}
+Source: House of Commons Library, *UK Election Statistics*. Figures shown here are placeholders entered from memory and must be verified before publishing.
+:::

@@ -1,0 +1,87 @@
+<script>
+(function () {
+  const dataEl = document.getElementById("seats-data");
+  const svg = document.getElementById("hemicycle");
+  if (!dataEl || !svg) return;
+  const rows = JSON.parse(dataEl.textContent);
+  const parties = [
+    { key: "lab", name: "Labour", cls: "p-lab" },
+    { key: "snp", name: "SNP", cls: "p-snp" },
+    { key: "lib", name: "Liberal / Lib Dem", cls: "p-lib" },
+    { key: "other", name: "Others", cls: "p-other" },
+    { key: "con", name: "Conservative", cls: "p-con" }
+  ];
+  rows.forEach(r => { r.other = r.total - r.lab - r.snp - r.lib - r.con; });
+
+  const NS = "http://www.w3.org/2000/svg";
+  const W = 600, CX = 300, CY = 300, R_OUT = 285, R_IN = 110, ROWS = 12;
+  const MAX = Math.max(...rows.map(r => r.total));
+  const dots = [];
+  for (let i = 0; i < MAX; i++) {
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("r", "6.4");
+    c.setAttribute("cx", CX); c.setAttribute("cy", CY);
+    svg.appendChild(c); dots.push(c);
+  }
+
+  // Seat positions for a chamber of n seats: rows of a half-ring, left to right
+  function layout(n) {
+    const radii = Array.from({ length: ROWS }, (_, i) => R_IN + (R_OUT - R_IN) * i / (ROWS - 1));
+    const sum = radii.reduce((a, b) => a + b, 0);
+    const counts = radii.map(r => Math.floor(n * r / sum));
+    let short = n - counts.reduce((a, b) => a + b, 0);
+    for (let i = ROWS - 1; short > 0; i = (i - 1 + ROWS) % ROWS, short--) counts[i]++;
+    const seats = [];
+    radii.forEach((r, i) => {
+      const k = counts[i];
+      for (let j = 0; j < k; j++) {
+        const a = Math.PI - (k === 1 ? Math.PI / 2 : Math.PI * j / (k - 1));
+        seats.push({ x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), a });
+      }
+    });
+    return seats.sort((p, q) => q.a - p.a);
+  }
+
+  const yearEl = document.getElementById("hemi-year");
+  const legendEl = document.getElementById("hemi-legend");
+  const slider = document.getElementById("hemi-slider");
+  const playBtn = document.getElementById("hemi-play");
+  slider.max = rows.length - 1;
+
+  function draw(idx) {
+    const r = rows[idx];
+    const seats = layout(r.total);
+    let s = 0;
+    parties.forEach(p => {
+      for (let i = 0; i < r[p.key]; i++, s++) {
+        const d = dots[s];
+        d.setAttribute("cx", seats[s].x.toFixed(1));
+        d.setAttribute("cy", seats[s].y.toFixed(1));
+        d.setAttribute("class", p.cls);
+      }
+    });
+    for (; s < MAX; s++) dots[s].setAttribute("class", "p-hidden");
+    yearEl.textContent = r.election;
+    legendEl.innerHTML = parties
+      .filter(p => r[p.key] > 0)
+      .map(p => `<li><span class="swatch ${p.cls}"></span>${p.name}<b>${r[p.key]}</b></li>`)
+      .join("");
+    slider.value = idx;
+    slider.setAttribute("aria-valuetext", `${r.election} general election`);
+    svg.setAttribute("aria-label", `House of Commons after the ${r.election} general election: ` +
+      parties.filter(p => r[p.key] > 0).map(p => `${p.name} ${r[p.key]}`).join(", "));
+  }
+
+  let timer = null;
+  function stop() { clearInterval(timer); timer = null; playBtn.textContent = "Play 1945 to 2024"; playBtn.setAttribute("aria-pressed", "false"); }
+  function play() {
+    let i = Number(slider.value) >= rows.length - 1 ? 0 : Number(slider.value);
+    draw(i);
+    playBtn.textContent = "Pause"; playBtn.setAttribute("aria-pressed", "true");
+    timer = setInterval(() => { i++; if (i >= rows.length) { stop(); return; } draw(i); }, 900);
+  }
+  slider.addEventListener("input", () => { stop(); draw(Number(slider.value)); });
+  playBtn.addEventListener("click", () => timer ? stop() : play());
+  draw(rows.length - 1);
+})();
+</script>

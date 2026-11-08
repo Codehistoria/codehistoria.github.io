@@ -1,0 +1,10 @@
+---
+title: "Data and politics"
+subtitle: "Interactive visualisations, datasets and methods for studying British politics"
+listing:
+  contents:
+    - projects/*/index.qmd
+    - external-projects.yml
+  sort: "date desc"
+  template: _templates/projects.ejs
+---

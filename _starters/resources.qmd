@@ -1,0 +1,45 @@
+---
+title: "Resources"
+subtitle: "For studying modern British political history"
+---
+
+Guides for students and researchers working on British politics since 1900. [Each section below is a starting outline to replace with your own reading lists and notes.]{.placeholder}
+
+## Reading lists by period
+
+- [Edwardian Britain and the First World War, 1900–1918](#){.placeholder}
+- [The interwar years, 1918–1939](#){.placeholder}
+- [War and the post-war settlement, 1939–1979](#){.placeholder}
+- [Thatcherism and its aftermath, 1979–1997](#){.placeholder}
+- [New Labour to the present, 1997 onwards](#){.placeholder}
+
+## Finding primary sources
+
+[Hansard](https://hansard.parliament.uk/)
+: Debates in both Houses of Parliament, searchable back to 1803.
+
+[The National Archives](https://www.nationalarchives.gov.uk/)
+: Cabinet papers and government department records, mostly released under the twenty-year rule.
+
+[Mass Observation](https://www.massobs.org.uk/)
+: Diaries, surveys and reports on everyday life from 1937 onwards.
+
+[Labour History Archive, People's History Museum](https://phm.org.uk/collections/archive-collections/)
+: Records of the Labour Party and the wider labour movement.
+
+[Conservative Party Archive, Bodleian Libraries](https://www.bodleian.ox.ac.uk/)
+: Party organisation, research department and campaign material.
+
+## Data for studying elections
+
+[House of Commons Library](https://commonslibrary.parliament.uk/)
+: Election results, turnout and constituency data, with briefing papers.
+
+[British Election Study](https://www.britishelectionstudy.com/)
+: Survey data on how and why people have voted, from 1964.
+
+## Guides
+
+- [How to read a Cabinet paper](#){.placeholder}
+- [Using Hansard for research essays](#){.placeholder}
+- [Working with election data in Python](#){.placeholder}

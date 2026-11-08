@@ -1,0 +1,57 @@
+# One entry per publication, newest first is not required: the pages sort by date.
+# featured: true puts an item in "Selected articles" on the home page.
+# Details taken from the University of Bristol profile and publishers' pages, November 2026.
+
+- title: "Lord Hailsham: Lord Chancellor 1979–87"
+  authors: "James Freeman"
+  venue: "In Thatcher's Ministers"
+  forthcoming: true
+  date: 2026-01-01
+  type: Chapter
+  path: https://research-information.bris.ac.uk/en/publications/531a0772-2979-4648-8b5d-4295649f160c
+
+- title: "A Neoliberal Revolution? Thatcherism and the Reform of British Pensions"
+  authors: "Aled Davies, James Freeman and Hugh Pemberton"
+  venue: "Manchester University Press"
+  image: images/neoliberal-revolution-cover.png
+  date: 2024-07-01
+  type: Book
+  path: https://www.manchesteruniversitypress.co.uk/9781526146526/
+
+- title: "Thatcher's Policy Unit and the 'Neoliberal Vision'"
+  authors: "Aled Davies, James Freeman and Hugh Pemberton"
+  venue: "Journal of British Studies 62(1), 77–103"
+  date: 2023-01-01
+  type: Article
+  featured: true
+  path: https://doi.org/10.1017/jbr.2022.111
+
+- title: "Neoliberalism and Conservatism in Britain"
+  authors: "James Freeman"
+  venue: "In A. Davies, B. Jackson and F. Sutcliffe-Braithwaite (eds), The Neoliberal Age? Britain since the 1970s, UCL Press"
+  date: 2021-06-01
+  type: Chapter
+  featured: true
+  path: https://uclpress.co.uk/book/the-neoliberal-age/
+
+- title: "The Rhetorical Lives and Afterlives of Political Pledges: A Quantitative Study of British Political Speech, c. 1997–2015"
+  authors: "James Freeman"
+  venue: "In D. Thackeray and R. Toye (eds), Electoral Pledges in Britain since 1918, Palgrave Macmillan"
+  date: 2020-09-01
+  type: Chapter
+  path: https://research-information.bris.ac.uk/en/publications/8ce9f67a-67ce-45dd-a63f-fc0c91848c91
+
+- title: "Reconsidering 'Set the People Free': Neoliberalism and Freedom Rhetoric in Churchill's Conservative Party"
+  authors: "James Freeman"
+  venue: "Twentieth Century British History 29(4), 522ff."
+  date: 2018-12-01
+  type: Article
+  featured: true
+  path: https://doi.org/10.1093/tcbh/hwx050
+
+- title: "'Everyman a Capitalist' or 'Free to Choose'? Exploring the Tensions within Thatcherite Individualism"
+  authors: "Aled Davies, James Freeman and Hugh Pemberton"
+  venue: "The Historical Journal 61(2), 477–501"
+  date: 2018-06-01
+  type: Article
+  path: https://doi.org/10.1017/S0018246X17000103

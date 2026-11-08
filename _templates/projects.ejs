@@ -1,0 +1,13 @@
+```{=html}
+<div class="project-grid">
+<% for (const item of items) { %>
+<a class="project-tile" href="<%- item.path %>" <%= metadataAttrs(item) %>>
+<% if (item.image) { %><img src="<%- item.image %>" alt=""><% } %>
+<span class="project-text">
+<span class="project-title"><%= item.title %></span>
+<span class="project-desc"><%= item.description %></span>
+</span>
+</a>
+<% } %>
+</div>
+```

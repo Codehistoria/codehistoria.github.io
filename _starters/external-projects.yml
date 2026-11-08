@@ -1,0 +1,9 @@
+# Projects that live in their own GitHub repos. Each repo with Pages switched on
+# appears under the main domain at /<repo-name>/.
+
+- title: "Sieges of the English Civil War"
+  description: "An interactive map of sieges across England and Wales. Data from Stephen Charnock and the National Civil War Centre, Newark."
+  date: 2026-11-08
+  categories: [Map, Seventeenth century]
+  path: /ecw-sieges-map/
+  image: images/sieges-thumb.svg

@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - CNAME
+    - /data/*.csv
+
+execute:
+  freeze: auto
+
+website:
+  title: "James Freeman"
+  site-url: https://jamesfreemanhistorian.com
+  description: "History, politics and data: research and writing on modern British politics, with interactive visualisations."
+  navbar:
+    left:
+      - href: publications.qmd
+        text: Publications
+    right:
+      - icon: github
+        href: https://github.com/
+        aria-label: GitHub
+  page-footer:
+    left: "© 2026 James Freeman"
+    right: "Built with [Quarto](https://quarto.org) · Hosted on GitHub Pages"
+
+format:
+  html:
+    theme: custom.scss
+    toc: false
+    smooth-scroll: false
+    include-in-header:
+      - text: |
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
