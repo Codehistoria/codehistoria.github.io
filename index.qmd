@@ -153,8 +153,7 @@ Drawing on newly released archives, the book follows the Thatcher government's a
 
 ## About
 
-[Write your bio here, in your own voice: two or three short paragraphs on your research, teaching and current role.]{.placeholder}
-
+I am a historian based at the University of Bristol who writes and teaches about both political history and alogrithmic societies.
 :::
 
 ::: {.about-contact}
