@@ -22,6 +22,6 @@ The projects gallery and the resources guide are not live yet. Their starter fil
 ## Publish
 
 1. Push this folder to a new public GitHub repo named `<your-username>.github.io`, so that other repos (such as `ecw-sieges-map`) appear under the same domain.
-2. Pushing to `main` runs the workflow in `.github/workflows/publish.yml`, which builds the site into a `gh-pages` branch.
-3. In the repo's Settings > Pages, set the source to the `gh-pages` branch and enter `jamesfreemanhistorian.com` as the custom domain.
+2. In the repo's Settings > Pages, set Source to "GitHub Actions" and enter `jamesfreemanhistorian.com` as the custom domain.
+3. Pushing to `main` runs the workflow in `.github/workflows/publish.yml`, which builds the site and publishes it to GitHub Pages.
 4. At Porkbun, use Quick DNS Config > GitHub to point the domain at GitHub Pages, then tick Enforce HTTPS in GitHub once the certificate is issued.

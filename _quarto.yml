@@ -4,6 +4,7 @@ project:
   resources:
     - CNAME
     - /data/*.csv
+    - /data/*.json
 
 execute:
   freeze: auto
@@ -18,7 +19,7 @@ website:
         text: Publications
     right:
       - icon: github
-        href: https://github.com/
+        href: https://github.com/codehistoria
         aria-label: GitHub
   page-footer:
     left: "© 2026 James Freeman"

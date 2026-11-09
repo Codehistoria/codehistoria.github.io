@@ -16,17 +16,6 @@ listing:
     date-format: "YYYY"
 ---
 
-```{python}
-#| echo: false
-#| output: asis
-# Passes the seat totals in data/commons-seats.csv to the chamber chart in the hero
-import pandas as pd
-seats = pd.read_csv("data/commons-seats.csv")
-print("```{=html}")
-print(f'<script id="seats-data" type="application/json">{seats.to_json(orient="records")}</script>')
-print("```")
-```
-
 ```{=html}
 <section class="hero">
   <div class="wrap hero-grid">
@@ -39,16 +28,25 @@ print("```")
     <figure class="hemi">
       <div class="hemi-head">
         <span class="hemi-caption">The House of Commons after the general election of</span>
-        <span id="hemi-year" class="hemi-year">2024</span>
+        <span class="hemi-when"><span id="hemi-year" class="hemi-year">2024</span><span id="hemi-size" class="hemi-size">650 seats</span></span>
       </div>
-      <svg id="hemicycle" viewBox="0 0 600 312" role="img" aria-label="House of Commons seats by party"></svg>
+      <svg id="hemicycle" data-src="data/commons-seats.json" viewBox="0 0 600 312" role="img" aria-label="House of Commons seats by party"></svg>
+      <div id="hemi-seat" class="hemi-seat" aria-live="polite"><p class="seat-hint">Loading the results.</p></div>
       <ul id="hemi-legend" class="hemi-legend"></ul>
       <div class="hemi-controls">
         <button id="hemi-play" type="button" aria-pressed="false">Play 1945 to 2024</button>
         <label class="visually-hidden" for="hemi-slider">Choose a general election</label>
         <input id="hemi-slider" type="range" min="0" max="21" step="1" value="21">
       </div>
-      <figcaption class="hemi-note">Seats won at each general election since 1945. <a href="data/commons-seats.csv">Data (CSV)</a></figcaption>
+      <div class="hemi-find">
+        <label for="hemi-search">Find a constituency</label>
+        <input id="hemi-search" type="search" list="hemi-constituencies" autocomplete="off" placeholder="Type a name">
+        <datalist id="hemi-constituencies"></datalist>
+      </div>
+      <figcaption class="hemi-note">
+        <p>Each dot is a seat, grouped left to right from Greens and Labour through the Liberals and independents to the Conservatives, Reform and UKIP. Between elections fought on the same number of seats, only the colours change. When boundary reviews change the size of the House, every seat is redrawn, which is why 1983, 1997 and 2005 reshuffle the whole chamber.</p>
+        <p>Results from UK Parliament and the House of Commons Library, compiled by <a href="https://github.com/Tristan-Hotham/elections-since-1832">Tristan Hotham</a>. <a href="data/commons-seats.csv">Download every seat (CSV)</a></p>
+      </figcaption>
     </figure>
   </div>
 </section>
@@ -154,6 +152,7 @@ Drawing on newly released archives, the book follows the Thatcher government's a
 ## About
 
 I am a historian based at the University of Bristol who writes and teaches about both political history and alogrithmic societies.
+
 :::
 
 ::: {.about-contact}
@@ -168,7 +167,7 @@ I am a historian based at the University of Bristol who writes and teaches about
 
 [Google Scholar](https://scholar.google.com/){.placeholder}
 
-[GitHub](https://github.com/){.placeholder}
+[GitHub](https://github.com/codehistoria)
 
 :::
 

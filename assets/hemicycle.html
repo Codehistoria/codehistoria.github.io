@@ -1,30 +1,23 @@
 <script>
 (function () {
-  const dataEl = document.getElementById("seats-data");
   const svg = document.getElementById("hemicycle");
-  if (!dataEl || !svg) return;
-  const rows = JSON.parse(dataEl.textContent);
-  const parties = [
-    { key: "lab", name: "Labour", cls: "p-lab" },
-    { key: "snp", name: "SNP", cls: "p-snp" },
-    { key: "lib", name: "Liberal / Lib Dem", cls: "p-lib" },
-    { key: "other", name: "Others", cls: "p-other" },
-    { key: "con", name: "Conservative", cls: "p-con" }
-  ];
-  rows.forEach(r => { r.other = r.total - r.lab - r.snp - r.lib - r.con; });
-
+  if (!svg) return;
   const NS = "http://www.w3.org/2000/svg";
   const W = 600, CX = 300, CY = 300, R_OUT = 285, R_IN = 110, ROWS = 12;
-  const MAX = Math.max(...rows.map(r => r.total));
-  const dots = [];
-  for (let i = 0; i < MAX; i++) {
-    const c = document.createElementNS(NS, "circle");
-    c.setAttribute("r", "6.4");
-    c.setAttribute("cx", CX); c.setAttribute("cy", CY);
-    svg.appendChild(c); dots.push(c);
-  }
+  const yearEl = document.getElementById("hemi-year");
+  const sizeEl = document.getElementById("hemi-size");
+  const legendEl = document.getElementById("hemi-legend");
+  const slider = document.getElementById("hemi-slider");
+  const playBtn = document.getElementById("hemi-play");
+  const card = document.getElementById("hemi-seat");
+  const search = document.getElementById("hemi-search");
+  const list = document.getElementById("hemi-constituencies");
+  const fmt = n => n.toLocaleString("en-GB");
 
-  // Seat positions for a chamber of n seats: rows of a half-ring, left to right
+  let data, elections, dots = [], seatsNow = [], posNow = [], selected = -1, idx = 0;
+
+  // Seat positions for a House of n seats: twelve half-rings, outer rows longer,
+  // then every seat ordered from the left end of the arc to the right
   function layout(n) {
     const radii = Array.from({ length: ROWS }, (_, i) => R_IN + (R_OUT - R_IN) * i / (ROWS - 1));
     const sum = radii.reduce((a, b) => a + b, 0);
@@ -36,52 +29,104 @@
       const k = counts[i];
       for (let j = 0; j < k; j++) {
         const a = Math.PI - (k === 1 ? Math.PI / 2 : Math.PI * j / (k - 1));
-        seats.push({ x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), a });
+        seats.push({ x: CX + r * Math.cos(a), y: CY - r * Math.sin(a), a, r });
       }
     });
-    return seats.sort((p, q) => q.a - p.a);
+    // Seats at the same angle: outer row first on the left, inner first on the right,
+    // so the first and last parties sit at the outer edges of the arc
+    return seats.sort((p, q) => (q.a - p.a) || (p.a > Math.PI / 2 ? q.r - p.r : p.r - q.r));
   }
 
-  const yearEl = document.getElementById("hemi-year");
-  const legendEl = document.getElementById("hemi-legend");
-  const slider = document.getElementById("hemi-slider");
-  const playBtn = document.getElementById("hemi-play");
-  slider.max = rows.length - 1;
+  function blocOf(seat) { return data.parties[seat[2]][1]; }
 
-  function draw(idx) {
-    const r = rows[idx];
-    const seats = layout(r.total);
-    let s = 0;
-    parties.forEach(p => {
-      for (let i = 0; i < r[p.key]; i++, s++) {
-        const d = dots[s];
-        d.setAttribute("cx", seats[s].x.toFixed(1));
-        d.setAttribute("cy", seats[s].y.toFixed(1));
-        d.setAttribute("class", p.cls);
-      }
+  function showSeat(i) {
+    dots.forEach(d => d.classList.remove("is-selected"));
+    selected = i;
+    if (i < 0) {
+      card.innerHTML = '<p class="seat-hint">Click or tap a seat to see who won it.</p>';
+      return;
+    }
+    const s = seatsNow[i];
+    dots[i].classList.add("is-selected");
+    const party = data.parties[s[2]][0];
+    const result = s[3] === null ? "Returned unopposed"
+      : `${s[3]}% of the vote` + (s[4] !== null ? `, majority ${fmt(s[4])}` : "");
+    card.innerHTML =
+      `<span class="seat-swatch b-${blocOf(s)}"></span>` +
+      `<div><p class="seat-name">${s[0]}</p>` +
+      `<p class="seat-mp">${s[1]}, ${party}</p>` +
+      `<p class="seat-result">${result}</p></div>`;
+  }
+
+  function draw(i) {
+    idx = i;
+    const key = elections[i].name;
+    seatsNow = elections[i].seats;
+    posNow = layout(seatsNow.length);
+    seatsNow.forEach((s, j) => {
+      const d = dots[j];
+      d.setAttribute("cx", posNow[j].x.toFixed(1));
+      d.setAttribute("cy", posNow[j].y.toFixed(1));
+      d.setAttribute("class", "b-" + blocOf(s));
     });
-    for (; s < MAX; s++) dots[s].setAttribute("class", "p-hidden");
-    yearEl.textContent = r.election;
-    legendEl.innerHTML = parties
-      .filter(p => r[p.key] > 0)
-      .map(p => `<li><span class="swatch ${p.cls}"></span>${p.name}<b>${r[p.key]}</b></li>`)
-      .join("");
-    slider.value = idx;
-    slider.setAttribute("aria-valuetext", `${r.election} general election`);
-    svg.setAttribute("aria-label", `House of Commons after the ${r.election} general election: ` +
-      parties.filter(p => r[p.key] > 0).map(p => `${p.name} ${r[p.key]}`).join(", "));
+    for (let j = seatsNow.length; j < dots.length; j++) dots[j].setAttribute("class", "is-hidden");
+
+    yearEl.textContent = key;
+    const n = seatsNow.length, prev = i > 0 ? elections[i - 1].seats.length : n;
+    sizeEl.textContent = n === prev ? `${n} seats` :
+      `${n} seats, ${n > prev ? "+" : "−"}${Math.abs(n - prev)} after boundary changes`;
+    sizeEl.classList.toggle("is-changed", n !== prev);
+
+    const counts = {};
+    seatsNow.forEach(s => { const b = blocOf(s); counts[b] = (counts[b] || 0) + 1; });
+    legendEl.innerHTML = data.blocs.filter(b => counts[b.key])
+      .map(b => `<li><span class="swatch b-${b.key}"></span>${b.name}<b>${counts[b.key]}</b></li>`).join("");
+
+    list.innerHTML = seatsNow.map(s => s[0]).sort().map(c => `<option value="${c.replace(/"/g, "&quot;")}">`).join("");
+    search.value = "";
+    slider.value = i;
+    slider.setAttribute("aria-valuetext", `${key} general election`);
+    svg.setAttribute("aria-label", `House of Commons after the ${key} general election: ` +
+      data.blocs.filter(b => counts[b.key]).map(b => `${b.name} ${counts[b.key]}`).join(", "));
+    showSeat(-1);
   }
+
+  // Pick the seat nearest the pointer, so small dots are easy to hit on a phone
+  svg.addEventListener("click", e => {
+    const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+    const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+    let best = -1, bestD = 18 * 18;
+    posNow.forEach((q, j) => { const d = (q.x - p.x) ** 2 + (q.y - p.y) ** 2; if (d < bestD) { bestD = d; best = j; } });
+    showSeat(best);
+  });
+  search.addEventListener("change", () => {
+    const j = seatsNow.findIndex(s => s[0].toLowerCase() === search.value.trim().toLowerCase());
+    if (j >= 0) showSeat(j);
+  });
 
   let timer = null;
   function stop() { clearInterval(timer); timer = null; playBtn.textContent = "Play 1945 to 2024"; playBtn.setAttribute("aria-pressed", "false"); }
   function play() {
-    let i = Number(slider.value) >= rows.length - 1 ? 0 : Number(slider.value);
+    let i = idx >= elections.length - 1 ? 0 : idx;
     draw(i);
     playBtn.textContent = "Pause"; playBtn.setAttribute("aria-pressed", "true");
-    timer = setInterval(() => { i++; if (i >= rows.length) { stop(); return; } draw(i); }, 900);
+    timer = setInterval(() => { i++; if (i >= elections.length) { stop(); return; } draw(i); }, 1100);
   }
   slider.addEventListener("input", () => { stop(); draw(Number(slider.value)); });
   playBtn.addEventListener("click", () => timer ? stop() : play());
-  draw(rows.length - 1);
+
+  fetch(svg.dataset.src).then(r => r.json()).then(d => {
+    data = d; elections = d.elections;
+    const max = Math.max(...elections.map(e => e.seats.length));
+    for (let i = 0; i < max; i++) {
+      const c = document.createElementNS(NS, "circle");
+      c.setAttribute("r", "6.4"); c.setAttribute("cx", CX); c.setAttribute("cy", CY);
+      svg.appendChild(c); dots.push(c);
+    }
+    slider.max = elections.length - 1;
+    draw(elections.length - 1);
+  }).catch(() => {
+    card.innerHTML = '<p class="seat-hint">The election data could not be loaded. Refresh the page to try again.</p>';
+  });
 })();
 </script>
