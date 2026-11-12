@@ -5,6 +5,7 @@ project:
     - CNAME
     - /data/*.csv
     - /data/*.json
+    - /plum-pudding/**
 
 execute:
   freeze: auto
