@@ -186,6 +186,7 @@
     <a class="site-title" href="https://jamesfreemanhistorian.com/">James Freeman</a>
     <div class="site-links">
       <a href="https://jamesfreemanhistorian.com/publications.html">Publications</a>
+      <a href="https://jamesfreemanhistorian.com/tools/">Tools</a>
       <a href="https://github.com/codehistoria">GitHub</a>
     </div>
   </div>
@@ -1121,7 +1122,7 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
     const cols = res.cats.map((c, i) => colourFor(c.label, i));
     let svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + [-e, -e, 2 * e, 2 * e].map(v => v.toFixed(3)).join(' ') + '">';
     res.points.forEach(p => {
-      svg += '<circle cx="' + p.x + '" cy="' + (-p.y) + '" r="' + rad.toFixed(4) + '" fill="' + cols[p.cat] + '"><title>' + esc(p.label) + ' · dot ' + p.id + '</title></circle>';
+      svg += '<circle cx="' + p.x + '" cy="' + (-p.y) + '" r="' + rad.toFixed(4) + '" fill="' + cols[p.cat] + '" data-c="' + p.cat + '"><title>' + esc(p.label) + ' · dot ' + p.id + '</title></circle>';
     });
     $('stage').innerHTML = svg + '</svg>';
 
@@ -1130,7 +1131,7 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
     $('dotCountLabel').textContent = 'dots in ' + groups + ' group' + (groups === 1 ? '' : 's');
 
     $('legend').innerHTML = res.cats.map((c, i) =>
-      '<li><label class="sw" style="background:' + cols[i] + '" title="Change colour"><input type="color" value="' + cols[i] + '" data-label="' + esc(c.label) + '" aria-label="Colour for ' + esc(c.label) + '"></label>' +
+      '<li><label class="sw" style="background:' + cols[i] + '" title="Change colour"><input type="color" value="' + cols[i] + '" data-label="' + esc(c.label) + '" data-c="' + i + '" aria-label="Colour for ' + esc(c.label) + '"></label>' +
       '<span>' + esc(c.label) + '</span> <b>' + fmt(c.dots, 0) + '</b></li>').join('');
 
     const axis = Math.ceil(res.extent + 1);
@@ -1327,8 +1328,13 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
 
   $('controls').addEventListener('input', render);
   $('controls').addEventListener('change', render);
+  // Recolour in place: rebuilding the key would remove the open colour picker after its first change
   $('legend').addEventListener('input', e => {
-    if (e.target.type === 'color'){ colours[e.target.dataset.label] = e.target.value; render(); }
+    const t = e.target;
+    if (t.type !== 'color') return;
+    colours[t.dataset.label] = t.value;
+    t.parentElement.style.background = t.value;
+    $('stage').querySelectorAll('circle[data-c="' + t.dataset.c + '"]').forEach(c => c.setAttribute('fill', t.value));
   });
 
   $('clearData').addEventListener('click', () => { closeBook(); setData('', null); $('data').focus(); });

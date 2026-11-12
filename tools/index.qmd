@@ -1,0 +1,8 @@
+---
+title: "Tools"
+subtitle: "Small browser-based tools for working with data. They run entirely on your own computer: nothing you paste or open is uploaded or stored."
+listing:
+  contents: tools.yml
+  sort: "date desc"
+  template: ../_templates/projects.ejs
+---

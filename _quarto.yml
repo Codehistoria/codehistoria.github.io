@@ -5,7 +5,7 @@ project:
     - CNAME
     - /data/*.csv
     - /data/*.json
-    - /plum-pudding/**
+    - /tools/plum-pudding/**
 
 execute:
   freeze: auto
@@ -18,6 +18,8 @@ website:
     left:
       - href: publications.qmd
         text: Publications
+      - href: tools/index.qmd
+        text: Tools
     right:
       - icon: github
         href: https://github.com/codehistoria

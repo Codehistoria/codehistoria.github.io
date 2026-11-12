@@ -1,0 +1,8 @@
+# One entry per tool. Each tool is a self-contained page in its own folder,
+# copied into the site unchanged (see `resources` in _quarto.yml).
+
+- title: "Plum pudding charts"
+  description: "Generate coordinates for circular waffle charts, with dots grouped into slices you can pull apart, ready to plot in Tableau. Paste data or open an Excel or CSV file."
+  date: 2026-11-12
+  path: /tools/plum-pudding/
+  image: /tools/plum-pudding/thumb.svg
