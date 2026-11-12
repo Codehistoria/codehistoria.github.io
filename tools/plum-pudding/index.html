@@ -969,9 +969,11 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
     { name: 'Customer survey', desc: 'Example: satisfaction ratings from a customer survey, shown as 100 dots in pie slices.' + MADE_UP,
       data: 'Very satisfied 18\nSatisfied 31\nNeutral 22\nDissatisfied 17\nVery dissatisfied 12',
       set: { mode: 'fixed', n: 100, group: 'wedges', layout: 'rings', gap: 1 } },
-    { name: '2024 UK election seats', desc: 'Example: seats won at the 2024 UK general election, one dot per seat. “Others” combines the remaining parties and the Speaker.',
+    { name: '2024 UK election seats', desc: 'Example: seats won at the 2024 UK general election, one dot per seat, in the party colours of the Commons chart on the home page. “Others” combines the remaining parties and the Speaker.',
       data: 'Labour 411\nConservative 121\nLiberal Democrat 72\nSNP 9\nSinn Féin 7\nOthers 30',
-      set: { mode: 'unit', group: 'wedges', layout: 'hex', gap: 1.5 } },
+      set: { mode: 'unit', group: 'wedges', layout: 'hex', gap: 1.5 },
+      // the home page's party colours (custom.scss: .b-lab, .b-con, .b-lib, .b-snp, .b-irish, .b-ind)
+      colours: { 'Labour': '#E4003B', 'Conservative': '#3A8FE0', 'Liberal Democrat': '#F6A21C', 'SNP': '#F2E36B', 'Sinn Féin': '#3E8E5E', 'Others': '#C7D1CC' } },
     { name: '1 in 5', desc: 'Example: a single proportion, with 20 dots in 100 highlighted at random, “1 in 5 people” style.' + MADE_UP,
       data: 'Affected 20\nNot affected 80',
       set: { mode: 'fixed', n: 100, group: 'random', layout: 'sunflower' } },
@@ -1312,6 +1314,7 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
     b.addEventListener('click', () => {
       closeBook(); source = null;
       apply({ hole: 0, gap: 1, order: 'entered', ...ex.set, data: ex.data, target: '__all' });
+      if (ex.colours) Object.assign(colours, ex.colours);
       showExample(ex); render();
     });
     $('examples').appendChild(b);
@@ -1363,7 +1366,7 @@ if (typeof module !== 'undefined') module.exports = { apportion, ringsLayout, su
 
   drawHeroArt();
   if (!loadHash()){ apply({ ...EXAMPLES[0].set, data: EXAMPLES[0].data }); showExample(EXAMPLES[0]); }
-  else { const ex = EXAMPLES.find(x => x.data === $('data').value); if (ex) showExample(ex); }
+  else { const ex = EXAMPLES.find(x => x.data === $('data').value); if (ex){ showExample(ex); if (ex.colours) Object.assign(colours, ex.colours); } }
   render();
 })();
 </script>
