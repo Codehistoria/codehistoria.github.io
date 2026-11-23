@@ -1,7 +1,7 @@
 {
  "version": 1,
  "title": "Arts in the Age of Data: your data project skills",
- "intro": "Follow the skills along the stages of your group project. Tick the activities you've done or open any badge to tick individual skills. Your read-out below turns them into language for CVs, applications and interviews.",
+ "intro": "Work along the stages of your group project. Open any badge to see its skills and tick the ones you've learned. Your read-out below turns them into language for CVs, applications and interviews.",
  "stages": [
   {
    "id": "setup",
@@ -262,7 +262,7 @@
   "integrated": "Combine writing and charts in one piece.",
   "mapping": "Show data on maps.",
   "adv-storytelling": "Learn from great visualisations.",
-  "hero": "Every badge on the map."
+  "hero": "Every badge on the tree."
  },
  "activities": [
   {
@@ -442,5 +442,24 @@
     "responsible-part"
    ]
   }
- ]
+ ],
+ "palette": {
+  "software": "#6E5FE0",
+  "wild": "#3F7FE0",
+  "project": "#14998F",
+  "teamwork": "#D9961C",
+  "humanist": "#EC6A2C",
+  "analysis": "#3E9E62",
+  "viz": "#C8418A"
+ },
+ "icons": {
+  "software": "M4 5h16v14H4z M4 10h16 M10 5v14",
+  "wild": "M10.5 4a6.5 6.5 0 1 0 0 13a6.5 6.5 0 1 0 0-13z M15.5 15.5L20 20",
+  "project": "M4 6h6v5H4z M14 13h6v5h-6z M7 11v4.5h7",
+  "teamwork": "M9 11a3 3 0 1 0 0-6a3 3 0 1 0 0 6z M3.5 19c.8-3 3-4.5 5.5-4.5s4.7 1.5 5.5 4.5 M16 11a2.5 2.5 0 1 0 0-5 M17 14.5c1.8.4 3 1.8 3.5 4",
+  "humanist": "M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z M12 9.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 1 0 0-5z",
+  "analysis": "M4 19h16 M6 15l4-4 3 3 5-6 M15 8h3v3",
+  "viz": "M11 4.1A8 8 0 1 0 19.9 13H11z M13.5 2.6A7.5 7.5 0 0 1 21.4 10.5h-7.9z",
+  "hero": "M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"
+ }
 }
