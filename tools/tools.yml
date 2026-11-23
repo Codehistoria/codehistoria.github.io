@@ -6,3 +6,9 @@
   date: 2026-11-12
   path: /tools/plum-pudding/
   image: /tools/plum-pudding/thumb.svg
+
+- title: "Arts in the Age of Data skills tree"
+  description: "For students on Arts in the Age of Data: tick the data skills you've learned and get a read-out that turns them into language for CVs, applications and interviews."
+  date: 2026-11-23
+  path: /tools/age-of-data-skills/
+  image: /tools/age-of-data-skills/thumb.svg

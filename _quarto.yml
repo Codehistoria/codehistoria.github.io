@@ -6,6 +6,7 @@ project:
     - /data/*.csv
     - /data/*.json
     - /tools/plum-pudding/**
+    - /tools/age-of-data-skills/**
 
 execute:
   freeze: auto
