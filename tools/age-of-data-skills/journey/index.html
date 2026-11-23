@@ -85,16 +85,39 @@
   .tab span{font-size:.75rem;color:var(--dim);line-height:1.3}
   .tab .tbar{grid-column:1 / -1;height:3px;border-radius:3px;background:var(--edge);overflow:hidden;margin-top:.45rem}
   .tab .tbar i{display:block;height:100%;background:var(--c);border-radius:3px;transition:width .3s}
-  .apex{display:flex;align-items:center;gap:.7rem;padding:.5rem .9rem;border:1px solid var(--edge);border-radius:14px;background:var(--deep);min-width:13rem}
+  .apex{display:flex;align-items:center;gap:.7rem;padding:.5rem .9rem;border:1px solid var(--edge);border-radius:14px;background:var(--deep);min-width:13rem;font:inherit;color:inherit;text-align:left;cursor:pointer;transition:border-color .2s}
+  .apex:hover{border-color:#6B5A2E}
+  .apex[aria-selected="true"]{border-color:#F6C76B;box-shadow:0 0 0 1px #F6C76B,0 10px 30px -14px #F6C76B;background:var(--panel)}
   .apex b{display:block;font:600 .85rem/1.2 var(--sans);color:#fff}
-  .apex span{font-size:.74rem;color:var(--dim)}
+  .apex span span{font-size:.74rem;color:var(--dim)}
   @media (max-width:1000px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.apex{grid-column:1 / -1}}
 
   .stage{display:grid;grid-template-columns:minmax(0,1fr) 23rem;gap:1rem;align-items:start}
   @media (max-width:1000px){.stage{grid-template-columns:minmax(0,1fr)}}
-  .canvas{position:relative;background:var(--deep);border:1px solid var(--edge);border-radius:18px;overflow:auto}
-  .canvas svg{display:block;margin:0 auto;width:100%;height:auto;user-select:none}
-  @media (max-width:700px){.canvas svg{width:680px;max-width:none}}
+  .canvas{position:relative;background:#141019;border:1px solid var(--edge);border-radius:18px;overflow:hidden;height:clamp(540px,80vh,940px)}
+  @media (max-width:1000px){.canvas{height:72vh}}
+  .world-host{position:absolute;inset:0;touch-action:none;cursor:grab}
+  .world-host.grabbing{cursor:grabbing}
+  .world-host svg{display:block;width:100%;height:100%;user-select:none;-webkit-user-select:none}
+  .world-host .tree{transition:opacity .45s}
+  .world-host .tree.dim{opacity:.3}
+  .world-host .tree.dim:hover{opacity:.55}
+  .world-host .region{cursor:pointer}
+  .world-host .hero-node{cursor:pointer;outline:none}
+  .world-host .hero-node:hover .body,.world-host .hero-node:focus-visible .body{stroke:#F6C76B;stroke-width:2}
+  .camctl{position:absolute;right:.8rem;bottom:.8rem;display:flex;gap:.35rem;z-index:2}
+  .camctl button{min-width:2.2rem;height:2.2rem;border-radius:10px;border:1px solid var(--edge);background:rgba(26,22,34,.88);color:#EDE9F3;font:500 1.05rem/1 var(--sans);cursor:pointer;backdrop-filter:blur(6px)}
+  .camctl button.wide{font-size:.8rem;padding:0 .75rem}
+  .camctl button:hover{border-color:#6B6080}
+  .camhint{position:absolute;left:.9rem;bottom:.6rem;margin:0;font-size:.74rem;color:var(--dim);pointer-events:none;z-index:2}
+  @media (max-width:700px){.camhint{display:none}.camctl{right:.5rem;bottom:.5rem}}
+  .ov{display:grid;gap:.4rem}
+  .ovt{display:grid;grid-template-columns:1fr auto;gap:.25rem .6rem;text-align:left;font:inherit;color:#EDE9F3;cursor:pointer;background:var(--deep);border:1px solid var(--edge);border-left:3px solid var(--lc);border-radius:10px;padding:.55rem .7rem}
+  .ovt:hover{border-color:var(--lc)}
+  .ovt b{font-weight:600;font-size:.92rem}
+  .ovt span{font-size:.78rem;color:var(--dim)}
+  .ovt > i{grid-column:1 / -1;height:4px;border-radius:4px;background:var(--edge);overflow:hidden;display:block}
+  .ovt > i > i{display:block;height:100%;background:var(--lc)}
   .canvas .bd{cursor:pointer;outline:none}
   .canvas .bd:focus-visible .focusring{stroke:#fff;stroke-opacity:1}
   .canvas .bd:hover .body{filter:brightness(1.25)}
@@ -258,7 +281,16 @@
       </div>
       <div class="tabs" role="tablist" aria-label="Skill trees" id="tabs"></div>
       <div class="stage">
-        <div class="canvas" id="canvas" role="tabpanel"><div class="loading">Loading…</div></div>
+        <div class="canvas" id="canvas" role="tabpanel">
+          <div class="world-host" id="worldHost"><div class="loading">Loading…</div></div>
+          <div class="camctl" aria-label="View controls">
+            <button type="button" id="camIn" aria-label="Zoom in">+</button>
+            <button type="button" id="camOut" aria-label="Zoom out">−</button>
+            <button type="button" id="camFrame" class="wide">Re-centre</button>
+            <button type="button" id="camAll" class="wide">Show all</button>
+          </div>
+          <p class="camhint">Drag to move · pinch or Ctrl + scroll to zoom</p>
+        </div>
         <aside class="panel" id="panel" aria-live="polite"></aside>
       </div>
       <div class="legend">
@@ -389,18 +421,43 @@ function satPos(b, i){
   const a = n === 1 ? 0 : n === 2 ? (i ? Math.PI : 0) : (-Math.PI / 2 + 2 * Math.PI * (i + .5) / n);
   return [b.x + ORB * Math.cos(a), b.y + ORB * Math.sin(a)];
 }
-function treeSVG(t, opts = {}){
-  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif";
-  const H = t.h, W = Math.max(t.w, 1000), X0 = -(W - t.w) / 2, badges = t.badges.map(e => BD[e.id]);
-  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${X0} 0 ${W} ${H}" width="${W}" height="${H}"${exp ? "" : ` role="img" aria-label="${esc(t.label)} skill tree"`}>`;
-  s += `<defs><radialGradient id="bg-${t.id}" cx="50%" cy="100%" r="85%"><stop offset="0" stop-color="${t.colour}" stop-opacity=".22"/><stop offset=".55" stop-color="${t.colour}" stop-opacity=".05"/><stop offset="1" stop-color="${t.colour}" stop-opacity="0"/></radialGradient>`
-    + `<filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
-    + `<pattern id="dots-${t.id}" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r=".9" fill="#ffffff" fill-opacity=".05"/></pattern></defs>`;
-  s += `<rect x="${X0}" width="${W}" height="${H}" fill="#1A1622"/><rect x="${X0}" width="${W}" height="${H}" fill="url(#dots-${t.id})"/><rect x="${X0}" width="${W}" height="${H}" fill="url(#bg-${t.id})"/>`;
+/* ===== One sheet, four trees. Each tree is drawn into its own region; a camera frames them ===== */
+const GAP = 170, PLAQUE = 120, HERO_BAND = 380;
+let LAYOUT = null;
+function computeLayout(){
+  const rows = J.layout || [["project", "lens"], ["tools", "team"]];
+  const L = { trees: {} }, colX = [0, 1000 + GAP];
+  let y = 0;
+  rows.forEach((row, ri) => {
+    const rowH = Math.max(...row.map(id => TR[id].h + PLAQUE));
+    row.forEach((id, ci) => {
+      const t = TR[id], w = Math.max(t.w, 1000), h = t.h + PLAQUE, ox = colX[ci], oy = y + rowH - h;   // roots line up along the bottom of each row
+      L.trees[id] = { ox, oy, w, h, tx: ox + (w - t.w) / 2, ty: oy + PLAQUE };
+    });
+    y += rowH;
+    if (ri === 0){ L.hero = { x: colX[1] - GAP / 2, y: y + HERO_BAND / 2 }; y += HERO_BAND; }
+  });
+  L.world = { x: -90, y: -90, w: colX[1] + 1000 + 180, h: y + 180 };
+  LAYOUT = L;
+}
+function treeGroup(t, opts = {}){
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", SERIF = exp ? "Georgia, serif" : "Newsreader, Georgia, serif";
+  const Lt = LAYOUT.trees[t.id], X0 = -(Lt.w - t.w) / 2, RW = Lt.w, badges = t.badges.map(e => BD[e.id]);
+  const dim = !exp && current !== "all" && current !== t.id, [tk, tn] = treeProgress(t);
+  let s = `<g class="tree${dim ? " dim" : ""}" data-tree="${esc(t.id)}" transform="translate(${Lt.tx} ${Lt.ty})">`;
+  s += `<defs><radialGradient id="bg-${t.id}" cx="50%" cy="100%" r="85%"><stop offset="0" stop-color="${t.colour}" stop-opacity=".24"/><stop offset=".55" stop-color="${t.colour}" stop-opacity=".05"/><stop offset="1" stop-color="${t.colour}" stop-opacity="0"/></radialGradient>`
+    + `<filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  // the region and its title plaque
+  s += `<rect class="region" data-region="${esc(t.id)}" x="${X0}" y="${-PLAQUE}" width="${RW}" height="${t.h + PLAQUE}" rx="30" fill="#1A1622" stroke="${current === t.id && !exp ? t.colour : "#2C2537"}" stroke-opacity="${current === t.id && !exp ? .55 : 1}" stroke-width="1.5"/>`
+    + `<rect x="${X0}" y="${-PLAQUE}" width="${RW}" height="${t.h + PLAQUE}" rx="30" fill="url(#bg-${t.id})" pointer-events="none"/>`;
+  s += `<g pointer-events="none"><text x="${X0 + 46}" y="${-PLAQUE + 62}" font-family="${SERIF}" font-size="38" font-weight="400" fill="#FFFFFF">${esc(t.label)}</text>`
+    + `<text x="${X0 + 48}" y="${-PLAQUE + 92}" font-family="${FONT}" font-size="16" fill="#8E86A0">${esc(t.sub || "")}</text>`
+    + `<text x="${X0 + RW - 46}" y="${-PLAQUE + 60}" text-anchor="end" font-family="${FONT}" font-size="16" font-weight="600" fill="${t.colour}">${tk} of ${tn} badges</text>`
+    + `<rect x="${X0 + RW - 246}" y="${-PLAQUE + 74}" width="200" height="5" rx="2.5" fill="#352E40"/><rect x="${X0 + RW - 246}" y="${-PLAQUE + 74}" width="${(200 * tk / tn).toFixed(1)}" height="5" rx="2.5" fill="${t.colour}"/></g>`;
   // links between badges
   for (const b of badges){
     for (const p of b.parents){
-      const P = p === "root" ? { x: t.root.x, y: t.root.y, r: 18, root: true } : BD[p];
+      const P = p === "root" ? { x: t.root.x, y: t.root.y, root: true } : BD[p];
       if (!P) continue;
       const pr = P.root ? 18 : R + 6;
       let d;
@@ -409,21 +466,15 @@ function treeSVG(t, opts = {}){
         d = `M${x1},${P.y} C${mx},${P.y} ${mx},${b.y} ${x2},${b.y}`;
       } else { const y1 = P.y - pr, y2 = b.y + R + 6, my = (y1 + y2) / 2; d = `M${P.x},${y1} C${P.x},${my} ${b.x},${my} ${b.x},${y2}`; }
       const pd = P.root || done(p), cd = done(b.id), col = colour(b);
-      const stroke = pd && cd ? col : pd ? col : "#3A3344", op = pd && cd ? 1 : pd ? .6 : 1, w = pd && cd ? 3 : 2.2;
-      const dash = b.tier === "stretch" ? ` stroke-dasharray="6 6"` : "";
-      s += `<path d="${d}" fill="none" stroke="${stroke}" stroke-opacity="${op}" stroke-width="${w}" stroke-linecap="round"${dash}${pd && cd ? ` filter="url(#gl-${t.id})"` : ""}/>`;
+      const stroke = pd ? col : "#3A3344", op = pd && cd ? 1 : pd ? .6 : 1, w = pd && cd ? 3 : 2.2;
+      s += `<path d="${d}" fill="none" stroke="${stroke}" stroke-opacity="${op}" stroke-width="${w}" stroke-linecap="round"${b.tier === "stretch" ? ` stroke-dasharray="6 6"` : ""}${pd && cd ? ` filter="url(#gl-${t.id})"` : ""} pointer-events="none"/>`;
     }
-  }
-  if (t.root){
-    const rx = t.root.x, ry = t.root.y;
-    s += `<g><rect x="${rx - 15}" y="${ry - 15}" width="30" height="30" rx="5" transform="rotate(45 ${rx} ${ry})" fill="#241E2C" stroke="${t.colour}" stroke-width="2"/><text x="${rx}" y="${ry + 36}" text-anchor="middle" font-family="${FONT}" font-size="11" font-weight="600" fill="#C9C2D6" letter-spacing="1.2">${esc(t.root.label.toUpperCase())}</text></g>`;
   }
   // badges, with their skills as satellites
   for (const b of badges){
     const col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b), st = b.tier === "stretch", sel = !exp && selected === b.id;
     const lockedLook = !dn && k === 0 && !rd;
-    s += `<g class="bd" data-badge="${esc(b.id)}" tabindex="${exp ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills${dn ? ", earned" : ""}${st ? ", stretch" : ""}">`;
-    // spokes and satellites
+    s += `<g class="bd" data-badge="${esc(b.id)}" tabindex="${exp || dim ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills${dn ? ", earned" : ""}${st ? ", stretch" : ""}">`;
     b.skills.forEach((sid, i) => {
       const [sx, sy] = satPos(b, i), on = ticked.has(sid);
       const dx = sx - b.x, dy = sy - b.y, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d;
@@ -431,27 +482,103 @@ function treeSVG(t, opts = {}){
       s += `<circle class="sat" data-skill="${esc(sid)}" data-badge="${esc(b.id)}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${SR}" fill="${on ? col : "#16121C"}" stroke="${col}" stroke-opacity="${on ? 1 : lockedLook ? .3 : .75}" stroke-width="1.5"${on ? ` filter="url(#gl-${t.id})"` : ""}/>`;
     });
     if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${R + 12}" fill="${col}" fill-opacity=".14"/>`;
-    // outer ring: progress
     const RR = R + 5, C = 2 * Math.PI * RR;
-    s += `<circle class="${!dn && k === 0 && rd && !exp ? "avail" : ""}" cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn ? 1 : lockedLook ? 1 : .35}" stroke-width="2.2"${st || (!dn && k === 0 && rd) ? ` stroke-dasharray="3 4"` : ""}/>`;
+    s += `<circle class="${!dn && k === 0 && rd && !exp ? "avail" : ""}" cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn || lockedLook ? 1 : .35}" stroke-width="2.2"${st || (!dn && k === 0 && rd) ? ` stroke-dasharray="3 4"` : ""}/>`;
     if (k && !dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / n).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${b.x} ${b.y})"/>`;
     if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" filter="url(#gl-${t.id})"/>`;
     s += `<circle class="body" cx="${b.x}" cy="${b.y}" r="${R}" fill="${dn ? col : lockedLook ? "#1B1721" : "#2A2334"}"/>`;
     s += `<circle class="focusring" cx="${b.x}" cy="${b.y}" r="${R + 9}" fill="none" stroke="#fff" stroke-opacity="${sel ? .9 : 0}" stroke-width="1.6"/>`;
-    // label
     const pre = b.week ? `WEEK ${b.week}` : "";
     const { fs, lines } = wrapLabel(b.label, 54, pre ? 3 : 4), lh = fs * 1.12;
-    const total = lines.length * lh + (pre ? 9 : 0);
-    let y0 = b.y - total / 2 + fs * .82;
+    let y0 = b.y - (lines.length * lh + (pre ? 9 : 0)) / 2 + fs * .82;
     const tc = dn ? "#FFFFFF" : lockedLook ? "#8E86A0" : "#F3F0F8";
-    if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="6.6" font-weight="700" letter-spacing="1" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}">${pre}</text>`; y0 += 9; }
-    s += `<text text-anchor="middle" font-family="${FONT}" font-size="${fs.toFixed(1)}" font-weight="600" fill="${tc}">` + lines.map((l, i) => `<tspan x="${b.x}" y="${(y0 + i * lh).toFixed(1)}">${esc(l)}</tspan>`).join("") + `</text>`;
+    if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="6.6" font-weight="700" letter-spacing="1" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}" pointer-events="none">${pre}</text>`; y0 += 9; }
+    s += `<text text-anchor="middle" font-family="${FONT}" font-size="${fs.toFixed(1)}" font-weight="600" fill="${tc}" pointer-events="none">` + lines.map((l, i) => `<tspan x="${b.x}" y="${(y0 + i * lh).toFixed(1)}">${esc(l)}</tspan>`).join("") + `</text>`;
     s += `</g>`;
   }
+  return s + `</g>`;
+}
+function heroGroup(opts = {}){
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", H = LAYOUT.hero;
+  const all = allBadges(), k = all.filter(b => done(b.id)).length, full = k === all.length, RR = 92, C = 2 * Math.PI * RR;
+  let s = `<g class="hero-node${!exp && current === "all" ? " on" : ""}" role="button" tabindex="${exp ? -1 : 0}" aria-label="${esc(J.hero.label)}: show all four trees">`;
+  // threads from the hero to each tree
+  for (const [id, Lt] of Object.entries(LAYOUT.trees)){
+    const top = Lt.oy < H.y, ex = Lt.ox + Lt.w / 2, ey = top ? Lt.oy + Lt.h : Lt.oy;
+    const sy = H.y + (top ? -RR - 8 : RR + 8), my = (sy + ey) / 2;
+    s += `<path d="M${H.x},${sy} C${H.x},${my} ${ex},${my} ${ex},${ey}" fill="none" stroke="#F6C76B" stroke-opacity=".28" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round" pointer-events="none"/>`;
+  }
+  s += `<circle cx="${H.x}" cy="${H.y}" r="${RR + 16}" fill="#F6C76B" fill-opacity="${full ? .16 : .05}"/>`
+    + `<circle cx="${H.x}" cy="${H.y}" r="${RR}" fill="none" stroke="#352E40" stroke-width="5"/>`
+    + (k ? `<circle cx="${H.x}" cy="${H.y}" r="${RR}" fill="none" stroke="#F6C76B" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C * k / all.length).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${H.x} ${H.y})"/>` : "")
+    + `<circle class="body" cx="${H.x}" cy="${H.y}" r="${RR - 12}" fill="${full ? "#F6C76B" : "#211B29"}"/>`
+    + `<g transform="translate(${H.x - 36} ${H.y - 50}) scale(3)"><path d="${esc(ICON("hero"))}" fill="${full ? "#211B29" : "none"}" stroke="${full ? "#211B29" : "#F6C76B"}" stroke-width="1.4" stroke-linejoin="round"/></g>`
+    + `<text x="${H.x}" y="${H.y + 46}" text-anchor="middle" font-family="${FONT}" font-size="15" font-weight="700" fill="${full ? "#211B29" : "#F6C76B"}">${k} / ${all.length}</text>`
+    + `<text x="${H.x}" y="${H.y + RR + 44}" text-anchor="middle" font-family="${FONT}" font-size="17" font-weight="700" letter-spacing="2.4" fill="#F6C76B">${esc(J.hero.label.toUpperCase())}</text>`
+    + `<text x="${H.x}" y="${H.y + RR + 70}" text-anchor="middle" font-family="${FONT}" font-size="14" fill="#8E86A0">${esc(J.hero.blurb)}</text>`;
+  return s + `</g>`;
+}
+function worldSVG(opts = {}){
+  const exp = !!opts.export, W = LAYOUT.world;
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" ${exp ? `viewBox="${W.x} ${W.y} ${W.w} ${W.h}" width="${W.w}" height="${W.h}"` : `id="world" role="group" aria-label="Skill trees"`} preserveAspectRatio="xMidYMid meet">`;
+  s += `<defs><pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1" fill="#ffffff" fill-opacity=".05"/></pattern></defs>`;
+  s += `<rect x="${W.x - 4000}" y="${W.y - 4000}" width="${W.w + 8000}" height="${W.h + 8000}" fill="#141019"/><rect x="${W.x - 4000}" y="${W.y - 4000}" width="${W.w + 8000}" height="${W.h + 8000}" fill="url(#dots)"/>`;
+  s += heroGroup(opts) + J.trees.map(t => treeGroup(t, opts)).join("");
   return s + `</svg>`;
 }
 
-/* ===== Tabs, tree and panel ===== */
+/* ===== The camera ===== */
+let cam = null, camAnim = 0;
+const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+const MIN_SCALE = .8;   // never frame a tree so small that its labels can't be read
+function frameBox(id){
+  if (id === "all") return LAYOUT.world;
+  const r = LAYOUT.trees[id], host = $("#worldHost"), whole = fitBox({ x: r.ox - 30, y: r.oy - 30, w: r.w + 60, h: r.h + 60 });
+  const maxW = host.clientWidth / MIN_SCALE;
+  if (whole.w <= maxW) return whole;
+  // too tall to show whole and legible: show the full width, centred on the badge in hand
+  const w = Math.max(maxW, r.w + 60), h = w * host.clientHeight / host.clientWidth, b = BD[selected];
+  const fy = b && b.tree === id ? r.ty + b.y : r.oy + r.h;
+  const y = Math.min(Math.max(fy - h * .55, r.oy - 30), r.oy + r.h + 30 - h);
+  return { x: r.ox + r.w / 2 - w / 2, y, w, h };
+}
+function keepInView(id){
+  const b = BD[id]; if (!b || !cam) return;
+  const Lt = LAYOUT.trees[b.tree], x = Lt.tx + b.x, y = Lt.ty + b.y, m = 110;
+  if (x < cam.x + m || x > cam.x + cam.w - m || y < cam.y + m || y > cam.y + cam.h - m){
+    const r = LAYOUT.trees[b.tree], ny = Math.min(Math.max(y - cam.h * .55, r.oy - 30), Math.max(r.oy - 30, r.oy + r.h + 30 - cam.h));
+    flyTo({ x: cam.x, y: ny, w: cam.w, h: cam.h });
+  }
+}
+function fitBox(b){
+  const host = $("#worldHost"), A = host.clientWidth / Math.max(1, host.clientHeight);
+  let { x, y, w, h } = b;
+  if (w / h > A){ const nh = w / A; y -= (nh - h) / 2; h = nh; } else { const nw = h * A; x -= (nw - w) / 2; w = nw; }
+  return { x, y, w, h };
+}
+function applyCam(){ const svg = $("#world"); if (svg && cam) svg.setAttribute("viewBox", `${cam.x.toFixed(1)} ${cam.y.toFixed(1)} ${cam.w.toFixed(1)} ${cam.h.toFixed(1)}`); }
+function flyTo(box, instant){
+  const to = fitBox(box);
+  cancelAnimationFrame(camAnim);
+  if (!cam || instant || reduceMotion){ cam = to; applyCam(); return; }
+  const from = { ...cam }, t0 = performance.now(), D = 750;
+  // zoom on a log scale so a big zoom feels even, with ease in-out
+  const step = now => {
+    let p = Math.min(1, (now - t0) / D); p = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    const w = from.w * Math.pow(to.w / from.w, p), h = w * to.h / to.w;
+    const cx = from.x + from.w / 2 + ((to.x + to.w / 2) - (from.x + from.w / 2)) * p, cy = from.y + from.h / 2 + ((to.y + to.h / 2) - (from.y + from.h / 2)) * p;
+    cam = { x: cx - w / 2, y: cy - h / 2, w, h }; applyCam();
+    if (p < 1) camAnim = requestAnimationFrame(step);
+  };
+  camAnim = requestAnimationFrame(step);
+}
+function zoomAround(clientX, clientY, k){
+  const r = $("#worldHost").getBoundingClientRect(), fx = (clientX - r.left) / r.width, fy = (clientY - r.top) / r.height;
+  const nw = Math.min(LAYOUT.world.w * 1.6, Math.max(260, cam.w / k)), nh = nw * cam.h / cam.w;
+  cam = { x: cam.x + (cam.w - nw) * fx, y: cam.y + (cam.h - nh) * fy, w: nw, h: nh }; applyCam();
+}
+
+/* ===== Tabs, sheet and panel ===== */
 const ICON = id => (J.icons || {})[id] || "";
 function treeProgress(t){ const bs = t.badges.map(e => BD[e.id]); return [bs.filter(b => done(b.id)).length, bs.length]; }
 function renderTabs(){
@@ -462,21 +589,34 @@ function renderTabs(){
       + `<b>${esc(t.label)}</b><span>${k} of ${n} badges · ${esc(t.sub || "")}</span><span class="tbar"><i style="width:${n ? 100 * k / n : 0}%"></i></span></button>`;
   }).join("");
   const all = allBadges(), k = all.filter(b => done(b.id)).length, C = 2 * Math.PI * 15;
-  h += `<div class="apex" title="${esc(J.hero.blurb)}"><svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="none" stroke="#352E40" stroke-width="3"/><circle r="15" fill="none" stroke="#F6C76B" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / all.length).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90)"/><g transform="translate(-8.4 -8.4) scale(.7)"><path d="${esc(ICON("hero"))}" fill="${k === all.length ? "#F6C76B" : "none"}" stroke="#F6C76B" stroke-width="2" stroke-linejoin="round"/></g></svg><div><b>${esc(J.hero.label)}</b><span>${k} of ${all.length} badges</span></div></div>`;
+  h += `<button type="button" class="apex" role="tab" data-tree="all" aria-selected="${current === "all"}" title="Show all four trees"><svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="none" stroke="#352E40" stroke-width="3"/><circle r="15" fill="none" stroke="#F6C76B" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / all.length).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90)"/><g transform="translate(-8.4 -8.4) scale(.7)"><path d="${esc(ICON("hero"))}" fill="${k === all.length ? "#F6C76B" : "none"}" stroke="#F6C76B" stroke-width="2" stroke-linejoin="round"/></g></svg><span><b>${esc(J.hero.label)}</b><span>${k} of ${all.length} badges · see everything</span></span></button>`;
   $("#tabs").innerHTML = h;
 }
 function renderTree(){
-  const c = $("#canvas"), focusBadge = document.activeElement && c.contains(document.activeElement) ? document.activeElement.closest(".bd")?.dataset.badge : null;
-  const t = TR[current];
-  c.innerHTML = treeSVG(t);
-  if (focusBadge){ const el = c.querySelector(`.bd[data-badge="${CSS.escape(focusBadge)}"]`); if (el) el.focus({ preventScroll: true }); }
+  const host = $("#worldHost"), ae = document.activeElement;
+  const focusBadge = ae && host.contains(ae) ? ae.closest(".bd")?.dataset.badge : null, focusHero = ae && host.contains(ae) && ae.closest(".hero-node");
+  host.innerHTML = worldSVG();
+  applyCam();
+  if (focusBadge){ const el = host.querySelector(`.bd[data-badge="${CSS.escape(focusBadge)}"]`); if (el) el.focus({ preventScroll: true }); }
+  else if (focusHero) host.querySelector(".hero-node")?.focus({ preventScroll: true });
 }
 function linkBtn(id){
   const b = BD[id]; if (!b) return "";
   const [k, n] = prog(id);
   return `<button type="button" class="lnk" data-goto="${esc(id)}" style="--lc:${esc(colour(b))}"><i></i>${b.week ? `Week ${b.week}: ` : ""}${esc(b.label)} <span style="color:var(--dim)">${k}/${n}</span></button>`;
 }
+function renderOverview(){
+  const p = $("#panel"), all = allBadges(), k = all.filter(b => done(b.id)).length;
+  p.style.setProperty("--c", "#F6C76B");
+  const nextUp = J.trees.flatMap(t => t.badges.map(e => BD[e.id])).filter(b => !done(b.id) && ready(b) && b.tier !== "stretch").slice(0, 6);
+  p.innerHTML = `<div class="pn-k">All four trees</div><h3>${esc(J.hero.label)}</h3><p class="pn-blurb">${esc(J.hero.blurb)} Pick a tree on the sheet, or a tab above, to zoom in.</p>`
+    + `<div class="pn-state"><b>${k} of ${all.length} badges</b><span class="pbar"><i style="width:${100 * k / all.length}%"></i></span></div>`
+    + `<div class="pn-h">The trees</div><div class="ov">` + J.trees.map(t => { const [tk, tn] = treeProgress(t);
+        return `<button type="button" class="ovt" data-tree-go="${esc(t.id)}" style="--lc:${esc(t.colour)}"><b>${esc(t.label)}</b><span>${tk} of ${tn} badges</span><i><i style="width:${100 * tk / tn}%"></i></i></button>`; }).join("") + `</div>`
+    + (nextUp.length ? `<div class="pn-h">Ready to start</div><div class="links">${nextUp.map(b => linkBtn(b.id)).join("")}</div>` : "");
+}
 function renderPanel(){
+  if (current === "all") return renderOverview();
   const p = $("#panel"), b = BD[selected];
   if (!b){ p.innerHTML = `<p class="pn-blurb">Pick a badge on the tree.</p>`; return; }
   const t = TR[b.tree], col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b);
@@ -499,7 +639,7 @@ function renderPanel(){
   if (b.tree === "lens"){
     const used = Object.entries(J.lens).filter(([, L]) => (L.badges || []).includes(b.id)).map(([st]) => st);
     if (used.length){
-      const targets = used.map(st => J.trees.find(x => x.id === "project").badges.map(e => BD[e.id]).find(x => x.stage === st && x.tier !== "stretch")).filter(Boolean);
+      const targets = used.map(st => TR.project.badges.map(e => BD[e.id]).find(x => x.stage === st && x.tier !== "stretch")).filter(Boolean);
       h += `<div class="pn-lens"><div class="pn-h" style="margin-top:0;color:#F08A54">Use it in your project at</div><div class="links">${targets.map(x => `<button type="button" class="lnk" data-goto="${esc(x.id)}" style="--lc:${esc(colour(x))}"><i></i>${esc(stageLabel(x.stage))}: ${esc(x.label)}</button>`).join("")}</div></div>`;
     }
   }
@@ -512,9 +652,10 @@ function defaultSelection(treeId){
 }
 function select(id, focusPanel){ selected = id; renderTree(); renderPanel(); if (focusPanel) $("#panel .row, #panel .gbtn")?.focus({ preventScroll: true }); }
 function switchTree(id, sel){
-  current = id; selected = sel || defaultSelection(id); renderTabs(); renderTree(); renderPanel();
-  const c = $("#canvas"); if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;  // phones: start on the trunk
+  current = id; selected = id === "all" ? null : (sel || defaultSelection(id));
+  renderTabs(); renderTree(); renderPanel(); flyTo(frameBox(id));
 }
+function goToBadge(id, focusPanel){ const b = BD[id]; if (!b) return; if (b.tree !== current) switchTree(b.tree, b.id); else { select(b.id, focusPanel); keepInView(b.id); } }
 function toggleSkill(sid){
   const b = BD[SK[sid].badge], was = done(b.id);
   ticked.has(sid) ? ticked.delete(sid) : ticked.add(sid);
@@ -528,39 +669,83 @@ function afterChange(b, was){
   }
 }
 
-$("#tabs").addEventListener("click", e => { const t = e.target.closest(".tab"); if (t) switchTree(t.dataset.tree); });
+$("#tabs").addEventListener("click", e => { const t = e.target.closest("[data-tree]"); if (t) switchTree(t.dataset.tree); });
 $("#tabs").addEventListener("keydown", e => {
-  if (!["ArrowRight", "ArrowLeft"].includes(e.key) || !e.target.closest(".tab")) return;
-  const ids = J.trees.map(t => t.id), i = ids.indexOf(current), n = ids[(i + (e.key === "ArrowRight" ? 1 : -1) + ids.length) % ids.length];
-  switchTree(n); $(`.tab[data-tree="${n}"]`).focus();
+  if (!["ArrowRight", "ArrowLeft"].includes(e.key) || !e.target.closest("[data-tree]")) return;
+  const ids = [...J.trees.map(t => t.id), "all"], i = ids.indexOf(current), n = ids[(i + (e.key === "ArrowRight" ? 1 : -1) + ids.length) % ids.length];
+  switchTree(n); $(`#tabs [data-tree="${n}"]`).focus();
 });
-$("#canvas").addEventListener("click", e => {
-  const sat = e.target.closest(".sat");
-  if (sat){ if (selected !== sat.dataset.badge){ selected = sat.dataset.badge; } toggleSkill(sat.dataset.skill); return; }
-  const g = e.target.closest(".bd"); if (g) select(g.dataset.badge);
+
+/* Pointer handling on the sheet: tap to pick, drag to pan, pinch or Ctrl+scroll to zoom */
+const tip = $("#tip"), hostEl = $("#worldHost"), ptrs = new Map();
+let downAt = null, moved = false, downTarget = null, pinchD = null;
+function tap(target){
+  const sat = target.closest(".sat");
+  if (sat){ const b = BD[sat.dataset.badge]; if (b.tree !== current){ switchTree(b.tree, b.id); return; } selected = b.id; toggleSkill(sat.dataset.skill); return; }
+  const g = target.closest(".bd"); if (g){ goToBadge(g.dataset.badge); return; }
+  if (target.closest(".hero-node")){ switchTree("all"); return; }
+  const r = target.closest("[data-region]"); if (r && r.dataset.region !== current) switchTree(r.dataset.region);
+}
+hostEl.addEventListener("pointerdown", e => {
+  if (e.button > 0) return;
+  hostEl.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  cancelAnimationFrame(camAnim); tip.classList.remove("show");
+  if (ptrs.size === 1){ downAt = { x: e.clientX, y: e.clientY }; moved = false; downTarget = e.target; }
+  if (ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinchD = Math.hypot(a.x - b.x, a.y - b.y); moved = true; }
 });
-$("#canvas").addEventListener("keydown", e => {
-  const g = e.target.closest(".bd"); if (!g) return;
-  if (e.key === "Enter" || e.key === " "){ e.preventDefault(); select(g.dataset.badge, true); }
+hostEl.addEventListener("pointermove", e => {
+  if (!ptrs.has(e.pointerId)){ hover(e); return; }
+  const prev = ptrs.get(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (ptrs.size === 1){
+    if (!moved && Math.hypot(e.clientX - downAt.x, e.clientY - downAt.y) > 6){ moved = true; hostEl.classList.add("grabbing"); }
+    if (moved){ const k = cam.w / hostEl.clientWidth; cam = { ...cam, x: cam.x - (e.clientX - prev.x) * k, y: cam.y - (e.clientY - prev.y) * k }; applyCam(); }
+  } else if (ptrs.size === 2 && pinchD){
+    const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+    zoomAround((a.x + b.x) / 2, (a.y + b.y) / 2, d / pinchD); pinchD = d;
+  }
 });
+function endPtr(e){
+  if (!ptrs.has(e.pointerId)) return;
+  ptrs.delete(e.pointerId);
+  if (ptrs.size < 2) pinchD = null;
+  if (!ptrs.size){ hostEl.classList.remove("grabbing"); if (!moved && downTarget && e.type === "pointerup") tap(downTarget); downTarget = null; }
+}
+hostEl.addEventListener("pointerup", endPtr);
+hostEl.addEventListener("pointercancel", endPtr);
+hostEl.addEventListener("wheel", e => { if (!(e.ctrlKey || e.metaKey)) return; e.preventDefault(); zoomAround(e.clientX, e.clientY, Math.exp(-e.deltaY * .0022)); }, { passive: false });
+hostEl.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const g = e.target.closest(".bd"); if (g){ e.preventDefault(); goToBadge(g.dataset.badge, true); return; }
+  if (e.target.closest(".hero-node")){ e.preventDefault(); switchTree("all"); }
+});
+hostEl.addEventListener("focusin", e => {
+  // keep a keyboard-focused badge in view
+  const g = e.target.closest(".bd"); if (!g || !cam) return;
+  const b = BD[g.dataset.badge], Lt = LAYOUT.trees[b.tree], x = Lt.tx + b.x, y = Lt.ty + b.y;
+  if (x < cam.x || x > cam.x + cam.w || y < cam.y || y > cam.y + cam.h) flyTo({ x: x - cam.w / 2, y: y - cam.h / 2, w: cam.w, h: cam.h });
+});
+function hover(e){
+  const sat = e.target.closest && e.target.closest(".sat"), g = e.target.closest && e.target.closest(".bd");
+  if (!sat && !g){ tip.classList.remove("show"); return; }
+  if (sat){ const s = SK[sat.dataset.skill], other = BD[sat.dataset.badge].tree !== current; tip.innerHTML = `${esc(s.label)}<small>${other ? "Click to zoom in" : ticked.has(s.id) ? "Learned · click to untick" : "Click to tick"}</small>`; }
+  else { const b = BD[g.dataset.badge], [k, n] = prog(b.id); tip.innerHTML = `${esc(b.label)}<small>${k} of ${n} skills</small>`; }
+  tip.style.left = Math.min(window.innerWidth - 270, e.clientX + 14) + "px"; tip.style.top = (e.clientY + 16) + "px"; tip.classList.add("show");
+}
+hostEl.addEventListener("mouseleave", () => tip.classList.remove("show"));
+$("#camIn").onclick = () => { const r = hostEl.getBoundingClientRect(); zoomAround(r.left + r.width / 2, r.top + r.height / 2, 1.3); };
+$("#camOut").onclick = () => { const r = hostEl.getBoundingClientRect(); zoomAround(r.left + r.width / 2, r.top + r.height / 2, 1 / 1.3); };
+$("#camFrame").onclick = () => flyTo(frameBox(current));
+$("#camAll").onclick = () => switchTree("all");
+if ("ResizeObserver" in window) new ResizeObserver(() => { if (LAYOUT && cam) flyTo(frameBox(current), true); }).observe(hostEl);
+
 $("#panel").addEventListener("click", e => {
   const r = e.target.closest(".row");
   if (r){ toggleSkill(r.dataset.skill); $(`#panel .row[data-skill="${CSS.escape(r.dataset.skill)}"]`)?.focus({ preventScroll: true }); return; }
   const a = e.target.closest("[data-all]");
   if (a){ const b = BD[a.dataset.all], was = done(b.id); b.skills.forEach(s => was ? ticked.delete(s) : ticked.add(s)); saveProgress(); afterChange(b, was); $("#panel [data-all]")?.focus({ preventScroll: true }); return; }
-  const g = e.target.closest("[data-goto]");
-  if (g){ const b = BD[g.dataset.goto]; if (b.tree !== current) switchTree(b.tree, b.id); else select(b.id); $(`#canvas .bd[data-badge="${CSS.escape(b.id)}"]`)?.focus({ preventScroll: true }); }
+  const tg = e.target.closest("[data-tree-go]"); if (tg){ switchTree(tg.dataset.treeGo); return; }
+  const g = e.target.closest("[data-goto]"); if (g) goToBadge(g.dataset.goto);
 });
-// tooltips on skills
-const tip = $("#tip");
-$("#canvas").addEventListener("mousemove", e => {
-  const sat = e.target.closest(".sat"), g = e.target.closest(".bd");
-  if (!sat && !g){ tip.classList.remove("show"); return; }
-  if (sat){ const s = SK[sat.dataset.skill]; tip.innerHTML = `${esc(s.label)}<small>${ticked.has(s.id) ? "Learned · click to untick" : "Click to tick"}</small>`; }
-  else { const b = BD[g.dataset.badge], [k, n] = prog(b.id); tip.innerHTML = `${esc(b.label)}<small>${k} of ${n} skills</small>`; }
-  tip.style.left = Math.min(window.innerWidth - 270, e.clientX + 14) + "px"; tip.style.top = (e.clientY + 16) + "px"; tip.classList.add("show");
-});
-$("#canvas").addEventListener("mouseleave", () => tip.classList.remove("show"));
 
 /* ===== Stats ===== */
 function renderStats(){
@@ -693,27 +878,18 @@ function printAs(kind){
 }
 window.addEventListener("afterprint", () => document.body.classList.remove("print-record", "print-readout"));
 async function downloadPng(){
-  const cellW = 900, gap = 24, pad = 40, headH = 120;
-  const imgs = await Promise.all(J.trees.map(t => new Promise((res, rej) => {
-    const im = new Image(); const url = URL.createObjectURL(new Blob([treeSVG(t, { export: true })], { type: "image/svg+xml" }));
-    im.onload = () => { URL.revokeObjectURL(url); res({ t, im }); }; im.onerror = rej; im.src = url;
-  })));
-  const scaled = imgs.map(({ t, im }) => ({ t, im, w: cellW, h: cellW * t.h / Math.max(t.w, 1000) }));
-  const row1 = Math.max(scaled[0].h, scaled[1].h) + 44, row2 = Math.max(scaled[2].h, scaled[3].h) + 44;
-  const W = pad * 2 + cellW * 2 + gap, H = headH + row1 + gap + row2 + 60, S = 1.5;
-  const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = W * S; c.height = H * S; x.scale(S, S);
-  x.fillStyle = "#120F17"; x.fillRect(0, 0, W, H);
+  const W = LAYOUT.world, outW = 2400, k = outW / W.w, headH = 160, outH = Math.round(W.h * k) + headH + 50;
+  const url = URL.createObjectURL(new Blob([worldSVG({ export: true })], { type: "image/svg+xml" }));
+  const im = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+  URL.revokeObjectURL(url);
+  const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = outW; c.height = outH;
+  x.fillStyle = "#141019"; x.fillRect(0, 0, outW, outH);
   const A = analyse(), name = progress.name.trim(), total = Object.values(SK).filter(s => s.badge).length;
-  x.fillStyle = "#fff"; x.font = "300 40px Newsreader, Georgia, serif"; x.fillText(J.title, pad, 62);
-  x.fillStyle = "#C9C2D6"; x.font = "400 17px Geist, Helvetica, Arial, sans-serif";
-  x.fillText(`${name ? name + "  ·  " : ""}${A.skills.length} of ${total} skills  ·  ${allBadges().filter(b => done(b.id)).length} of ${allBadges().length} badges earned  ·  ${today()}`, pad, 94);
-  scaled.forEach((s, i) => {
-    const cx = pad + (i % 2) * (cellW + gap), cy = headH + (i < 2 ? 0 : row1 + gap), [k, n] = treeProgress(s.t);
-    x.fillStyle = s.t.colour; x.font = "700 13px Geist, Helvetica, Arial, sans-serif"; x.fillText(s.t.label.toUpperCase(), cx, cy + 16);
-    x.fillStyle = "#8E86A0"; x.font = "400 13px Geist, Helvetica, Arial, sans-serif"; x.fillText(`${k} of ${n} badges`, cx + x.measureText(s.t.label.toUpperCase()).width + 70, cy + 16);
-    x.save(); x.beginPath(); x.roundRect ? x.roundRect(cx, cy + 30, s.w, s.h, 14) : x.rect(cx, cy + 30, s.w, s.h); x.clip(); x.drawImage(s.im, cx, cy + 30, s.w, s.h); x.restore();
-  });
-  x.fillStyle = "#8E86A0"; x.font = "400 13px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", W - pad, H - 24);
+  x.fillStyle = "#fff"; x.font = "300 56px Newsreader, Georgia, serif"; x.fillText(J.title, 70, 92);
+  x.fillStyle = "#C9C2D6"; x.font = "400 24px Geist, Helvetica, Arial, sans-serif";
+  x.fillText(`${name ? name + "  ·  " : ""}${A.skills.length} of ${total} skills  ·  ${allBadges().filter(b => done(b.id)).length} of ${allBadges().length} badges earned  ·  ${today()}`, 70, 132);
+  x.drawImage(im, 0, headH, outW, W.h * k);
+  x.fillStyle = "#8E86A0"; x.font = "400 20px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", outW - 70, outH - 24);
   c.toBlob(bl => { saveBlob(bl, fileStem() + ".png"); toast("Image downloaded"); }, "image/png");
 }
 $("#dlPng").onclick = () => downloadPng().catch(() => toast("Sorry, the image couldn't be made in this browser"));
@@ -736,8 +912,10 @@ $("#studentName").addEventListener("input", e => { progress.name = e.target.valu
   build();
   $("#title").textContent = J.title; $("#intro").textContent = J.intro || "";
   $("#studentName").value = progress.name;
-  switchTree("project"); renderStats(); renderReadout();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { wrapCache.clear(); renderTree(); });
+  computeLayout();
+  current = "all"; renderTabs(); renderTree(); cam = fitBox(LAYOUT.world); applyCam(); renderPanel(); renderStats(); renderReadout();
+  setTimeout(() => { if (current === "all" && !ptrs.size) switchTree("project"); }, reduceMotion ? 0 : 1100);   // open on the whole sheet, then fly in
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { wrapCache.clear(); if (LAYOUT) renderTree(); });
 })();
 </script>
 </body>
