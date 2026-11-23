@@ -138,13 +138,13 @@
    "icon": "project",
    "colour": "#14998F",
    "colourBy": "strand",
-   "w": 1000,
-   "h": 1260,
+   "w": 1300,
+   "h": 960,
    "badges": [
     {
      "id": "launch",
-     "x": 500,
-     "y": 1190,
+     "x": 650,
+     "y": 890,
      "parents": [],
      "stage": "setup",
      "skills": [
@@ -161,8 +161,8 @@
     },
     {
      "id": "data-gatherer",
-     "x": 500,
-     "y": 1060,
+     "x": 650,
+     "y": 775,
      "parents": [
       "launch"
      ],
@@ -176,8 +176,8 @@
     },
     {
      "id": "data-creator",
-     "x": 300,
-     "y": 1010,
+     "x": 460,
+     "y": 800,
      "parents": [
       "data-gatherer"
      ],
@@ -190,8 +190,8 @@
     },
     {
      "id": "adv-data-types",
-     "x": 140,
-     "y": 920,
+     "x": 290,
+     "y": 760,
      "parents": [
       "data-creator"
      ],
@@ -199,8 +199,8 @@
     },
     {
      "id": "wrangler",
-     "x": 500,
-     "y": 930,
+     "x": 650,
+     "y": 660,
      "parents": [
       "data-gatherer"
      ],
@@ -208,8 +208,8 @@
     },
     {
      "id": "adv-wrangler",
-     "x": 720,
-     "y": 970,
+     "x": 850,
+     "y": 690,
      "parents": [
       "wrangler"
      ],
@@ -217,8 +217,8 @@
     },
     {
      "id": "analyst-foundations",
-     "x": 330,
-     "y": 790,
+     "x": 420,
+     "y": 545,
      "parents": [
       "wrangler"
      ],
@@ -226,8 +226,8 @@
     },
     {
      "id": "common-vis",
-     "x": 670,
-     "y": 790,
+     "x": 880,
+     "y": 545,
      "parents": [
       "wrangler"
      ],
@@ -242,8 +242,8 @@
     },
     {
      "id": "summarise",
-     "x": 330,
-     "y": 660,
+     "x": 420,
+     "y": 430,
      "parents": [
       "analyst-foundations"
      ],
@@ -251,8 +251,8 @@
     },
     {
      "id": "design-principles",
-     "x": 600,
-     "y": 660,
+     "x": 780,
+     "y": 430,
      "parents": [
       "common-vis"
      ],
@@ -271,7 +271,7 @@
     {
      "id": "compare",
      "x": 230,
-     "y": 530,
+     "y": 455,
      "parents": [
       "summarise"
      ],
@@ -279,8 +279,8 @@
     },
     {
      "id": "change",
-     "x": 430,
-     "y": 530,
+     "x": 610,
+     "y": 455,
      "parents": [
       "summarise"
      ],
@@ -288,8 +288,8 @@
     },
     {
      "id": "infographic",
-     "x": 670,
-     "y": 530,
+     "x": 880,
+     "y": 315,
      "parents": [
       "design-principles"
      ],
@@ -303,8 +303,8 @@
     },
     {
      "id": "mapping",
-     "x": 880,
-     "y": 520,
+     "x": 1130,
+     "y": 315,
      "parents": [
       "chart-repertoire"
      ],
@@ -312,8 +312,8 @@
     },
     {
      "id": "detect",
-     "x": 330,
-     "y": 400,
+     "x": 420,
+     "y": 315,
      "parents": [
       "compare",
       "change"
@@ -322,8 +322,8 @@
     },
     {
      "id": "causation",
-     "x": 140,
-     "y": 380,
+     "x": 230,
+     "y": 240,
      "parents": [
       "detect"
      ],
@@ -331,8 +331,8 @@
     },
     {
      "id": "integrated",
-     "x": 520,
-     "y": 140,
+     "x": 650,
+     "y": 90,
      "parents": [
       "analyst",
       "infographic"
@@ -347,8 +347,8 @@
     },
     {
      "id": "adv-storytelling",
-     "x": 740,
-     "y": 120,
+     "x": 860,
+     "y": 90,
      "parents": [
       "integrated"
      ],
@@ -373,8 +373,8 @@
      ],
      "blurb": "Read the patterns and test your explanations.",
      "cv": "Identified patterns in data, framed testable hypotheses and made the assumptions behind my analysis explicit.",
-     "x": 330,
-     "y": 270
+     "x": 420,
+     "y": 200
     },
     {
      "id": "chart-repertoire",
@@ -404,8 +404,8 @@
       "communication"
      ],
      "next": "Keep a swipe file of chart types you see in the news, with a note on what each is good for.",
-     "x": 800,
-     "y": 660
+     "x": 990,
+     "y": 430
     }
    ]
   },
@@ -415,13 +415,13 @@
    "sub": "One badge per lecture, up to your own essay",
    "icon": "humanist",
    "colour": "#EC6A2C",
-   "w": 1000,
-   "h": 900,
+   "w": 1100,
+   "h": 760,
    "badges": [
     {
      "id": "lens-w1",
-     "x": 500,
-     "y": 830,
+     "x": 550,
+     "y": 690,
      "parents": [],
      "label": "The Age of Data",
      "week": 1,
@@ -445,8 +445,8 @@
     },
     {
      "id": "lens-w2",
-     "x": 500,
-     "y": 690,
+     "x": 550,
+     "y": 570,
      "parents": [
       "lens-w1"
      ],
@@ -472,8 +472,8 @@
     },
     {
      "id": "lens-w3",
-     "x": 180,
-     "y": 540,
+     "x": 220,
+     "y": 440,
      "parents": [
       "lens-w2"
      ],
@@ -499,8 +499,8 @@
     },
     {
      "id": "lens-w4",
-     "x": 400,
-     "y": 540,
+     "x": 440,
+     "y": 440,
      "parents": [
       "lens-w2"
      ],
@@ -528,8 +528,8 @@
     },
     {
      "id": "lens-w5",
-     "x": 610,
-     "y": 540,
+     "x": 660,
+     "y": 440,
      "parents": [
       "lens-w2"
      ],
@@ -555,8 +555,8 @@
     },
     {
      "id": "lens-w7",
-     "x": 830,
-     "y": 540,
+     "x": 880,
+     "y": 440,
      "parents": [
       "lens-w2"
      ],
@@ -583,8 +583,8 @@
     },
     {
      "id": "lens-w10",
-     "x": 180,
-     "y": 370,
+     "x": 220,
+     "y": 310,
      "parents": [
       "lens-w3"
      ],
@@ -609,8 +609,8 @@
     },
     {
      "id": "lens-w8",
-     "x": 610,
-     "y": 380,
+     "x": 660,
+     "y": 310,
      "parents": [
       "lens-w5"
      ],
@@ -636,8 +636,8 @@
     },
     {
      "id": "lens-w9",
-     "x": 830,
-     "y": 380,
+     "x": 880,
+     "y": 310,
      "parents": [
       "lens-w7"
      ],
@@ -663,8 +663,8 @@
     },
     {
      "id": "data-humanist",
-     "x": 500,
-     "y": 210,
+     "x": 550,
+     "y": 170,
      "parents": [
       "lens-w10",
       "lens-w4",
@@ -701,19 +701,19 @@
    "sub": "Excel, Tableau and beyond",
    "icon": "software",
    "colour": "#6E5FE0",
-   "w": 760,
-   "h": 590,
+   "w": 1000,
+   "h": 610,
    "badges": [
     {
      "id": "excel-l1",
-     "x": 380,
-     "y": 520,
+     "x": 500,
+     "y": 540,
      "parents": []
     },
     {
      "id": "excel-l2",
-     "x": 380,
-     "y": 380,
+     "x": 500,
+     "y": 415,
      "parents": [
       "excel-l1"
      ],
@@ -731,8 +731,8 @@
     },
     {
      "id": "excel-l3",
-     "x": 220,
-     "y": 240,
+     "x": 330,
+     "y": 290,
      "parents": [
       "excel-l2"
      ],
@@ -748,16 +748,16 @@
     },
     {
      "id": "tableau-l1",
-     "x": 540,
-     "y": 240,
+     "x": 670,
+     "y": 290,
      "parents": [
       "excel-l2"
      ]
     },
     {
      "id": "tableau-l2",
-     "x": 540,
-     "y": 100,
+     "x": 670,
+     "y": 160,
      "parents": [
       "tableau-l1"
      ]
@@ -770,14 +770,14 @@
    "sub": "Five series, three levels each",
    "icon": "teamwork",
    "colour": "#D9961C",
-   "w": 1000,
-   "h": 720,
+   "w": 1100,
+   "h": 640,
    "badges": [
     {
      "id": "team-form",
      "label": "Form the Team",
-     "x": 500,
-     "y": 650,
+     "x": 550,
+     "y": 570,
      "parents": [],
      "tier": "core",
      "skills": [
@@ -797,8 +797,8 @@
     },
     {
      "id": "team-collab-1",
-     "x": 120,
-     "y": 520,
+     "x": 150,
+     "y": 440,
      "parents": [
       "team-form"
      ],
@@ -823,8 +823,8 @@
     },
     {
      "id": "team-collab-2",
-     "x": 120,
-     "y": 360,
+     "x": 150,
+     "y": 310,
      "parents": [
       "team-collab-1"
      ],
@@ -849,8 +849,8 @@
     },
     {
      "id": "team-collab-3",
-     "x": 120,
-     "y": 200,
+     "x": 150,
+     "y": 180,
      "parents": [
       "team-collab-2"
      ],
@@ -874,8 +874,8 @@
     },
     {
      "id": "team-comms-1",
-     "x": 310,
-     "y": 520,
+     "x": 350,
+     "y": 440,
      "parents": [
       "team-form"
      ],
@@ -901,8 +901,8 @@
     },
     {
      "id": "team-comms-2",
-     "x": 310,
-     "y": 360,
+     "x": 350,
+     "y": 310,
      "parents": [
       "team-comms-1"
      ],
@@ -929,8 +929,8 @@
     },
     {
      "id": "team-comms-3",
-     "x": 310,
-     "y": 200,
+     "x": 350,
+     "y": 180,
      "parents": [
       "team-comms-2"
      ],
@@ -956,8 +956,8 @@
     },
     {
      "id": "team-feedback-1",
-     "x": 500,
-     "y": 520,
+     "x": 550,
+     "y": 440,
      "parents": [
       "team-form"
      ],
@@ -981,8 +981,8 @@
     },
     {
      "id": "team-feedback-2",
-     "x": 500,
-     "y": 360,
+     "x": 550,
+     "y": 310,
      "parents": [
       "team-feedback-1"
      ],
@@ -1006,8 +1006,8 @@
     },
     {
      "id": "team-feedback-3",
-     "x": 500,
-     "y": 200,
+     "x": 550,
+     "y": 180,
      "parents": [
       "team-feedback-2"
      ],
@@ -1031,8 +1031,8 @@
     },
     {
      "id": "team-deliver-1",
-     "x": 690,
-     "y": 520,
+     "x": 750,
+     "y": 440,
      "parents": [
       "team-form"
      ],
@@ -1059,8 +1059,8 @@
     },
     {
      "id": "team-deliver-2",
-     "x": 690,
-     "y": 360,
+     "x": 750,
+     "y": 310,
      "parents": [
       "team-deliver-1"
      ],
@@ -1087,8 +1087,8 @@
     },
     {
      "id": "team-deliver-3",
-     "x": 690,
-     "y": 200,
+     "x": 750,
+     "y": 180,
      "parents": [
       "team-deliver-2"
      ],
@@ -1114,8 +1114,8 @@
     },
     {
      "id": "team-lead-1",
-     "x": 880,
-     "y": 520,
+     "x": 950,
+     "y": 440,
      "parents": [
       "team-form"
      ],
@@ -1141,8 +1141,8 @@
     },
     {
      "id": "team-lead-2",
-     "x": 880,
-     "y": 360,
+     "x": 950,
+     "y": 310,
      "parents": [
       "team-lead-1"
      ],
@@ -1167,8 +1167,8 @@
     },
     {
      "id": "team-lead-3",
-     "x": 880,
-     "y": 200,
+     "x": 950,
+     "y": 180,
      "parents": [
       "team-lead-2"
      ],
@@ -1506,5 +1506,55 @@
   "history-dataviz": "core",
   "download-csv": "core",
   "power-query": "core"
+ },
+ "network": {
+  "cross": [
+   [
+    "excel-l1",
+    "data-gatherer"
+   ],
+   [
+    "excel-l2",
+    "wrangler"
+   ],
+   [
+    "tableau-l1",
+    "common-vis"
+   ],
+   [
+    "team-form",
+    "launch"
+   ],
+   [
+    "team-deliver-3",
+    "integrated"
+   ]
+  ],
+  "clusters": {
+   "project": {
+    "cx": -720,
+    "cy": 60,
+    "sx": 0.9,
+    "sy": 0.9
+   },
+   "tools": {
+    "cx": 0,
+    "cy": -470,
+    "sx": 0.85,
+    "sy": 0.8
+   },
+   "lens": {
+    "cx": 660,
+    "cy": -330,
+    "sx": 1.0,
+    "sy": 0.98
+   },
+   "team": {
+    "cx": 660,
+    "cy": 420,
+    "sx": 0.85,
+    "sy": 0.82
+   }
+  }
  }
 }
