@@ -1,7 +1,7 @@
 {
  "version": 2,
  "title": "Arts in the Age of Data: skill trees",
- "intro": "Four skill trees, one for each side of the unit. Pick a badge to see its skills, tick what you've learned, and watch the tree light up. Your read-out below turns it into language for CVs, applications and interviews.",
+ "intro": "Four skill trees: the data project, the critical lens on the age of data, the tools and the teamwork. Pick a badge to see its skills, tick what you've learned, and watch the trees light up. Your read-out below turns it into language for CVs, applications and interviews.",
  "stages": [
   {
    "id": "setup",
@@ -59,8 +59,8 @@
   "analyse": {
    "question": "Could something else explain this pattern?",
    "badges": [
-    "analyst",
-    "lens-w9"
+    "lens-w9",
+    "lens-w5"
    ]
   },
   "visualise": {
@@ -139,37 +139,59 @@
    "colour": "#14998F",
    "colourBy": "strand",
    "w": 1000,
-   "h": 1140,
+   "h": 1260,
    "badges": [
     {
      "id": "launch",
      "x": 500,
-     "y": 1070,
+     "y": 1190,
      "parents": [],
-     "stage": "setup"
+     "stage": "setup",
+     "skills": [
+      "backup",
+      "space-setup",
+      "good-questions",
+      "define-problem",
+      "briefed",
+      "project-plan",
+      "topic-selection",
+      "what-to-measure",
+      "zip-folder"
+     ]
     },
     {
      "id": "data-gatherer",
      "x": 500,
-     "y": 940,
+     "y": 1060,
      "parents": [
       "launch"
      ],
-     "stage": "find"
+     "stage": "find",
+     "skills": [
+      "data-search",
+      "extract-report",
+      "download-xlsx",
+      "download-csv"
+     ]
     },
     {
      "id": "data-creator",
      "x": 300,
-     "y": 890,
+     "y": 1010,
      "parents": [
       "data-gatherer"
      ],
-     "stage": "find"
+     "stage": "find",
+     "skills": [
+      "web-db",
+      "time-series",
+      "digitize"
+     ]
     },
     {
      "id": "adv-data-types",
      "x": 140,
-     "y": 800,
+     "y": 920,
      "parents": [
       "data-creator"
      ],
@@ -178,7 +200,7 @@
     {
      "id": "wrangler",
      "x": 500,
-     "y": 810,
+     "y": 930,
      "parents": [
       "data-gatherer"
      ],
@@ -187,7 +209,7 @@
     {
      "id": "adv-wrangler",
      "x": 720,
-     "y": 850,
+     "y": 970,
      "parents": [
       "wrangler"
      ],
@@ -196,7 +218,7 @@
     {
      "id": "analyst-foundations",
      "x": 330,
-     "y": 670,
+     "y": 790,
      "parents": [
       "wrangler"
      ],
@@ -205,16 +227,23 @@
     {
      "id": "common-vis",
      "x": 670,
-     "y": 670,
+     "y": 790,
      "parents": [
       "wrangler"
      ],
-     "stage": "visualise"
+     "stage": "visualise",
+     "skills": [
+      "column-charts",
+      "line-graphs",
+      "pie-charts",
+      "doughnut",
+      "histograms"
+     ]
     },
     {
      "id": "summarise",
      "x": 330,
-     "y": 540,
+     "y": 660,
      "parents": [
       "analyst-foundations"
      ],
@@ -222,17 +251,27 @@
     },
     {
      "id": "design-principles",
-     "x": 670,
-     "y": 540,
+     "x": 600,
+     "y": 660,
      "parents": [
       "common-vis"
      ],
-     "stage": "visualise"
+     "stage": "visualise",
+     "skills": [
+      "audience",
+      "low-ink",
+      "remove-features",
+      "add-annotation",
+      "axis-formatting",
+      "legends",
+      "color-features",
+      "avoid-distortion"
+     ]
     },
     {
      "id": "compare",
      "x": 230,
-     "y": 410,
+     "y": 530,
      "parents": [
       "summarise"
      ],
@@ -241,7 +280,7 @@
     {
      "id": "change",
      "x": 430,
-     "y": 410,
+     "y": 530,
      "parents": [
       "summarise"
      ],
@@ -250,25 +289,31 @@
     {
      "id": "infographic",
      "x": 670,
-     "y": 410,
+     "y": 530,
      "parents": [
       "design-principles"
      ],
-     "stage": "visualise"
+     "stage": "visualise",
+     "skills": [
+      "structure-flow",
+      "viz-sketch",
+      "viz-hierarchy"
+     ],
+     "cv": "Designed an infographic with a clear structure, visual hierarchy and flow, planned from a sketched layout."
     },
     {
      "id": "mapping",
-     "x": 870,
-     "y": 370,
+     "x": 880,
+     "y": 520,
      "parents": [
-      "infographic"
+      "chart-repertoire"
      ],
      "stage": "visualise"
     },
     {
      "id": "detect",
      "x": 330,
-     "y": 270,
+     "y": 400,
      "parents": [
       "compare",
       "change"
@@ -278,7 +323,7 @@
     {
      "id": "causation",
      "x": 140,
-     "y": 250,
+     "y": 380,
      "parents": [
       "detect"
      ],
@@ -289,10 +334,16 @@
      "x": 520,
      "y": 140,
      "parents": [
-      "detect",
+      "analyst",
       "infographic"
      ],
-     "stage": "tell"
+     "stage": "tell",
+     "skills": [
+      "concise-text",
+      "clear-explanations",
+      "report-captions"
+     ],
+     "cv": "Produced an integrated report combining concise written analysis with titled, captioned data visualisations for a non-specialist audience."
     },
     {
      "id": "adv-storytelling",
@@ -301,30 +352,83 @@
      "parents": [
       "integrated"
      ],
-     "stage": "tell"
+     "stage": "tell",
+     "skills": [
+      "replicate",
+      "inspiration"
+     ],
+     "cv": "Developed my data storytelling by recreating landmark visualisations and learning from current work."
+    },
+    {
+     "id": "analyst",
+     "parents": [
+      "detect"
+     ],
+     "stage": "analyse",
+     "strand": "analysis",
+     "skills": [
+      "data-assumptions",
+      "generate-hypothesis",
+      "identify-patterns"
+     ],
+     "blurb": "Read the patterns and test your explanations.",
+     "cv": "Identified patterns in data, framed testable hypotheses and made the assumptions behind my analysis explicit.",
+     "x": 330,
+     "y": 270
+    },
+    {
+     "id": "chart-repertoire",
+     "label": "Chart Repertoire",
+     "parents": [
+      "common-vis"
+     ],
+     "stage": "visualise",
+     "strand": "viz",
+     "tier": "core",
+     "skills": [
+      "tree-map",
+      "radar",
+      "area-chart",
+      "pyramid",
+      "word-cloud",
+      "sparklines"
+     ],
+     "blurb": "More chart types, and when each one fits.",
+     "cv": "Chose from a wide range of chart types, including tree maps, radar, area and population pyramid charts, to suit the data and the question.",
+     "story": "Tell me about a time you chose a less familiar chart type. Why was it the right one?",
+     "keywords": [
+      "chart selection",
+      "data visualisation"
+     ],
+     "themes": [
+      "communication"
+     ],
+     "next": "Keep a swipe file of chart types you see in the news, with a note on what each is good for.",
+     "x": 800,
+     "y": 660
     }
    ]
   },
   {
    "id": "lens",
-   "label": "Critical Lens",
-   "sub": "Data humanist: one badge per lecture",
+   "label": "Critical Lens on the Age of Data",
+   "sub": "One badge per lecture, up to your own essay",
    "icon": "humanist",
    "colour": "#EC6A2C",
    "w": 1000,
-   "h": 1000,
+   "h": 900,
    "badges": [
     {
      "id": "lens-w1",
      "x": 500,
-     "y": 930,
+     "y": 830,
      "parents": [],
      "label": "The Age of Data",
      "week": 1,
      "tier": "core",
      "skills": [
+      "lens-define",
       "scale-of-data",
-      "situate-project",
       "lens-consequences"
      ],
      "themes": [
@@ -342,7 +446,7 @@
     {
      "id": "lens-w2",
      "x": 500,
-     "y": 790,
+     "y": 690,
      "parents": [
       "lens-w1"
      ],
@@ -369,7 +473,7 @@
     {
      "id": "lens-w3",
      "x": 180,
-     "y": 640,
+     "y": 540,
      "parents": [
       "lens-w2"
      ],
@@ -396,7 +500,7 @@
     {
      "id": "lens-w4",
      "x": 400,
-     "y": 640,
+     "y": 540,
      "parents": [
       "lens-w2"
      ],
@@ -404,6 +508,7 @@
      "week": 4,
      "tier": "core",
      "skills": [
+      "history-dataviz",
       "theory-history",
       "data-spun",
       "lens-decode"
@@ -424,7 +529,7 @@
     {
      "id": "lens-w5",
      "x": 610,
-     "y": 640,
+     "y": 540,
      "parents": [
       "lens-w2"
      ],
@@ -451,7 +556,7 @@
     {
      "id": "lens-w7",
      "x": 830,
-     "y": 640,
+     "y": 540,
      "parents": [
       "lens-w2"
      ],
@@ -479,7 +584,7 @@
     {
      "id": "lens-w10",
      "x": 180,
-     "y": 470,
+     "y": 370,
      "parents": [
       "lens-w3"
      ],
@@ -505,7 +610,7 @@
     {
      "id": "lens-w8",
      "x": 610,
-     "y": 480,
+     "y": 380,
      "parents": [
       "lens-w5"
      ],
@@ -532,7 +637,7 @@
     {
      "id": "lens-w9",
      "x": 830,
-     "y": 480,
+     "y": 380,
      "parents": [
       "lens-w7"
      ],
@@ -557,34 +662,35 @@
      "blurb": "Week 9: politics, polling and who you ask."
     },
     {
-     "id": "analyst",
-     "x": 500,
-     "y": 300,
-     "parents": [
-      "lens-w4",
-      "lens-w8"
-     ],
-     "skills": [
-      "data-assumptions",
-      "generate-hypothesis",
-      "clear-explanations",
-      "identify-patterns"
-     ]
-    },
-    {
      "id": "data-humanist",
      "x": 500,
-     "y": 140,
+     "y": 210,
      "parents": [
-      "analyst",
       "lens-w10",
+      "lens-w4",
+      "lens-w8",
       "lens-w9"
      ],
      "skills": [
+      "situate-project",
+      "situate-findings",
+      "findings-mean",
       "recognise-alt",
       "nuance",
-      "situate-findings",
-      "findings-mean"
+      "lens-essay"
+     ],
+     "blurb": "The peak: put your own project, and your essay, into the story of the age of data.",
+     "cv": "Situated my own data project within the history and politics of the age of data, and contributed to its study through an extended essay.",
+     "story": "How does your project, or your essay, add to our understanding of the age of data?",
+     "keywords": [
+      "critical thinking",
+      "contextual analysis",
+      "extended writing",
+      "research synthesis"
+     ],
+     "themes": [
+      "critical",
+      "research"
      ]
     }
    ]
@@ -596,42 +702,54 @@
    "icon": "software",
    "colour": "#6E5FE0",
    "w": 760,
-   "h": 640,
+   "h": 590,
    "badges": [
     {
      "id": "excel-l1",
      "x": 380,
-     "y": 570,
+     "y": 520,
      "parents": []
     },
     {
      "id": "excel-l2",
      "x": 380,
-     "y": 430,
+     "y": 380,
      "parents": [
       "excel-l1"
-     ]
+     ],
+     "skills": [
+      "v-lookups",
+      "text-functions",
+      "dropdown",
+      "if-conditions",
+      "sumif",
+      "pivot-tables",
+      "convert-format",
+      "power-query"
+     ],
+     "cv": "Used lookup, conditional and summary functions, pivot tables and Power Query to clean, combine and summarise datasets in Excel."
     },
     {
      "id": "excel-l3",
      "x": 220,
-     "y": 290,
+     "y": 240,
      "parents": [
       "excel-l2"
-     ]
-    },
-    {
-     "id": "specialist",
-     "x": 220,
-     "y": 140,
-     "parents": [
-      "excel-l3"
-     ]
+     ],
+     "skills": [
+      "pivot-graphs",
+      "cond-formatting",
+      "slicers",
+      "goto-special",
+      "text-to-columns",
+      "calc-pivot"
+     ],
+     "cv": "Built interactive Excel outputs with pivot charts, calculated fields, slicers and conditional formatting."
     },
     {
      "id": "tableau-l1",
      "x": 540,
-     "y": 290,
+     "y": 240,
      "parents": [
       "excel-l2"
      ]
@@ -639,7 +757,7 @@
     {
      "id": "tableau-l2",
      "x": 540,
-     "y": 140,
+     "y": 100,
      "parents": [
       "tableau-l1"
      ]
@@ -654,18 +772,35 @@
    "colour": "#D9961C",
    "w": 1000,
    "h": 720,
-   "root": {
-    "x": 500,
-    "y": 660,
-    "label": "Your group"
-   },
    "badges": [
+    {
+     "id": "team-form",
+     "label": "Form the Team",
+     "x": 500,
+     "y": 650,
+     "parents": [],
+     "tier": "core",
+     "skills": [
+      "team-formation",
+      "team-protocols"
+     ],
+     "blurb": "Form a group and agree how you'll work together.",
+     "cv": "Formed a project team and agreed ways of working, including how we would communicate and make decisions.",
+     "story": "How did your group agree to work together at the start? What would you do differently next time?",
+     "keywords": [
+      "team building",
+      "ways of working"
+     ],
+     "themes": [
+      "teamwork"
+     ]
+    },
     {
      "id": "team-collab-1",
      "x": 120,
      "y": 520,
      "parents": [
-      "root"
+      "team-form"
      ],
      "label": "Collaborate I",
      "series": "collab",
@@ -742,7 +877,7 @@
      "x": 310,
      "y": 520,
      "parents": [
-      "root"
+      "team-form"
      ],
      "label": "Communicate I",
      "series": "comms",
@@ -824,7 +959,7 @@
      "x": 500,
      "y": 520,
      "parents": [
-      "root"
+      "team-form"
      ],
      "label": "Feedback I",
      "series": "feedback",
@@ -899,7 +1034,7 @@
      "x": 690,
      "y": 520,
      "parents": [
-      "root"
+      "team-form"
      ],
      "label": "Deliver I",
      "series": "deliver",
@@ -982,7 +1117,7 @@
      "x": 880,
      "y": 520,
      "parents": [
-      "root"
+      "team-form"
      ],
      "label": "Lead I",
      "series": "lead",
@@ -1136,6 +1271,26 @@
   "team-midpoint": {
    "label": "Lead the mid-point review",
    "desc": "Speak for the group at the review with staff."
+  },
+  "viz-sketch": {
+   "label": "Sketch the layout first",
+   "desc": "Plan the page on paper before you build it."
+  },
+  "viz-hierarchy": {
+   "label": "Lead with the key message",
+   "desc": "Give the most important finding the most visual weight."
+  },
+  "report-captions": {
+   "label": "Title and caption every chart",
+   "desc": "Give each chart a title that says what it shows, and a source line."
+  },
+  "lens-define": {
+   "label": "Define the age of data",
+   "desc": "Explain what is meant by the age of data, and when and why it began."
+  },
+  "lens-essay": {
+   "label": "Write about the age of data",
+   "desc": "Contribute to the study of the age of data in an essay of your own."
   }
  },
  "hero": {
@@ -1345,5 +1500,11 @@
     "responsible-part"
    ]
   }
- ]
+ ],
+ "skillTier": {
+  "avoid-distortion": "core",
+  "history-dataviz": "core",
+  "download-csv": "core",
+  "power-query": "core"
+ }
 }

@@ -339,19 +339,21 @@ function build(){
   for (const n of data.nodes) if (n.type === "skill" && n.badge) (oldMembers[n.badge] ||= []).push(n.id);
   for (const n of data.nodes) if (n.type === "skill") SK[n.id] = { id: n.id, label: n.label, desc: n.desc || "", tier: n.tier || "core" };
   for (const [id, s] of Object.entries(J.newSkills || {})) SK[id] = { id, label: s.label, desc: s.desc || "", tier: "core" };
+  const explicit = new Set(J.trees.flatMap(t => t.badges.flatMap(e => e.skills || [])));
+  for (const [id, tier] of Object.entries(J.skillTier || {})) if (SK[id]) SK[id].tier = tier;
   for (const t of J.trees){
     TR[t.id] = t;
     for (const e of t.badges){
       const o = old[e.id] || {};
       const b = {
         id: e.id, tree: t.id, x: e.x, y: e.y, parents: e.parents || [],
-        label: e.label || o.label || e.id, tier: e.tier || o.tier || "core", strand: o.strand || null,
-        skills: (e.skills || oldMembers[e.id] || []).filter(s => SK[s]),
+        label: e.label || o.label || e.id, tier: e.tier || o.tier || "core", strand: e.strand || o.strand || null,
+        skills: (e.skills || (oldMembers[e.id] || []).filter(s => !explicit.has(s))).filter(s => SK[s]),
         blurb: e.blurb || (J.blurbs || {})[e.id] || "", cv: e.cv || o.cv || "", story: e.story || o.story || "", next: e.next || o.next || "",
         keywords: e.keywords || o.keywords || [], themes: e.themes || o.themes || [], week: e.week || null, series: e.series || null, level: e.level || null, stage: e.stage || null
       };
       BD[b.id] = b;
-      if (J.newSkills) b.skills.forEach(s => { if (J.newSkills[s]) SK[s].tier = b.tier; });
+      if (J.newSkills) b.skills.forEach(s => { if (J.newSkills[s] && !(J.skillTier || {})[s]) SK[s].tier = b.tier; });
       b.skills.forEach(s => { SK[s].badge = b.id; });
     }
   }
@@ -389,12 +391,12 @@ function satPos(b, i){
 }
 function treeSVG(t, opts = {}){
   const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif";
-  const W = t.w, H = t.h, badges = t.badges.map(e => BD[e.id]);
-  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"${exp ? "" : ` role="img" aria-label="${esc(t.label)} skill tree"`}>`;
+  const H = t.h, W = Math.max(t.w, 1000), X0 = -(W - t.w) / 2, badges = t.badges.map(e => BD[e.id]);
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${X0} 0 ${W} ${H}" width="${W}" height="${H}"${exp ? "" : ` role="img" aria-label="${esc(t.label)} skill tree"`}>`;
   s += `<defs><radialGradient id="bg-${t.id}" cx="50%" cy="100%" r="85%"><stop offset="0" stop-color="${t.colour}" stop-opacity=".22"/><stop offset=".55" stop-color="${t.colour}" stop-opacity=".05"/><stop offset="1" stop-color="${t.colour}" stop-opacity="0"/></radialGradient>`
     + `<filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
     + `<pattern id="dots-${t.id}" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r=".9" fill="#ffffff" fill-opacity=".05"/></pattern></defs>`;
-  s += `<rect width="${W}" height="${H}" fill="#1A1622"/><rect width="${W}" height="${H}" fill="url(#dots-${t.id})"/><rect width="${W}" height="${H}" fill="url(#bg-${t.id})"/>`;
+  s += `<rect x="${X0}" width="${W}" height="${H}" fill="#1A1622"/><rect x="${X0}" width="${W}" height="${H}" fill="url(#dots-${t.id})"/><rect x="${X0}" width="${W}" height="${H}" fill="url(#bg-${t.id})"/>`;
   // links between badges
   for (const b of badges){
     for (const p of b.parents){
@@ -467,7 +469,6 @@ function renderTree(){
   const c = $("#canvas"), focusBadge = document.activeElement && c.contains(document.activeElement) ? document.activeElement.closest(".bd")?.dataset.badge : null;
   const t = TR[current];
   c.innerHTML = treeSVG(t);
-  c.querySelector("svg").style.maxWidth = (t.w * 1.05) + "px";
   if (focusBadge){ const el = c.querySelector(`.bd[data-badge="${CSS.escape(focusBadge)}"]`); if (el) el.focus({ preventScroll: true }); }
 }
 function linkBtn(id){
@@ -697,7 +698,7 @@ async function downloadPng(){
     const im = new Image(); const url = URL.createObjectURL(new Blob([treeSVG(t, { export: true })], { type: "image/svg+xml" }));
     im.onload = () => { URL.revokeObjectURL(url); res({ t, im }); }; im.onerror = rej; im.src = url;
   })));
-  const scaled = imgs.map(({ t, im }) => ({ t, im, w: cellW, h: cellW * t.h / t.w }));
+  const scaled = imgs.map(({ t, im }) => ({ t, im, w: cellW, h: cellW * t.h / Math.max(t.w, 1000) }));
   const row1 = Math.max(scaled[0].h, scaled[1].h) + 44, row2 = Math.max(scaled[2].h, scaled[3].h) + 44;
   const W = pad * 2 + cellW * 2 + gap, H = headH + row1 + gap + row2 + 60, S = 1.5;
   const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = W * S; c.height = H * S; x.scale(S, S);
