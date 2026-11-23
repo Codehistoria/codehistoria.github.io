@@ -1,0 +1,446 @@
+{
+ "version": 1,
+ "title": "Arts in the Age of Data: your data project skills",
+ "intro": "Follow the skills along the stages of your group project. Tick the activities you've done or open any badge to tick individual skills. Your read-out below turns them into language for CVs, applications and interviews.",
+ "stages": [
+  {
+   "id": "setup",
+   "label": "Set up",
+   "blurb": "Form the team, pick a topic, plan."
+  },
+  {
+   "id": "find",
+   "label": "Find data",
+   "blurb": "Search, judge and download sources."
+  },
+  {
+   "id": "prepare",
+   "label": "Prepare data",
+   "blurb": "Clean, structure and combine."
+  },
+  {
+   "id": "analyse",
+   "label": "Analyse",
+   "blurb": "Summarise, compare, test."
+  },
+  {
+   "id": "visualise",
+   "label": "Visualise",
+   "blurb": "Choose and design charts."
+  },
+  {
+   "id": "tell",
+   "label": "Tell the story",
+   "blurb": "Bring words and charts together."
+  }
+ ],
+ "lanes": [
+  {
+   "id": "project",
+   "label": "The project",
+   "blurb": "What you do at each stage"
+  },
+  {
+   "id": "lens",
+   "label": "Critical lens",
+   "blurb": "Data humanist: the questions to ask"
+  },
+  {
+   "id": "tools",
+   "label": "Tools",
+   "blurb": "The software that gets it done"
+  },
+  {
+   "id": "team",
+   "label": "Teamwork",
+   "blurb": "Working as a group"
+  }
+ ],
+ "placements": {
+  "launch": [
+   "setup",
+   "project"
+  ],
+  "data-gatherer": [
+   "find",
+   "project"
+  ],
+  "data-creator": [
+   "find",
+   "project"
+  ],
+  "adv-data-types": [
+   "find",
+   "project"
+  ],
+  "wrangler": [
+   "prepare",
+   "project"
+  ],
+  "adv-wrangler": [
+   "prepare",
+   "project"
+  ],
+  "analyst-foundations": [
+   "analyse",
+   "project"
+  ],
+  "summarise": [
+   "analyse",
+   "project"
+  ],
+  "compare": [
+   "analyse",
+   "project"
+  ],
+  "change": [
+   "analyse",
+   "project"
+  ],
+  "detect": [
+   "analyse",
+   "project"
+  ],
+  "causation": [
+   "analyse",
+   "project"
+  ],
+  "common-vis": [
+   "visualise",
+   "project"
+  ],
+  "design-principles": [
+   "visualise",
+   "project"
+  ],
+  "infographic": [
+   "visualise",
+   "project"
+  ],
+  "mapping": [
+   "visualise",
+   "project"
+  ],
+  "integrated": [
+   "tell",
+   "project"
+  ],
+  "adv-storytelling": [
+   "tell",
+   "project"
+  ],
+  "age-context": [
+   "setup",
+   "lens"
+  ],
+  "case-studies": [
+   "find",
+   "lens"
+  ],
+  "analyst": [
+   "analyse",
+   "lens"
+  ],
+  "data-humanist": [
+   "tell",
+   "lens"
+  ],
+  "excel-l1": [
+   "setup",
+   "tools"
+  ],
+  "excel-l2": [
+   "prepare",
+   "tools"
+  ],
+  "excel-l3": [
+   "prepare",
+   "tools"
+  ],
+  "specialist": [
+   "prepare",
+   "tools"
+  ],
+  "tableau-l1": [
+   "visualise",
+   "tools"
+  ],
+  "tableau-l2": [
+   "visualise",
+   "tools"
+  ],
+  "tp1": [
+   "setup",
+   "team"
+  ],
+  "tp2": [
+   "analyse",
+   "team"
+  ],
+  "leadership": [
+   "tell",
+   "team"
+  ]
+ },
+ "lens": {
+  "setup": {
+   "question": "Why this topic, and whose story does the data tell?",
+   "skills": [
+    "situate-project",
+    "power-data",
+    "data-ethics"
+   ]
+  },
+  "find": {
+   "question": "Who collected this data, and what does it leave out?",
+   "skills": [
+    "why-exist",
+    "not-counted",
+    "judge-survey"
+   ]
+  },
+  "prepare": {
+   "question": "What assumptions are you building in as you clean and combine?",
+   "skills": [
+    "data-assumptions",
+    "what-we-measure"
+   ]
+  },
+  "analyse": {
+   "question": "Could something else explain this pattern?",
+   "skills": [
+    "recognise-alt",
+    "generate-hypothesis",
+    "nuance"
+   ]
+  },
+  "visualise": {
+   "question": "Does your design inform, or does it spin?",
+   "skills": [
+    "data-spun",
+    "theory-history"
+   ]
+  },
+  "tell": {
+   "question": "What do the findings mean, and for whom?",
+   "skills": [
+    "findings-mean",
+    "situate-findings",
+    "clear-explanations"
+   ]
+  }
+ },
+ "blurbs": {
+  "excel-l1": "Spreadsheet basics: tidy, sort, filter, calculate.",
+  "excel-l2": "Lookups, conditions and pivot tables.",
+  "excel-l3": "Interactive and advanced Excel.",
+  "specialist": "Power Query and automated preparation.",
+  "tableau-l1": "First charts in Tableau.",
+  "tableau-l2": "Dashboards, maps and stories in Tableau.",
+  "data-gatherer": "Find and download published data.",
+  "data-creator": "Build data that doesn't exist yet.",
+  "adv-data-types": "JSON, maps, text and survey weights.",
+  "launch": "Choose a topic and plan the project.",
+  "wrangler": "Clean, structure and combine data.",
+  "adv-wrangler": "Validate and integrate several datasets.",
+  "tp1": "Play your part in the group.",
+  "tp2": "Own your part; give and take feedback.",
+  "leadership": "Keep the team on track.",
+  "age-context": "Where data comes from, and who it serves.",
+  "case-studies": "Read real statistics critically.",
+  "analyst": "Spot patterns and explain them honestly.",
+  "data-humanist": "Interpret findings with nuance and context.",
+  "analyst-foundations": "Totals, percentages and data types.",
+  "summarise": "Averages, spread and counts.",
+  "compare": "Compare groups fairly.",
+  "change": "Measure change over time.",
+  "detect": "Test relationships between variables.",
+  "causation": "Explore cause and effect.",
+  "common-vis": "Make standard charts clear.",
+  "design-principles": "Design for your audience.",
+  "infographic": "Plan and lay out an infographic.",
+  "integrated": "Combine writing and charts in one piece.",
+  "mapping": "Show data on maps.",
+  "adv-storytelling": "Learn from great visualisations.",
+  "hero": "Every badge on the map."
+ },
+ "activities": [
+  {
+   "id": "dc1",
+   "label": "Data Challenge 1",
+   "detail": "Combining country data",
+   "skills": [
+    "load-save",
+    "space-setup",
+    "download-xlsx",
+    "download-csv",
+    "filters",
+    "set-data-types",
+    "simple-formulae",
+    "rel-refs",
+    "cell-refs",
+    "v-lookups",
+    "if-conditions",
+    "power-query",
+    "cleaning",
+    "structuring",
+    "enrich",
+    "attribute-sources",
+    "percentages",
+    "data-assumptions",
+    "not-counted",
+    "radar"
+   ]
+  },
+  {
+   "id": "dc3",
+   "label": "Data Challenge 3",
+   "detail": "Words as data",
+   "skills": [
+    "word-counts",
+    "totalling",
+    "percentages",
+    "mmm",
+    "range-pct",
+    "std-dev",
+    "pie-charts",
+    "column-charts",
+    "line-graphs",
+    "axis-formatting",
+    "legends"
+   ]
+  },
+  {
+   "id": "dc4",
+   "label": "Data Challenge 4",
+   "detail": "Pivot tables and frequency distributions",
+   "skills": [
+    "download-csv",
+    "convert-format",
+    "structuring",
+    "pivot-tables",
+    "filters",
+    "freq-counts",
+    "histograms",
+    "mmm",
+    "categorical",
+    "numerical"
+   ]
+  },
+  {
+   "id": "hunt",
+   "label": "Bristol Data Hunt",
+   "detail": "Finding and reading ward data",
+   "skills": [
+    "data-search",
+    "extract-report",
+    "download-csv",
+    "why-exist",
+    "not-counted",
+    "shared-task"
+   ]
+  },
+  {
+   "id": "out-there",
+   "label": "What data is out there?",
+   "detail": "Exploring the data sources list",
+   "skills": [
+    "data-search",
+    "why-exist",
+    "attribute-sources"
+   ]
+  },
+  {
+   "id": "topic",
+   "label": "Topic and data planning workshop",
+   "detail": "Questions and data requirements",
+   "skills": [
+    "topic-selection",
+    "good-questions",
+    "define-problem",
+    "what-to-measure",
+    "project-plan"
+   ]
+  },
+  {
+   "id": "cards",
+   "label": "Data stories card activity",
+   "detail": "Chaining data with places and operations",
+   "skills": [
+    "good-questions",
+    "generate-hypothesis",
+    "shared-task",
+    "compromise"
+   ]
+  },
+  {
+   "id": "ethics",
+   "label": "Data injustices and ethics week",
+   "detail": "Lecture and seminar",
+   "skills": [
+    "data-ethics",
+    "power-data",
+    "not-counted"
+   ]
+  },
+  {
+   "id": "vizhistory",
+   "label": "Data visualisation history week",
+   "detail": "Decoding four famous infographics",
+   "skills": [
+    "history-dataviz",
+    "theory-history",
+    "avoid-distortion",
+    "clear-explanations"
+   ]
+  },
+  {
+   "id": "metrics",
+   "label": "Ideology and metrics week",
+   "detail": "GDP, HDI and situated knowledge",
+   "skills": [
+    "what-we-measure",
+    "common-stats",
+    "not-counted",
+    "recognise-alt",
+    "nuance"
+   ]
+  },
+  {
+   "id": "tableau",
+   "label": "Tableau workshop",
+   "detail": "Rebuilding the Hong Kong strandings graphic",
+   "skills": [
+    "tab-import",
+    "tab-measures",
+    "tab-markers",
+    "tab-charts",
+    "tab-basic-format",
+    "replicate"
+   ]
+  },
+  {
+   "id": "group",
+   "label": "Group set-up and decision log",
+   "detail": "Weekly decisions and contributions",
+   "skills": [
+    "team-formation",
+    "team-protocols",
+    "identify-role",
+    "action-list",
+    "progress-update"
+   ]
+  },
+  {
+   "id": "midpoint",
+   "label": "Mid-point review",
+   "detail": "With staff, using your decision log",
+   "skills": [
+    "progress-update",
+    "ask-feedback",
+    "hit-targets",
+    "responsible-part"
+   ]
+  }
+ ]
+}
