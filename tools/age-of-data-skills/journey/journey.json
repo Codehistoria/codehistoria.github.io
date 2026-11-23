@@ -1,7 +1,7 @@
 {
  "version": 2,
  "title": "Arts in the Age of Data: skill trees",
- "intro": "Four skill trees: the data project, the critical lens on the age of data, the tools and the teamwork. Pick a badge to see its skills, tick what you've learned, and watch the trees light up. Your read-out below turns it into language for CVs, applications and interviews.",
+ "intro": "Four skill trees: the data project, the critical lens, the tools and the teamwork. Pick a badge to see its skills, tick what you've learned, and watch the trees light up. Your read-out below turns it into language for CVs, applications and interviews.",
  "stages": [
   {
    "id": "setup",
@@ -411,8 +411,8 @@
   },
   {
    "id": "lens",
-   "label": "Critical Lens on the Age of Data",
-   "sub": "One badge per lecture, up to your own essay",
+   "label": "Critical Lens",
+   "sub": "On the age of data: one badge per lecture, up to your own essay",
    "icon": "humanist",
    "colour": "#EC6A2C",
    "w": 1100,

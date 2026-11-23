@@ -94,17 +94,22 @@
 
   .stage{display:grid;grid-template-columns:minmax(0,1fr) 23rem;gap:1rem;align-items:start}
   @media (max-width:1000px){.stage{grid-template-columns:minmax(0,1fr)}}
-  .canvas{position:relative;border:1px solid var(--edge);border-radius:18px;overflow:hidden;height:clamp(540px,76vh,880px);
+  .canvas{position:relative;border:1px solid var(--edge);border-radius:18px;overflow-x:auto;overflow-y:hidden;
     background:radial-gradient(120% 85% at 50% 108%,color-mix(in srgb,var(--c,#7C4DDB) 30%,transparent),transparent 62%),
       radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#1A1622;transition:background .4s}
-  .canvas.hero-view{background:radial-gradient(55% 60% at 50% 50%,rgba(246,199,107,.16),transparent 70%),radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#16121D}
-  .world-host{position:absolute;inset:16px}
-  .world-host svg{display:block;width:100%;height:100%;user-select:none;-webkit-user-select:none}
+  .canvas.hero-view{overflow:hidden;background:radial-gradient(55% 60% at 50% 50%,rgba(246,199,107,.16),transparent 70%),radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#16121D}
+  /* a tree: drawn at a fixed, readable size and centred; the panel grows to the tallest tree */
+  .world-host{display:flex;align-items:center;justify-content:center;padding:16px;min-width:min-content}
+  .world-host svg{display:block;flex:none;user-select:none;-webkit-user-select:none}
+  /* the network: fitted to the panel */
+  .hero-view .world-host{position:absolute;inset:16px;padding:0;display:block;min-height:0!important;min-width:0}
+  .hero-view .world-host svg{width:100%;height:100%}
   .world-host .nnode,.world-host .net-area{cursor:pointer;outline:none}
   .world-host .xlink{transition:stroke-opacity .2s,stroke .2s}
   .world-host .xlink.on{stroke:#F6C76B;stroke-opacity:.95}
   .stage.hero-mode{grid-template-columns:minmax(0,1fr)}
   .stage.hero-mode .canvas{height:clamp(600px,86vh,1000px)}
+  @media (max-width:760px){.stage.hero-mode .canvas{height:72vh}}
   .stage.hero-mode .panel{position:static;max-height:none;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:0 2rem;align-items:start}
   .stage.hero-mode .panel > *{grid-column:1}
   .stage.hero-mode .panel .pn-h.trees,.stage.hero-mode .panel .ov{grid-column:2}
@@ -114,7 +119,6 @@
   @media (max-width:1000px){.stage.hero-mode .panel{display:block}}
   .world-host .nnode:hover .body,.world-host .nnode:focus-visible .body{stroke:#fff;stroke-width:2}
   .world-host .net-area:hover text,.world-host .net-area:focus-visible text{text-decoration:underline}
-  @media (max-width:760px){.canvas{height:auto;overflow-x:auto}.world-host{position:relative;inset:auto;padding:14px;width:860px}.world-host svg{height:auto}}
   .ov{display:grid;gap:.4rem}
   .ovt{display:grid;grid-template-columns:1fr auto;gap:.25rem .6rem;text-align:left;font:inherit;color:#EDE9F3;cursor:pointer;background:var(--deep);border:1px solid var(--edge);border-left:3px solid var(--lc);border-radius:10px;padding:.55rem .7rem}
   .ovt:hover{border-color:var(--lc)}
@@ -336,7 +340,7 @@
 <footer class="site-foot">
   <div class="wrap">
     <span>© 2026 James Freeman</span>
-    <span>Skill trees for <em>Arts in the Age of Data</em>, University of Bristol.</span>
+    <span>Skill trees for <em>Arts in the Age of Data</em>.</span>
   </div>
 </footer>
 <div class="tip" id="tip"></div>
@@ -399,11 +403,11 @@ const roman = n => ["", "I", "II", "III", "IV"][n] || n;
 const R = 32, ORB = 55, SR = 6.2;
 const measure = document.createElement("canvas").getContext("2d");
 const wrapCache = new Map();
-function wrapLabel(text, maxW = 54, maxLines = 4){
+function wrapLabel(text, maxW = 57, maxLines = 4){
   const key = text + "|" + maxW;
   if (wrapCache.has(key)) return wrapCache.get(key);
   let res;
-  for (let fs = 9.6; fs >= 7.4; fs -= .3){
+  for (let fs = 10.8; fs >= 8.4; fs -= .3){
     measure.font = `600 ${fs}px Geist, system-ui, sans-serif`;
     const lines = []; let cur = "";
     for (const w of String(text).split(/\s+/)){ const t = cur ? cur + " " + w : w; if (measure.measureText(t).width <= maxW || !cur) cur = t; else { lines.push(cur); cur = w; } }
@@ -459,10 +463,10 @@ function treeSVG(t, opts = {}){
     if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" filter="url(#gl-${t.id})"/>`;
     s += `<circle class="body" cx="${b.x}" cy="${b.y}" r="${R}" fill="${dn ? col : lockedLook ? "#1B1721" : "#2A2334"}"/>`;
     s += `<circle class="focusring" cx="${b.x}" cy="${b.y}" r="${R + 9}" fill="none" stroke="#fff" stroke-opacity="${sel ? .9 : 0}" stroke-width="1.6"/>`;
-    const pre = b.week ? `WEEK ${b.week}` : "", { fs, lines } = wrapLabel(b.label, 54, pre ? 3 : 4), lh = fs * 1.12;
+    const pre = b.week ? `WEEK ${b.week}` : "", { fs, lines } = wrapLabel(b.label, 57, pre ? 3 : 4), lh = fs * 1.12;
     let y0 = b.y - (lines.length * lh + (pre ? 9 : 0)) / 2 + fs * .82;
     const tc = dn ? "#FFFFFF" : lockedLook ? "#8E86A0" : "#F3F0F8";
-    if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="6.6" font-weight="700" letter-spacing="1" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}" pointer-events="none">${pre}</text>`; y0 += 9; }
+    if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="7.4" font-weight="700" letter-spacing="1" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}" pointer-events="none">${pre}</text>`; y0 += 9; }
     s += `<text text-anchor="middle" font-family="${FONT}" font-size="${fs.toFixed(1)}" font-weight="600" fill="${tc}" pointer-events="none">` + lines.map((l, i) => `<tspan x="${b.x}" y="${(y0 + i * lh).toFixed(1)}">${esc(l)}</tspan>`).join("") + `</text></g>`;
   }
   return s + `</svg>`;
@@ -567,9 +571,23 @@ function renderTree(){
   c.style.setProperty("--c", current === "all" ? "#F6C76B" : TR[current].colour);
   c.classList.toggle("hero-view", current === "all"); $(".stage").classList.toggle("hero-mode", current === "all");
   host.innerHTML = current === "all" ? heroSVG() : treeSVG(TR[current]);
+  if (current !== "all") sizeTree();
   if (fb){ const el = host.querySelector(`[data-badge="${CSS.escape(fb)}"]:is(.bd,.nnode)`); if (el) el.focus({ preventScroll: true }); }
   else if (fa){ host.querySelector(`.net-area[data-tree-go="${CSS.escape(fa)}"]`)?.focus({ preventScroll: true }); }
 }
+const SCALE = { min: .9, max: 1.05 };
+function treeScale(){
+  const maxW = Math.max(...J.trees.map(t => treeBounds(t).w)), cw = $("#canvas").clientWidth - 40;
+  return Math.max(SCALE.min, Math.min(SCALE.max, cw / maxW));
+}
+function sizeTree(){
+  const c = $("#canvas"), host = $("#worldHost"), svg = host.querySelector("svg"), t = TR[current], box = treeBounds(t), k = treeScale();
+  const maxH = Math.max(...J.trees.map(x => treeBounds(x).h)) * k;
+  svg.setAttribute("width", Math.round(box.w * k)); svg.setAttribute("height", Math.round(box.h * k));
+  host.style.minHeight = Math.round(maxH) + "px";
+  if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;
+}
+let resizeT; window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (J && current !== "all") sizeTree(); }, 150); });
 function linkBtn(id){
   const b = BD[id]; if (!b) return "";
   const [k, n] = prog(id);
