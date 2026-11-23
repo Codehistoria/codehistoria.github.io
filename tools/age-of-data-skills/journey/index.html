@@ -3,19 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Arts in the Age of Data: your data project skills · James Freeman</title>
+<title>Arts in the Age of Data: skill trees · James Freeman</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Track the data skills you've built on Arts in the Age of Data, stage by stage through your group project, and turn them into language for CVs, applications and interviews.">
+<meta name="description" content="Four skill trees for Arts in the Age of Data. Tick the skills you've learned and turn them into language for CVs, applications and interviews.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
 <style>
-  /* Site palette and type (custom.scss), plus the tree's own colours */
   :root{
-    --forest:#0F2B22; --forest-2:#1B3F33; --mint:#BFD8CB; --paper:#F7F8F6; --tint:#ECF1EE;
+    --forest:#0F2B22; --forest-2:#1B3F33; --mint:#BFD8CB; --paper:#F7F8F6;
     --ink:#17201C; --slate:#56635C; --rule:#D8E0DB; --green:#22694D; --amber:#B7791F;
-    --night:#211A29; --line:#E4E0EA; --muted:#8C8597;
-    --core:#7C4DDB; --lens:#EC6A2C; --lens-ink:#9A4210;
+    --void:#120F17; --deep:#1A1622; --panel:#201B29; --edge:#352E40; --dim:#8E86A0; --soft:#C9C2D6;
+    --core:#7C4DDB; --lens:#EC6A2C;
     --serif:"Newsreader",Georgia,"Times New Roman",serif;
     --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
@@ -26,9 +25,9 @@
   a{color:var(--green);text-underline-offset:.2em;text-decoration-thickness:1px}
   :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:2px}
   .wrap{max-width:72rem;margin:0 auto;padding-left:max(1.25rem,env(safe-area-inset-left));padding-right:max(1.25rem,env(safe-area-inset-right))}
-  .wide{max-width:104rem}
+  .wide{max-width:96rem}
   .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-  .caps{font:700 .78rem/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase}
+  .caps{font:700 .72rem/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase}
 
   .site-nav{background:var(--forest);border-bottom:1px solid rgba(255,255,255,.08)}
   .site-nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.75rem}
@@ -38,7 +37,6 @@
   .site-links a:hover{color:#fff;text-decoration:underline;text-underline-offset:.45em}
   .site-foot{background:var(--forest);color:var(--mint);font-size:.85rem;padding:1.5rem 0}
   .site-foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem 2rem}
-  .site-foot a{color:#fff}
   .preview-bar{background:#FBF5E8;color:#4d3b12;font-size:.88rem;padding:.55rem 0;border-bottom:1px solid #eedcb5}
   .preview-bar a{color:#4d3b12;font-weight:500}
 
@@ -64,7 +62,6 @@
   .section-head h2{font-weight:400;font-size:2rem;margin:0}
   .section-head p{margin:0;color:var(--slate);font-size:.95rem}
   .step-n{font:300 1em/1 var(--serif);color:#b9b1c4;margin-right:.45rem;font-variant-numeric:lining-nums}
-
   .btn{display:inline-flex;align-items:center;gap:.4rem;font:500 .9rem/1.2 var(--sans);cursor:pointer;text-decoration:none;
     border-radius:999px;border:1px solid rgba(34,105,77,.45);color:var(--green);background:transparent;padding:.45rem 1rem;transition:background .15s,color .15s,border-color .15s}
   .btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
@@ -73,125 +70,81 @@
   .btn-solid:hover{background:#1a5640}
   .btn-row{display:flex;flex-wrap:wrap;gap:.5rem}
 
-  /* ===== The tech tree ===== */
-  #mapBand{background:#FBFAFC}
-  .tt-tools{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;justify-content:space-between;margin:0 0 1rem}
-  .tt-tools .hint{font-size:.88rem;color:var(--slate);margin:0}
-  .linkbtn{border:0;background:none;color:var(--green);font:500 .86rem var(--sans);cursor:pointer;padding:.2rem 0;text-decoration:underline;text-underline-offset:.2em}
-  .map{position:relative;display:grid;grid-template-columns:7.25rem repeat(var(--stages,6),minmax(0,1fr));grid-template-rows:auto repeat(var(--lanes,4),auto)}
-  .lanes-col,.stage{grid-row:1 / -1;display:grid;grid-template-rows:subgrid}
-  .rails{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:visible}
-  .rails path{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .rails .core{stroke:var(--core);opacity:.35}
-  .rails .core.lit{opacity:1;stroke-width:2.6}
-  .rails .stretch{stroke:#BDB6C8;stroke-dasharray:4 5}
-  .rails .stretch.lit{stroke:#8C8597;stroke-dasharray:none}
-  .rails .arrow{fill:var(--core);stroke:none;opacity:.35}
-  .rails .arrow.lit{opacity:1}
-  .stage-h{padding:0 .5rem 1rem;position:relative}
-  .stage-h .era{display:flex;align-items:baseline;gap:.5rem}
-  .stage-h .sn{font:300 1.65rem/1 var(--serif);color:#B4ACC0;font-variant-numeric:lining-nums}
-  .stage-h .caps{color:var(--night)}
-  .stage-h .sb{display:block;font-size:.76rem;line-height:1.3;color:var(--slate);margin-top:.3rem}
-  .stage-h .bar{height:3px;background:var(--line);border-radius:3px;margin-top:.55rem;overflow:hidden}
-  .stage-h .bar i{display:block;height:100%;background:var(--core);border-radius:3px;transition:width .3s}
-  .lane-h{padding:.85rem .8rem .8rem 0;border-top:1px solid var(--line)}
-  .lane-h .caps{display:block;font-size:.72rem;color:var(--night)}
-  .lane-h span{display:block;font-size:.74rem;color:var(--slate);line-height:1.35;margin-top:.3rem}
-  .lane-h.lane-lens .caps{color:var(--lens-ink)}
-  .cell{border-top:1px solid var(--line);padding:.7rem .55rem .9rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
-  .lane-lens{background:#FFF6EE}
-  .lens-only{padding-top:4.9rem}
+  /* ===== The skill trees: a game screen inside the page ===== */
+  #treeBand{background:var(--void);color:#EDE9F3;padding:2.2rem 0 2.6rem;border-top:0}
+  #treeBand .section-head h2{color:#fff}
+  #treeBand .section-head p{color:var(--dim)}
+  #treeBand .step-n{color:#5F566E}
+  .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) auto;gap:.5rem;margin:0 0 1rem}
+  .tab{position:relative;display:grid;grid-template-columns:2.4rem 1fr;gap:.1rem .7rem;align-items:center;text-align:left;font:inherit;color:inherit;cursor:pointer;
+    background:var(--deep);border:1px solid var(--edge);border-radius:14px;padding:.6rem .8rem;transition:border-color .2s,background .2s}
+  .tab:hover{border-color:#4A4157}
+  .tab[aria-selected="true"]{background:var(--panel);border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 10px 30px -14px var(--c)}
+  .tab svg{grid-row:1 / 3}
+  .tab b{font:600 .95rem/1.2 var(--sans);color:#fff}
+  .tab span{font-size:.75rem;color:var(--dim);line-height:1.3}
+  .tab .tbar{grid-column:1 / -1;height:3px;border-radius:3px;background:var(--edge);overflow:hidden;margin-top:.45rem}
+  .tab .tbar i{display:block;height:100%;background:var(--c);border-radius:3px;transition:width .3s}
+  .apex{display:flex;align-items:center;gap:.7rem;padding:.5rem .9rem;border:1px solid var(--edge);border-radius:14px;background:var(--deep);min-width:13rem}
+  .apex b{display:block;font:600 .85rem/1.2 var(--sans);color:#fff}
+  .apex span{font-size:.74rem;color:var(--dim)}
+  @media (max-width:1000px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.apex{grid-column:1 / -1}}
 
-  /* A badge tile */
-  .nd{position:relative;z-index:2;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 2px rgba(33,26,41,.05);transition:box-shadow .2s,border-color .2s,background .2s}
-  .nd:hover{box-shadow:0 4px 14px -4px rgba(33,26,41,.18)}
-  .nd.stretch{background:rgba(255,255,255,.6);border-style:dashed;border-color:#CFC8D9;box-shadow:none}
-  .nd.next{border-color:var(--c);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 16%,transparent)}
-  .nd.done{background:var(--night);border-color:var(--night);color:#fff;box-shadow:0 8px 22px -10px color-mix(in srgb,var(--c) 85%,transparent)}
-  .nd-head{display:grid;grid-template-columns:2.6rem 1fr;gap:.15rem .6rem;width:100%;text-align:left;background:none;border:0;padding:.55rem .6rem .55rem .55rem;cursor:pointer;font:inherit;color:inherit;border-radius:14px}
-  .emb{grid-row:1 / 3;width:2.6rem;height:2.6rem;align-self:center;position:relative}
-  .emb svg{display:block;overflow:visible}
-  .emb .trk{fill:none;stroke:var(--line);stroke-width:3}
-  .emb .prg{fill:none;stroke:var(--c);stroke-width:3;stroke-linecap:round;transition:stroke-dashoffset .35s}
-  .emb .disc{fill:color-mix(in srgb,var(--c) 12%,#fff)}
-  .emb .ico{fill:none;stroke:var(--c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .nd.done .emb .trk{stroke:rgba(255,255,255,.14)}
-  .nd.done .emb .disc{fill:var(--c)}
-  .nd.done .emb .ico{stroke:#fff}
-  .nm{font:600 .86rem/1.22 var(--sans);color:var(--night);align-self:end;min-width:0}
-  .nd.done .nm{color:#fff}
-  .meta{display:flex;align-items:center;gap:.45rem;align-self:start;min-width:0}
-  .pips{display:flex;flex-wrap:wrap;gap:3px;flex:1;min-width:0}
-  .pips i{width:6px;height:6px;border-radius:2px;background:var(--line);display:block}
-  .pips i.on{background:var(--c)}
-  .nd.done .pips i{background:var(--c)}
-  .cnt{font-size:.7rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .nd.done .cnt{color:rgba(255,255,255,.65)}
-  .flag{position:absolute;top:-.55rem;right:.6rem;font:700 .58rem/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:.22rem .45rem;border-radius:5px;background:var(--c);color:#fff;z-index:3}
-  .flag.st{background:#fff;color:var(--muted);border:1px dashed #CFC8D9}
-  .nd.done .flag{display:none}
-  .nd[data-open="true"]{z-index:4;box-shadow:0 14px 34px -14px rgba(33,26,41,.35)}
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 23rem;gap:1rem;align-items:start}
+  @media (max-width:1000px){.stage{grid-template-columns:minmax(0,1fr)}}
+  .canvas{position:relative;background:var(--deep);border:1px solid var(--edge);border-radius:18px;overflow:auto}
+  .canvas svg{display:block;margin:0 auto;width:100%;height:auto;user-select:none}
+  @media (max-width:700px){.canvas svg{width:680px;max-width:none}}
+  .canvas .bd{cursor:pointer;outline:none}
+  .canvas .bd:focus-visible .focusring{stroke:#fff;stroke-opacity:1}
+  .canvas .bd:hover .body{filter:brightness(1.25)}
+  .canvas .sat{cursor:pointer}
+  .canvas .sat:hover{stroke-width:2.4}
+  .avail{animation:breathe 2.4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{stroke-opacity:.35}50%{stroke-opacity:1}}
+  @media (prefers-reduced-motion:reduce){.avail{animation:none}}
+  .tip{position:fixed;z-index:30;max-width:16rem;background:#000;color:#fff;border:1px solid var(--edge);border-radius:8px;padding:.4rem .6rem;font-size:.8rem;line-height:1.35;pointer-events:none;opacity:0;transition:opacity .1s}
+  .tip.show{opacity:1}
+  .tip small{display:block;color:var(--dim);font-size:.72rem}
 
-  /* Expanded: the sub-skills, tickable on the tree */
-  .nd-body{padding:.1rem .55rem .65rem}
-  .nd-body[hidden]{display:none}
-  .bl{font-size:.76rem;line-height:1.35;color:var(--slate);margin:0 .1rem .5rem}
-  .nd.done .bl{color:rgba(255,255,255,.7)}
-  .subs{list-style:none;margin:0;padding:0;display:grid;gap:.28rem}
-  .sub{display:flex;align-items:flex-start;gap:.5rem;width:100%;text-align:left;font:inherit;font-size:.8rem;line-height:1.3;color:var(--night);
-    background:#F6F4F9;border:1px solid transparent;border-radius:9px;padding:.38rem .5rem;cursor:pointer;transition:background .15s,border-color .15s}
-  .sub:hover{border-color:var(--c)}
-  .sub .dot{flex:none;width:1rem;height:1rem;border-radius:50%;border:1.6px solid #B9B1C6;background:#fff;margin-top:.02rem;display:grid;place-items:center;transition:background .15s,border-color .15s}
-  .sub[aria-pressed="true"]{background:color-mix(in srgb,var(--c) 12%,#fff)}
-  .sub[aria-pressed="true"] .dot{background:var(--c);border-color:var(--c)}
-  .sub[aria-pressed="true"] .dot::after{content:"";width:.24rem;height:.46rem;border:solid #fff;border-width:0 1.8px 1.8px 0;transform:translateY(-1px) rotate(45deg)}
-  .sub .st{font:700 .55rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:.3rem}
-  .nd.done .sub{background:rgba(255,255,255,.07);color:#fff}
-  .nd.done .sub .dot{border-color:rgba(255,255,255,.4);background:transparent}
-  .nd.done .sub[aria-pressed="true"] .dot{background:var(--c);border-color:var(--c)}
-  .nd-foot{display:flex;justify-content:space-between;align-items:center;gap:.5rem;margin-top:.55rem}
-  .nd-foot button{border:0;background:none;font:600 .76rem var(--sans);color:var(--green);cursor:pointer;padding:.2rem 0}
-  .nd.done .nd-foot button{color:#C9E7D8}
-  .nd-lens{margin-top:.65rem;border-top:1px dashed #F0B48F;padding-top:.5rem}
-  .nd-lens .caps{font-size:.6rem;color:var(--lens-ink)}
-  .nd.done .nd-lens .caps{color:#F6B489}
-  .nd-lens .q{font:italic 400 .86rem/1.3 var(--serif);margin:.15rem 0 .4rem;color:var(--lens-ink)}
-  .nd.done .nd-lens .q{color:#F8CFB4}
-  .nd-lens .sub{--c:var(--lens)}
-
-  /* Critical lens prompts in their own row */
-  .lensbox{position:relative;z-index:2}
-  .lensbox .q{font:italic 400 .9rem/1.3 var(--serif);color:var(--lens-ink);margin:0 0 .45rem}
-  .lensbox .subs{gap:.22rem}
-  .lensbox .sub{--c:var(--lens);background:rgba(255,255,255,.75)}
-
-  .apex{display:flex;align-items:center;justify-content:center;gap:1rem;margin:1.8rem 0 0}
-  .apex .nd{width:16rem}
-  .apex p{margin:0;font-size:.88rem;color:var(--slate);max-width:22rem}
-  .key{display:flex;flex-wrap:wrap;gap:.5rem 1.8rem;font-size:.84rem;color:var(--night);margin:1.6rem 0 0;align-items:center;justify-content:center}
-  .key span{display:inline-flex;align-items:center;gap:.55rem}
-  .kt{display:inline-block;width:1.6rem;height:1.05rem;border-radius:5px;border:1px solid var(--line);background:#fff}
-  .kt.n{border-color:#6E5FE0;box-shadow:0 0 0 2px rgba(110,95,224,.18)}
-  .kt.d{background:var(--night);border-color:var(--night)}
-  .kt.s{border-style:dashed;border-color:#CFC8D9;background:transparent}
-
-  @media (max-width:1000px){
-    .map{display:block}
-    .rails,.lanes-col{display:none}
-    .stage{display:block;margin:0 0 1.4rem;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
-    .stage-h{padding:.9rem 1rem .7rem}
-    .cell{padding:.7rem 1rem .9rem}
-    .cell::before{content:attr(data-lane);font:700 .64rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-    .cell.lane-lens::before{color:var(--lens-ink)}
-    .cell.is-empty{display:none}
-    .lens-only{padding-top:.7rem}
-  }
+  .panel{position:sticky;top:1rem;background:var(--panel);border:1px solid var(--edge);border-radius:18px;padding:1.1rem 1.15rem 1.2rem;max-height:calc(100vh - 2rem);overflow:auto}
+  @media (max-width:1000px){.panel{position:static;max-height:none}}
+  .pn-k{color:var(--c);font:700 .66rem/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+  .panel h3{font:400 1.7rem/1.1 var(--serif);color:#fff;margin:.3rem 0 .35rem}
+  .pn-blurb{font-size:.88rem;color:var(--soft);margin:0 0 .8rem;line-height:1.45}
+  .pn-state{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--soft);margin:0 0 .9rem}
+  .pn-state .pbar{flex:1;height:5px;border-radius:5px;background:var(--edge);overflow:hidden}
+  .pn-state .pbar i{display:block;height:100%;background:var(--c);border-radius:5px;transition:width .3s}
+  .pn-state b{color:#fff;font-weight:600}
+  .pn-h{font:700 .64rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:1rem 0 .45rem}
+  .rows{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+  .row{display:grid;grid-template-columns:1.25rem 1fr;gap:.6rem;align-items:start;width:100%;text-align:left;font:inherit;color:#EDE9F3;cursor:pointer;
+    background:rgba(255,255,255,.035);border:1px solid transparent;border-radius:10px;padding:.5rem .6rem;transition:background .15s,border-color .15s}
+  .row:hover{border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+  .row .k{width:1.1rem;height:1.1rem;transform:rotate(45deg);border:1.6px solid #5F566E;border-radius:3px;margin-top:.15rem;display:grid;place-items:center;transition:background .15s,border-color .15s}
+  .row[aria-pressed="true"]{background:color-mix(in srgb,var(--c) 14%,transparent)}
+  .row[aria-pressed="true"] .k{background:var(--c);border-color:var(--c);box-shadow:0 0 10px var(--c)}
+  .row b{display:block;font-weight:500;font-size:.9rem;line-height:1.3}
+  .row small{display:block;color:var(--dim);font-size:.76rem;line-height:1.35;margin-top:.1rem}
+  .row .st{font:700 .55rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-left:.35rem}
+  .pn-acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+  .gbtn{border:1px solid var(--c);background:transparent;color:#fff;font:600 .8rem var(--sans);padding:.42rem .9rem;border-radius:999px;cursor:pointer}
+  .gbtn.solid{background:var(--c);box-shadow:0 0 18px -4px var(--c)}
+  .gbtn:hover{filter:brightness(1.15)}
+  .links{display:flex;flex-wrap:wrap;gap:.35rem}
+  .lnk{border:1px solid var(--edge);background:var(--deep);color:#EDE9F3;font:500 .78rem var(--sans);padding:.3rem .6rem;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem}
+  .lnk i{width:.5rem;height:.5rem;border-radius:2px;transform:rotate(45deg);background:var(--lc,#888)}
+  .lnk:hover{border-color:var(--lc,#888)}
+  .lens-q{font:italic 400 1rem/1.35 var(--serif);color:#F6B489;margin:0 0 .5rem}
+  .pn-lens{margin-top:1rem;border-top:1px dashed #6A3A22;padding-top:.8rem}
+  .pn-cv{font:400 .98rem/1.45 var(--serif);color:var(--soft);margin:0}
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;font-size:.8rem;color:var(--dim);margin:1rem 0 0}
+  .legend span{display:inline-flex;align-items:center;gap:.5rem}
 
   /* Read-out */
   .ro-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:3rem;align-items:start}
   @media (max-width:900px){.ro-grid{grid-template-columns:minmax(0,1fr);gap:1.5rem}}
-  .ro-side{position:sticky;top:1rem;border-top:2px solid var(--night);padding:1rem 0 0}
+  .ro-side{position:sticky;top:1rem;border-top:2px solid var(--void);padding:1rem 0 0}
   .ro-side h3{font-size:1.25rem;font-weight:400;margin:0 0 .5rem}
   .ro-side label{display:block;font-size:.85rem;font-weight:500;color:var(--slate);margin:0 0 .3rem}
   .ro-side .btn-row{margin-top:.6rem}
@@ -222,23 +175,22 @@
   .story .star{font-size:.8rem;color:var(--slate);margin:.35rem 0 0}
   .chips{display:flex;flex-wrap:wrap;gap:.1rem 0;margin:0;padding:0;list-style:none;font-size:.95rem}
   .chips li:not(:last-child)::after{content:"·";color:#b9b1c4;margin:0 .55rem}
-  .next-list{list-style:none;padding:0;margin:0;border-top:2px solid var(--night)}
+  .next-list{list-style:none;padding:0;margin:0;border-top:2px solid var(--void)}
   .next-list li{border-bottom:1px solid var(--rule);padding:.65rem .1rem}
   .next-list li b{font-weight:600}
   .next-list .todo{color:var(--slate);font-size:.84rem;margin:.2rem 0 0}
   .next-list .how{font-size:.88rem;margin:.25rem 0 0}
   .ttag{font:700 .6rem var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--core);margin-left:.4rem}
-  .ttag.stretch{color:var(--muted)}
+  .ttag.stretch{color:#8C8597}
   .note{font-size:.86rem;line-height:1.5;border-left:3px solid var(--amber);background:#FBF5E8;color:#4d3b12;padding:.55rem .8rem;margin:1rem 0 0;border-radius:0 6px 6px 0}
-  .toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(1rem);background:var(--night);color:#fff;padding:.6rem 1rem;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
+  .toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(1rem);background:#000;color:#fff;border:1px solid var(--edge);padding:.6rem 1.1rem;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  .loading{padding:4rem 1rem;text-align:center;color:var(--slate)}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .toast b{color:#F6C76B}
+  .loading{padding:4rem 1rem;text-align:center;color:var(--dim)}
 
-  /* Printable skills record */
   #record{display:none}
   @media print{
-    .site-nav,.preview-bar,.hero,#mapBand,.site-foot,.ro-side,.toast{display:none!important}
+    .site-nav,.preview-bar,.hero,#treeBand,.site-foot,.ro-side,.toast,.tip{display:none!important}
     body{background:#fff;font-size:10.5pt}
     .band{padding:0;border:0!important}
     body.print-record #readoutBand{display:none!important}
@@ -263,7 +215,6 @@
   #record .rb h3 small{font-weight:400;color:#56635C}
   #record .rb ul{list-style:none;margin:.1rem 0 0;padding:0;columns:2;column-gap:1.5rem;font-size:8.8pt;line-height:1.35}
   #record .rb li{break-inside:avoid}
-  #record .lensline{font:italic 9pt var(--serif);color:#9A4210;margin:.1rem 0 .3rem}
 </style>
 </head>
 <body>
@@ -283,7 +234,7 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <h1 id="title">Arts in the Age of Data: your data project skills</h1>
+      <h1 id="title">Arts in the Age of Data: skill trees</h1>
       <p class="hero-lede" id="intro"></p>
       <p class="hero-note">Your ticks and notes are saved in this browser on this device only. Nothing is sent anywhere.</p>
     </div>
@@ -299,24 +250,23 @@
 </header>
 
 <main>
-  <section class="band" id="mapBand" aria-labelledby="mapTitle">
+  <section class="band" id="treeBand" aria-labelledby="treeTitle">
     <div class="wrap wide">
       <div class="section-head">
-        <h2 id="mapTitle"><span class="step-n">1</span>Your skills, stage by stage</h2>
-        <p>Open a badge to see its skills, then tick what you've learned</p>
+        <h2 id="treeTitle"><span class="step-n">1</span>Your skill trees</h2>
+        <p>Pick a badge, then tick its skills on the tree or in the panel</p>
       </div>
-      <div class="tt-tools">
-        <p class="hint">Badges marked <b>Next</b> are the next step in each row. Stretch badges, with dashed outlines, are for taking things further.</p>
-        <span><button type="button" class="linkbtn" id="openAll">Open all badges</button> · <button type="button" class="linkbtn" id="closeAll">Close all</button></span>
+      <div class="tabs" role="tablist" aria-label="Skill trees" id="tabs"></div>
+      <div class="stage">
+        <div class="canvas" id="canvas" role="tabpanel"><div class="loading">Loading…</div></div>
+        <aside class="panel" id="panel" aria-live="polite"></aside>
       </div>
-      <div class="map" id="map"><div class="loading">Loading…</div></div>
-      <div class="apex" id="apex"></div>
-      <div class="key">
-        <span><svg width="44" height="10" aria-hidden="true"><path d="M1 5H37" stroke="#7C4DDB" stroke-width="2.6" stroke-linecap="round"/><path d="M36 1 L42 5 L36 9z" fill="#7C4DDB"/></svg>Where everyone will get to</span>
-        <span><svg width="44" height="10" aria-hidden="true"><path d="M1 5H42" stroke="#BDB6C8" stroke-width="2.2" stroke-dasharray="4 5" stroke-linecap="round"/></svg>How you can take things further</span>
-        <span><i class="kt n"></i>Next step</span>
-        <span><i class="kt d"></i>Badge earned</span>
-        <span><i class="kt s"></i>Stretch</span>
+      <div class="legend">
+        <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#14998F"/><circle r="10" fill="none" stroke="#14998F" stroke-width="1.6"/></svg>Badge earned</span>
+        <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#241E2C"/><circle r="10" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="2 3"/></svg>Ready to start</span>
+        <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#1B1721"/><circle r="10" fill="none" stroke="#3A3344" stroke-width="1.6"/></svg>Builds on an earlier badge</span>
+        <span><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#14998F"/></svg><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#16121C" stroke="#14998F" stroke-width="1.4"/></svg>A skill: learned, not yet</span>
+        <span><svg width="38" height="8" aria-hidden="true"><path d="M1 4H37" stroke="#8E86A0" stroke-width="2" stroke-dasharray="5 5"/></svg>Stretch: taking it further</span>
       </div>
     </div>
   </section>
@@ -336,7 +286,7 @@
           <input type="text" id="studentName" autocomplete="name">
           <p class="small" style="margin-top:.9rem"><b>Your skills</b></p>
           <div class="btn-row">
-            <button type="button" class="btn btn-sm btn-solid" id="dlPng">Tree as image</button>
+            <button type="button" class="btn btn-sm btn-solid" id="dlPng">Trees as image</button>
             <button type="button" class="btn btn-sm" id="dlRecord">Skills record (print/PDF)</button>
             <button type="button" class="btn btn-sm" id="dlCsv">Spreadsheet (CSV)</button>
           </div>
@@ -357,211 +307,267 @@
 <footer class="site-foot">
   <div class="wrap">
     <span>© 2026 James Freeman</span>
-    <span>Skills tree for <em>Arts in the Age of Data</em>, University of Bristol.</span>
+    <span>Skill trees for <em>Arts in the Age of Data</em>, University of Bristol.</span>
   </div>
 </footer>
+<div class="tip" id="tip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 "use strict";
-const KEY_PROGRESS = "aod-skills-progress-v1";      // shared with the first version
+const KEY_PROGRESS = "aod-skills-progress-v1";   // shared with the first version
 const store = {
   get(k){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }catch(e){ return null; } },
   set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
 };
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2000); }
+function toast(html){ const t = $("#toast"); t.innerHTML = html; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200); }
 
-let data = null, J = null, idx = {}, members = {}, doneSet = new Set();
+let data = null, J = null;
+const SK = {}, BD = {}, TR = {};
 const saved = store.get(KEY_PROGRESS) || {};
 const progress = { ...saved, ticked: saved.ticked || [], name: saved.name || "", stories: saved.stories || {} };
-let ticked = new Set(progress.ticked);
-const open = new Set();
+const ticked = new Set(progress.ticked);
 function saveProgress(){ progress.ticked = [...ticked]; store.set(KEY_PROGRESS, progress); }
+let current = "project", selected = null;
 
-/* ===== Model ===== */
-function reindex(){
-  idx = {}; members = {};
-  for (const n of data.nodes) idx[n.id] = n;
-  for (const n of data.nodes) if (n.type === "skill" && n.badge && idx[n.badge]) (members[n.badge] ||= []).push(n.id);
-}
-const colourOf = n => (J.palette && J.palette[n.strand]) || (data.strands.find(s => s.id === n.strand) || {}).colour || "#888";
-const badges = () => data.nodes.filter(n => n.type === "badge");
-function computeDone(){
-  doneSet = new Set();
-  for (const n of data.nodes) if (n.type === "skill" && ticked.has(n.id)) doneSet.add(n.id);
-  for (const b of badges()){ const m = members[b.id] || []; if (m.length ? m.every(s => ticked.has(s)) : ticked.has(b.id)) doneSet.add(b.id); }
-  const bs = badges(); for (const h of data.nodes.filter(n => n.type === "hero")) if (bs.length && bs.every(b => doneSet.has(b.id))) doneSet.add(h.id);
-}
-function badgeProgress(id){
-  const n = idx[id];
-  if (n.type === "hero"){ const bs = badges(); return [bs.filter(b => doneSet.has(b.id)).length, bs.length]; }
-  const m = members[id] || []; if (!m.length) return [doneSet.has(id) ? 1 : 0, 1];
-  return [m.filter(s => ticked.has(s)).length, m.length];
-}
-const groupOf = id => { const n = idx[id]; if (!n) return null; return n.type === "skill" ? (n.badge && idx[n.badge] ? n.badge : null) : n.id; };
-const blurb = id => (J.blurbs && J.blurbs[id]) || "";
-const placement = id => (J.placements || {})[id] || null;
-const stageLabel = id => (J.stages.find(x => x.id === id) || {}).label || "";
-function cellBadges(stage, lane){ return Object.entries(J.placements).filter(([id, p]) => p[0] === stage && p[1] === lane && idx[id]).map(([id]) => idx[id]); }
-function laneOrder(laneId){ const out = []; J.stages.forEach((st, si) => cellBadges(st.id, laneId).forEach(b => out.push({ b, si }))); return out; }
-function setSkill(id, on){ on ? ticked.add(id) : ticked.delete(id); }
-function parentOf(ord, i){
-  const o = ord[i];
-  if (i > 0 && ord[i - 1].si === o.si) return ord[i - 1];
-  for (let j = i - 1; j >= 0; j--) if (ord[j].b.tier !== "stretch") return ord[j];
-  return null;
-}
-/* "Next" in each row: the first core badge not yet earned. A stretch badge becomes next once the badge it branches from is earned. */
-function nextSet(){
-  const s = new Set();
-  for (const l of J.lanes){
-    const ord = laneOrder(l.id);
-    const firstCore = ord.find(o => o.b.tier !== "stretch" && !doneSet.has(o.b.id));
-    if (firstCore) s.add(firstCore.b.id);
-    ord.forEach((o, i) => { if (o.b.tier === "stretch" && !doneSet.has(o.b.id)){ const p = parentOf(ord, i); if (p && doneSet.has(p.b.id)) s.add(o.b.id); } });
-  }
-  return s;
-}
-
-/* ===== Tree ===== */
-const RING = 2 * Math.PI * 18;
-function emblem(n, k, t){
-  const ico = (J.icons && (J.icons[n.type === "hero" ? "hero" : n.strand])) || "";
-  const off = t ? RING * (1 - k / t) : RING;
-  return `<span class="emb" aria-hidden="true"><svg width="42" height="42" viewBox="-21 -21 42 42"><circle class="trk" r="18"/><circle class="prg" r="18" transform="rotate(-90)" stroke-dasharray="${RING.toFixed(2)}" stroke-dashoffset="${off.toFixed(2)}"/><circle class="disc" r="14"/><g transform="translate(-8.4 -8.4) scale(.7)"><path class="ico" d="${esc(ico)}"/></g></svg></span>`;
-}
-function subButton(s){
-  const parent = s.badge && idx[s.badge];
-  return `<li><button type="button" class="sub" data-skill="${esc(s.id)}" aria-pressed="${ticked.has(s.id)}" title="${esc(s.desc || "")}"><span class="dot" aria-hidden="true"></span><span>${esc(s.label)}${s.tier === "stretch" && parent && parent.tier !== "stretch" ? `<span class="st">stretch</span>` : ""}</span></button></li>`;
-}
-function tileHTML(b, nexts){
-  const m = (members[b.id] || []).map(s => idx[s]), [k, t] = badgeProgress(b.id), done = doneSet.has(b.id), isOpen = open.has(b.id), st = b.tier === "stretch";
-  const isNext = !done && nexts.has(b.id);
-  const p = placement(b.id), lens = p && p[1] === "project" && J.lens[p[0]] ? J.lens[p[0]] : null;
-  const pips = m.map(s => `<i class="${ticked.has(s.id) ? "on" : ""}"></i>`).join("");
-  return `<div class="nd ${esc(b.tier)}${done ? " done" : ""}${isNext ? " next" : ""}" data-badge="${esc(b.id)}" data-open="${isOpen}" style="--c:${esc(colourOf(b))}">`
-    + (isNext ? `<span class="flag">Next</span>` : st ? `<span class="flag st">Stretch</span>` : "")
-    + `<button type="button" class="nd-head" aria-expanded="${isOpen}" aria-controls="body-${esc(b.id)}" aria-label="${esc(b.label)}: ${k} of ${t} skills${done ? ", badge earned" : ""}${st ? ", stretch" : ""}${isNext ? ", next step" : ""}">${emblem(b, k, t)}<span class="nm">${esc(b.label)}</span>`
-    + `<span class="meta"><span class="pips" aria-hidden="true">${pips}</span><span class="cnt">${k}/${t}</span></span></button>`
-    + `<div class="nd-body" id="body-${esc(b.id)}"${isOpen ? "" : " hidden"}>`
-    + (blurb(b.id) ? `<p class="bl">${esc(blurb(b.id))}</p>` : "")
-    + `<ul class="subs">${m.map(subButton).join("")}</ul>`
-    + (lens ? `<div class="nd-lens"><span class="caps">Critical lens</span><p class="q">${esc(lens.question)}</p><ul class="subs">${lens.skills.filter(s => idx[s]).map(s => subButton(idx[s])).join("")}</ul></div>` : "")
-    + `<div class="nd-foot"><button type="button" data-all="${esc(b.id)}">${k === t ? "Untick all" : "Tick all"}</button><button type="button" data-close="${esc(b.id)}">Close</button></div>`
-    + `</div></div>`;
-}
-function lensBox(stage){
-  const L = J.lens[stage]; if (!L) return "";
-  return `<div class="lensbox"><p class="q">${esc(L.question)}</p><ul class="subs">${L.skills.filter(s => idx[s]).map(s => subButton(idx[s])).join("")}</ul></div>`;
-}
-function renderMap(){
-  const map = $("#map"), nexts = nextSet(), ae = document.activeElement;
-  const focus = ae && map.contains(ae) ? { sk: ae.dataset.skill, b: ae.closest(".nd")?.dataset.badge, all: ae.dataset.all } : null;
-  map.style.setProperty("--stages", J.stages.length); map.style.setProperty("--lanes", J.lanes.length);
-  let h = `<svg class="rails" id="rails" aria-hidden="true"></svg><div class="lanes-col" aria-hidden="true"><div class="stage-h"></div>`
-    + J.lanes.map(l => `<div class="lane-h lane-${esc(l.id)}"><span class="caps">${esc(l.label)}</span><span>${esc(l.blurb)}</span></div>`).join("") + `</div>`;
-  J.stages.forEach((st, i) => {
-    const inStage = Object.entries(J.placements).filter(([id, p]) => p[0] === st.id && idx[id]).flatMap(([id]) => members[id] || []);
-    const pct = inStage.length ? 100 * inStage.filter(s => ticked.has(s)).length / inStage.length : 0;
-    h += `<section class="stage" aria-label="Stage ${i + 1}: ${esc(st.label)}"><div class="stage-h"><div class="era"><span class="sn">${i + 1}</span><span class="caps">${esc(st.label)}</span></div><span class="sb">${esc(st.blurb)}</span><div class="bar" aria-hidden="true"><i style="width:${pct.toFixed(1)}%"></i></div></div>`;
-    for (const l of J.lanes){
-      const bs = cellBadges(st.id, l.id), tiles = bs.map(b => tileHTML(b, nexts)).join("");
-      let inner = tiles, cls = "";
-      if (l.id === "lens"){ inner = tiles + lensBox(st.id); if (!bs.length) cls = " lens-only"; }
-      h += `<div class="cell lane-${esc(l.id)}${cls}${inner ? "" : " is-empty"}" data-lane="${esc(l.label)}">${inner}</div>`;
+/* ===== Model: four trees built from journey.json, using skills and wording from skills.json ===== */
+function build(){
+  const old = {}, oldMembers = {};
+  for (const n of data.nodes) old[n.id] = n;
+  for (const n of data.nodes) if (n.type === "skill" && n.badge) (oldMembers[n.badge] ||= []).push(n.id);
+  for (const n of data.nodes) if (n.type === "skill") SK[n.id] = { id: n.id, label: n.label, desc: n.desc || "", tier: n.tier || "core" };
+  for (const [id, s] of Object.entries(J.newSkills || {})) SK[id] = { id, label: s.label, desc: s.desc || "", tier: "core" };
+  for (const t of J.trees){
+    TR[t.id] = t;
+    for (const e of t.badges){
+      const o = old[e.id] || {};
+      const b = {
+        id: e.id, tree: t.id, x: e.x, y: e.y, parents: e.parents || [],
+        label: e.label || o.label || e.id, tier: e.tier || o.tier || "core", strand: o.strand || null,
+        skills: (e.skills || oldMembers[e.id] || []).filter(s => SK[s]),
+        blurb: e.blurb || (J.blurbs || {})[e.id] || "", cv: e.cv || o.cv || "", story: e.story || o.story || "", next: e.next || o.next || "",
+        keywords: e.keywords || o.keywords || [], themes: e.themes || o.themes || [], week: e.week || null, series: e.series || null, level: e.level || null, stage: e.stage || null
+      };
+      BD[b.id] = b;
+      if (J.newSkills) b.skills.forEach(s => { if (J.newSkills[s]) SK[s].tier = b.tier; });
+      b.skills.forEach(s => { SK[s].badge = b.id; });
     }
-    h += `</section>`;
-  });
-  map.innerHTML = h;
-  const hero = data.nodes.find(n => n.type === "hero");
-  if (hero){
-    const [k, t] = badgeProgress(hero.id), done = doneSet.has(hero.id);
-    $("#apex").innerHTML = `<div class="nd${done ? " done" : ""}" style="--c:#7C4DDB"><div class="nd-head" style="cursor:default">${emblem(hero, k, t)}<span class="nm">${esc(hero.label)}</span><span class="meta"><span class="cnt">${k} of ${t} badges</span></span></div></div><p>${esc(blurb(hero.id) || "Every badge on the tree.")} Its ring fills as you earn badges.</p>`;
   }
-  if (focus){
-    let el = null;
-    if (focus.sk && focus.b) el = map.querySelector(`.nd[data-badge="${CSS.escape(focus.b)}"] .sub[data-skill="${CSS.escape(focus.sk)}"]`);
-    else if (focus.sk) el = map.querySelector(`.lensbox .sub[data-skill="${CSS.escape(focus.sk)}"]`);
-    else if (focus.all) el = map.querySelector(`[data-all="${CSS.escape(focus.all)}"]`);
-    else if (focus.b) el = map.querySelector(`.nd[data-badge="${CSS.escape(focus.b)}"] .nd-head`);
-    if (el) el.focus({ preventScroll: true });
-  }
-  requestAnimationFrame(drawRails);
 }
+const colour = b => { const t = TR[b.tree]; return t.colourBy === "strand" && b.strand && J.palette[b.strand] ? J.palette[b.strand] : t.colour; };
+const done = id => { const b = BD[id]; return !!b && b.skills.length > 0 && b.skills.every(s => ticked.has(s)); };
+const prog = id => { const b = BD[id]; return [b.skills.filter(s => ticked.has(s)).length, b.skills.length]; };
+const ready = b => b.parents.every(p => p === "root" || done(p));
+const allBadges = () => Object.values(BD);
+const stageLabel = id => (J.stages.find(s => s.id === id) || {}).label || "";
+const roman = n => ["", "I", "II", "III", "IV"][n] || n;
 
-/* Rails join neighbours in a row only. Core rails are solid purple and stretch rails dashed.
-   Between stages they run through the gap between columns, so they never cross a tile. */
-let railData = [];
-function computeLinks(){
-  const L = [];
-  for (const l of J.lanes){
-    const ord = laneOrder(l.id); let lastCore = null;
-    ord.forEach((o, i) => {
-      if (o.b.tier !== "stretch"){ if (lastCore) L.push([lastCore.b.id, o.b.id, "core"]); lastCore = o; return; }
-      const p = parentOf(ord, i); if (p) L.push([p.b.id, o.b.id, "stretch"]);
+/* ===== Drawing a tree (SVG with inline colours, so the same markup can be exported as an image) ===== */
+const R = 32, ORB = 55, SR = 6.2;
+const measure = document.createElement("canvas").getContext("2d");
+const wrapCache = new Map();
+function wrapLabel(text, maxW = 54, maxLines = 4){
+  const key = text + "|" + maxW;
+  if (wrapCache.has(key)) return wrapCache.get(key);
+  let res;
+  for (let fs = 9.6; fs >= 7.4; fs -= .3){
+    measure.font = `600 ${fs}px Geist, system-ui, sans-serif`;
+    const lines = []; let cur = "";
+    for (const w of String(text).split(/\s+/)){ const t = cur ? cur + " " + w : w; if (measure.measureText(t).width <= maxW || !cur) cur = t; else { lines.push(cur); cur = w; } }
+    if (cur) lines.push(cur);
+    res = { fs, lines };
+    if (lines.length <= maxLines && lines.every(l => measure.measureText(l).width <= maxW)) break;
+  }
+  wrapCache.set(key, res); return res;
+}
+function satPos(b, i){
+  const n = b.skills.length;
+  const a = n === 1 ? 0 : n === 2 ? (i ? Math.PI : 0) : (-Math.PI / 2 + 2 * Math.PI * (i + .5) / n);
+  return [b.x + ORB * Math.cos(a), b.y + ORB * Math.sin(a)];
+}
+function treeSVG(t, opts = {}){
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif";
+  const W = t.w, H = t.h, badges = t.badges.map(e => BD[e.id]);
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"${exp ? "" : ` role="img" aria-label="${esc(t.label)} skill tree"`}>`;
+  s += `<defs><radialGradient id="bg-${t.id}" cx="50%" cy="100%" r="85%"><stop offset="0" stop-color="${t.colour}" stop-opacity=".22"/><stop offset=".55" stop-color="${t.colour}" stop-opacity=".05"/><stop offset="1" stop-color="${t.colour}" stop-opacity="0"/></radialGradient>`
+    + `<filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
+    + `<pattern id="dots-${t.id}" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="13" cy="13" r=".9" fill="#ffffff" fill-opacity=".05"/></pattern></defs>`;
+  s += `<rect width="${W}" height="${H}" fill="#1A1622"/><rect width="${W}" height="${H}" fill="url(#dots-${t.id})"/><rect width="${W}" height="${H}" fill="url(#bg-${t.id})"/>`;
+  // links between badges
+  for (const b of badges){
+    for (const p of b.parents){
+      const P = p === "root" ? { x: t.root.x, y: t.root.y, r: 18, root: true } : BD[p];
+      if (!P) continue;
+      const pr = P.root ? 18 : R + 6;
+      let d;
+      if (!P.root && P.y - b.y < 100){ // a side branch: leave from the side, not the top
+        const dir = b.x > P.x ? 1 : -1, x1 = P.x + dir * pr, x2 = b.x - dir * (R + 6), mx = (x1 + x2) / 2;
+        d = `M${x1},${P.y} C${mx},${P.y} ${mx},${b.y} ${x2},${b.y}`;
+      } else { const y1 = P.y - pr, y2 = b.y + R + 6, my = (y1 + y2) / 2; d = `M${P.x},${y1} C${P.x},${my} ${b.x},${my} ${b.x},${y2}`; }
+      const pd = P.root || done(p), cd = done(b.id), col = colour(b);
+      const stroke = pd && cd ? col : pd ? col : "#3A3344", op = pd && cd ? 1 : pd ? .6 : 1, w = pd && cd ? 3 : 2.2;
+      const dash = b.tier === "stretch" ? ` stroke-dasharray="6 6"` : "";
+      s += `<path d="${d}" fill="none" stroke="${stroke}" stroke-opacity="${op}" stroke-width="${w}" stroke-linecap="round"${dash}${pd && cd ? ` filter="url(#gl-${t.id})"` : ""}/>`;
+    }
+  }
+  if (t.root){
+    const rx = t.root.x, ry = t.root.y;
+    s += `<g><rect x="${rx - 15}" y="${ry - 15}" width="30" height="30" rx="5" transform="rotate(45 ${rx} ${ry})" fill="#241E2C" stroke="${t.colour}" stroke-width="2"/><text x="${rx}" y="${ry + 36}" text-anchor="middle" font-family="${FONT}" font-size="11" font-weight="600" fill="#C9C2D6" letter-spacing="1.2">${esc(t.root.label.toUpperCase())}</text></g>`;
+  }
+  // badges, with their skills as satellites
+  for (const b of badges){
+    const col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b), st = b.tier === "stretch", sel = !exp && selected === b.id;
+    const lockedLook = !dn && k === 0 && !rd;
+    s += `<g class="bd" data-badge="${esc(b.id)}" tabindex="${exp ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills${dn ? ", earned" : ""}${st ? ", stretch" : ""}">`;
+    // spokes and satellites
+    b.skills.forEach((sid, i) => {
+      const [sx, sy] = satPos(b, i), on = ticked.has(sid);
+      const dx = sx - b.x, dy = sy - b.y, d = Math.hypot(dx, dy), ux = dx / d, uy = dy / d;
+      s += `<line x1="${(b.x + ux * (R + 4)).toFixed(1)}" y1="${(b.y + uy * (R + 4)).toFixed(1)}" x2="${(sx - ux * SR).toFixed(1)}" y2="${(sy - uy * SR).toFixed(1)}" stroke="${on ? col : "#3A3344"}" stroke-opacity="${on ? .7 : 1}" stroke-width="1.2"/>`;
+      s += `<circle class="sat" data-skill="${esc(sid)}" data-badge="${esc(b.id)}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${SR}" fill="${on ? col : "#16121C"}" stroke="${col}" stroke-opacity="${on ? 1 : lockedLook ? .3 : .75}" stroke-width="1.5"${on ? ` filter="url(#gl-${t.id})"` : ""}/>`;
     });
+    if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${R + 12}" fill="${col}" fill-opacity=".14"/>`;
+    // outer ring: progress
+    const RR = R + 5, C = 2 * Math.PI * RR;
+    s += `<circle class="${!dn && k === 0 && rd && !exp ? "avail" : ""}" cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn ? 1 : lockedLook ? 1 : .35}" stroke-width="2.2"${st || (!dn && k === 0 && rd) ? ` stroke-dasharray="3 4"` : ""}/>`;
+    if (k && !dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / n).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${b.x} ${b.y})"/>`;
+    if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" filter="url(#gl-${t.id})"/>`;
+    s += `<circle class="body" cx="${b.x}" cy="${b.y}" r="${R}" fill="${dn ? col : lockedLook ? "#1B1721" : "#2A2334"}"/>`;
+    s += `<circle class="focusring" cx="${b.x}" cy="${b.y}" r="${R + 9}" fill="none" stroke="#fff" stroke-opacity="${sel ? .9 : 0}" stroke-width="1.6"/>`;
+    // label
+    const pre = b.week ? `WEEK ${b.week}` : "";
+    const { fs, lines } = wrapLabel(b.label, 54, pre ? 3 : 4), lh = fs * 1.12;
+    const total = lines.length * lh + (pre ? 9 : 0);
+    let y0 = b.y - total / 2 + fs * .82;
+    const tc = dn ? "#FFFFFF" : lockedLook ? "#8E86A0" : "#F3F0F8";
+    if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="6.6" font-weight="700" letter-spacing="1" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}">${pre}</text>`; y0 += 9; }
+    s += `<text text-anchor="middle" font-family="${FONT}" font-size="${fs.toFixed(1)}" font-weight="600" fill="${tc}">` + lines.map((l, i) => `<tspan x="${b.x}" y="${(y0 + i * lh).toFixed(1)}">${esc(l)}</tspan>`).join("") + `</text>`;
+    s += `</g>`;
   }
-  return L;
+  return s + `</svg>`;
 }
-function drawRails(){
-  const svg = $("#rails"); if (!svg || getComputedStyle(svg).display === "none"){ railData = []; return; }
-  const map = $("#map"), mr = map.getBoundingClientRect(), box = {};
-  map.querySelectorAll(".nd[data-badge]").forEach(el => {
-    const r = el.getBoundingClientRect(), hd = el.querySelector(".nd-head").getBoundingClientRect();
-    box[el.dataset.badge] = { l: r.left - mr.left, r: r.right - mr.left, t: r.top - mr.top, b: r.bottom - mr.top, cy: hd.top - mr.top + hd.height / 2, ex: r.left - mr.left + 30, stage: el.closest(".stage") };
-  });
-  railData = [];
-  for (const [a, b, style] of computeLinks()){
-    const A = box[a], B = box[b]; if (!A || !B) continue;
-    let d, pts;
-    if (A.stage === B.stage){ pts = [[A.ex, A.b], [B.ex, B.t]]; d = `M${A.ex},${A.b} V${B.t}`; }
-    else {
-      const gx = (A.r + B.l) / 2, y1 = A.cy, y2 = B.cy;
-      if (Math.abs(y1 - y2) < 1){ pts = [[A.r, y1], [B.l, y2]]; d = `M${A.r},${y1} H${B.l - 2}`; }
-      else {
-        const s = y2 > y1 ? 1 : -1, r = Math.min(8, Math.abs(y2 - y1) / 2);
-        pts = [[A.r, y1], [gx, y1], [gx, y2], [B.l, y2]];
-        d = `M${A.r},${y1} H${gx - r} Q${gx},${y1} ${gx},${y1 + s * r} V${y2 - s * r} Q${gx},${y2} ${gx + r},${y2} H${B.l - 2}`;
-      }
-    }
-    railData.push({ d, pts, style, lit: doneSet.has(a) && doneSet.has(b), cross: A.stage !== B.stage });
-  }
-  svg.setAttribute("viewBox", `0 0 ${mr.width} ${mr.height}`);
-  svg.innerHTML = railData.map(r => {
-    let s = `<path class="${r.style}${r.lit ? " lit" : ""}" d="${r.d}"/>`;
-    if (r.cross && r.style === "core"){ const [x, y] = r.pts[r.pts.length - 1]; s += `<path class="arrow${r.lit ? " lit" : ""}" d="M${x - 8},${y - 4.5} L${x - 1},${y} L${x - 8},${y + 4.5}z"/>`; }
-    return s;
-  }).join("");
-}
-if ("ResizeObserver" in window) new ResizeObserver(() => { if (J) drawRails(); }).observe(document.documentElement);
 
-$("#map").addEventListener("click", e => {
-  const sub = e.target.closest(".sub");
-  if (sub){
-    const id = sub.dataset.skill, on = !ticked.has(id), g = groupOf(id), before = g && doneSet.has(g);
-    setSkill(id, on); saveProgress(); renderAll();
-    if (on && g && !before && doneSet.has(g)) toast(`Badge earned: ${idx[g].label}`);
-    return;
+/* ===== Tabs, tree and panel ===== */
+const ICON = id => (J.icons || {})[id] || "";
+function treeProgress(t){ const bs = t.badges.map(e => BD[e.id]); return [bs.filter(b => done(b.id)).length, bs.length]; }
+function renderTabs(){
+  let h = J.trees.map(t => {
+    const [k, n] = treeProgress(t), on = t.id === current;
+    return `<button type="button" class="tab" role="tab" aria-selected="${on}" data-tree="${esc(t.id)}" style="--c:${esc(t.colour)}">`
+      + `<svg width="38" height="38" viewBox="-19 -19 38 38" aria-hidden="true"><rect x="-13" y="-13" width="26" height="26" rx="5" transform="rotate(45)" fill="${on ? t.colour : "#241E2C"}" stroke="${t.colour}" stroke-width="1.5"/><g transform="translate(-8.4 -8.4) scale(.7)"><path d="${esc(ICON(t.icon))}" fill="none" stroke="${on ? "#fff" : t.colour}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></g></svg>`
+      + `<b>${esc(t.label)}</b><span>${k} of ${n} badges · ${esc(t.sub || "")}</span><span class="tbar"><i style="width:${n ? 100 * k / n : 0}%"></i></span></button>`;
+  }).join("");
+  const all = allBadges(), k = all.filter(b => done(b.id)).length, C = 2 * Math.PI * 15;
+  h += `<div class="apex" title="${esc(J.hero.blurb)}"><svg width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true"><circle r="15" fill="none" stroke="#352E40" stroke-width="3"/><circle r="15" fill="none" stroke="#F6C76B" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / all.length).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90)"/><g transform="translate(-8.4 -8.4) scale(.7)"><path d="${esc(ICON("hero"))}" fill="${k === all.length ? "#F6C76B" : "none"}" stroke="#F6C76B" stroke-width="2" stroke-linejoin="round"/></g></svg><div><b>${esc(J.hero.label)}</b><span>${k} of ${all.length} badges</span></div></div>`;
+  $("#tabs").innerHTML = h;
+}
+function renderTree(){
+  const c = $("#canvas"), focusBadge = document.activeElement && c.contains(document.activeElement) ? document.activeElement.closest(".bd")?.dataset.badge : null;
+  const t = TR[current];
+  c.innerHTML = treeSVG(t);
+  c.querySelector("svg").style.maxWidth = (t.w * 1.05) + "px";
+  if (focusBadge){ const el = c.querySelector(`.bd[data-badge="${CSS.escape(focusBadge)}"]`); if (el) el.focus({ preventScroll: true }); }
+}
+function linkBtn(id){
+  const b = BD[id]; if (!b) return "";
+  const [k, n] = prog(id);
+  return `<button type="button" class="lnk" data-goto="${esc(id)}" style="--lc:${esc(colour(b))}"><i></i>${b.week ? `Week ${b.week}: ` : ""}${esc(b.label)} <span style="color:var(--dim)">${k}/${n}</span></button>`;
+}
+function renderPanel(){
+  const p = $("#panel"), b = BD[selected];
+  if (!b){ p.innerHTML = `<p class="pn-blurb">Pick a badge on the tree.</p>`; return; }
+  const t = TR[b.tree], col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b);
+  p.style.setProperty("--c", col);
+  const kicker = [t.label, b.stage ? stageLabel(b.stage) : null, b.week ? `Week ${b.week}` : null, b.series ? `Level ${roman(b.level)}` : null, b.tier === "stretch" ? "Stretch" : "Core"].filter(Boolean).join(" · ");
+  const state = dn ? "Badge earned" : k ? `${k} of ${n} skills` : rd ? "Ready to start" : "Builds on an earlier badge";
+  let h = `<div class="pn-k">${esc(kicker)}</div><h3>${esc(b.label)}</h3>${b.blurb ? `<p class="pn-blurb">${esc(b.blurb)}</p>` : ""}`
+    + `<div class="pn-state"><b>${esc(state)}</b><span class="pbar"><i style="width:${n ? 100 * k / n : 0}%"></i></span><span>${k}/${n}</span></div>`
+    + `<div class="pn-h">Skills</div><ul class="rows">` + b.skills.map(sid => {
+        const s = SK[sid], on = ticked.has(sid);
+        return `<li><button type="button" class="row" data-skill="${esc(sid)}" aria-pressed="${on}"><span class="k" aria-hidden="true"></span><span><b>${esc(s.label)}${s.tier === "stretch" && b.tier !== "stretch" ? `<span class="st">stretch</span>` : ""}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ""}</span></button></li>`;
+      }).join("") + `</ul>`
+    + `<div class="pn-acts"><button type="button" class="gbtn${dn ? "" : " solid"}" data-all="${esc(b.id)}">${dn ? "Untick all" : "Tick all"}</button></div>`;
+  const parents = b.parents.filter(x => x !== "root" && BD[x]);
+  if (parents.length) h += `<div class="pn-h">Builds on</div><div class="links">${parents.map(linkBtn).join("")}</div>`;
+  if (b.stage && J.lens[b.stage]){
+    const L = J.lens[b.stage];
+    h += `<div class="pn-lens"><div class="pn-h" style="margin-top:0;color:#F08A54">Critical lens at this stage</div><p class="lens-q">${esc(L.question)}</p><div class="links">${(L.badges || []).map(linkBtn).join("")}</div></div>`;
   }
-  const all = e.target.closest("[data-all]");
-  if (all){ const id = all.dataset.all, m = members[id] || [], every = m.every(s => ticked.has(s)); m.forEach(s => setSkill(s, !every)); saveProgress(); renderAll(); if (!every) toast(`Badge earned: ${idx[id].label}`); return; }
-  const cl = e.target.closest("[data-close]");
-  if (cl){ const id = cl.dataset.close; open.delete(id); renderMap(); $(`.nd[data-badge="${CSS.escape(id)}"] .nd-head`)?.focus(); return; }
-  const head = e.target.closest(".nd-head");
-  if (head){ const id = head.closest(".nd").dataset.badge; if (!id) return; open.has(id) ? open.delete(id) : open.add(id); renderMap(); $(`.nd[data-badge="${CSS.escape(id)}"] .nd-head`)?.focus({ preventScroll: true }); }
+  if (b.tree === "lens"){
+    const used = Object.entries(J.lens).filter(([, L]) => (L.badges || []).includes(b.id)).map(([st]) => st);
+    if (used.length){
+      const targets = used.map(st => J.trees.find(x => x.id === "project").badges.map(e => BD[e.id]).find(x => x.stage === st && x.tier !== "stretch")).filter(Boolean);
+      h += `<div class="pn-lens"><div class="pn-h" style="margin-top:0;color:#F08A54">Use it in your project at</div><div class="links">${targets.map(x => `<button type="button" class="lnk" data-goto="${esc(x.id)}" style="--lc:${esc(colour(x))}"><i></i>${esc(stageLabel(x.stage))}: ${esc(x.label)}</button>`).join("")}</div></div>`;
+    }
+  }
+  if (b.cv) h += `<div class="pn-h">Once earned, you can say</div><p class="pn-cv">${esc(b.cv)}</p>`;
+  p.innerHTML = h;
+}
+function defaultSelection(treeId){
+  const bs = TR[treeId].badges.map(e => BD[e.id]);
+  return (bs.find(b => !done(b.id) && prog(b.id)[0] > 0) || bs.find(b => !done(b.id) && ready(b) && b.tier !== "stretch") || bs.find(b => !done(b.id)) || bs[0]).id;
+}
+function select(id, focusPanel){ selected = id; renderTree(); renderPanel(); if (focusPanel) $("#panel .row, #panel .gbtn")?.focus({ preventScroll: true }); }
+function switchTree(id, sel){
+  current = id; selected = sel || defaultSelection(id); renderTabs(); renderTree(); renderPanel();
+  const c = $("#canvas"); if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;  // phones: start on the trunk
+}
+function toggleSkill(sid){
+  const b = BD[SK[sid].badge], was = done(b.id);
+  ticked.has(sid) ? ticked.delete(sid) : ticked.add(sid);
+  saveProgress(); afterChange(b, was);
+}
+function afterChange(b, was){
+  renderTabs(); renderTree(); renderPanel(); renderStats(); renderReadout();
+  if (!was && done(b.id)){
+    const unlocked = allBadges().filter(x => x.parents.includes(b.id) && ready(x)).map(x => x.label);
+    toast(`<b>Badge earned:</b> ${esc(b.label)}${unlocked.length ? ` · Unlocked: ${esc(unlocked.join(", "))}` : ""}`);
+  }
+}
+
+$("#tabs").addEventListener("click", e => { const t = e.target.closest(".tab"); if (t) switchTree(t.dataset.tree); });
+$("#tabs").addEventListener("keydown", e => {
+  if (!["ArrowRight", "ArrowLeft"].includes(e.key) || !e.target.closest(".tab")) return;
+  const ids = J.trees.map(t => t.id), i = ids.indexOf(current), n = ids[(i + (e.key === "ArrowRight" ? 1 : -1) + ids.length) % ids.length];
+  switchTree(n); $(`.tab[data-tree="${n}"]`).focus();
 });
-$("#openAll").onclick = () => { Object.keys(J.placements).forEach(id => open.add(id)); renderMap(); };
-$("#closeAll").onclick = () => { open.clear(); renderMap(); };
+$("#canvas").addEventListener("click", e => {
+  const sat = e.target.closest(".sat");
+  if (sat){ if (selected !== sat.dataset.badge){ selected = sat.dataset.badge; } toggleSkill(sat.dataset.skill); return; }
+  const g = e.target.closest(".bd"); if (g) select(g.dataset.badge);
+});
+$("#canvas").addEventListener("keydown", e => {
+  const g = e.target.closest(".bd"); if (!g) return;
+  if (e.key === "Enter" || e.key === " "){ e.preventDefault(); select(g.dataset.badge, true); }
+});
+$("#panel").addEventListener("click", e => {
+  const r = e.target.closest(".row");
+  if (r){ toggleSkill(r.dataset.skill); $(`#panel .row[data-skill="${CSS.escape(r.dataset.skill)}"]`)?.focus({ preventScroll: true }); return; }
+  const a = e.target.closest("[data-all]");
+  if (a){ const b = BD[a.dataset.all], was = done(b.id); b.skills.forEach(s => was ? ticked.delete(s) : ticked.add(s)); saveProgress(); afterChange(b, was); $("#panel [data-all]")?.focus({ preventScroll: true }); return; }
+  const g = e.target.closest("[data-goto]");
+  if (g){ const b = BD[g.dataset.goto]; if (b.tree !== current) switchTree(b.tree, b.id); else select(b.id); $(`#canvas .bd[data-badge="${CSS.escape(b.id)}"]`)?.focus({ preventScroll: true }); }
+});
+// tooltips on skills
+const tip = $("#tip");
+$("#canvas").addEventListener("mousemove", e => {
+  const sat = e.target.closest(".sat"), g = e.target.closest(".bd");
+  if (!sat && !g){ tip.classList.remove("show"); return; }
+  if (sat){ const s = SK[sat.dataset.skill]; tip.innerHTML = `${esc(s.label)}<small>${ticked.has(s.id) ? "Learned · click to untick" : "Click to tick"}</small>`; }
+  else { const b = BD[g.dataset.badge], [k, n] = prog(b.id); tip.innerHTML = `${esc(b.label)}<small>${k} of ${n} skills</small>`; }
+  tip.style.left = Math.min(window.innerWidth - 270, e.clientX + 14) + "px"; tip.style.top = (e.clientY + 16) + "px"; tip.classList.add("show");
+});
+$("#canvas").addEventListener("mouseleave", () => tip.classList.remove("show"));
 
 /* ===== Stats ===== */
 function renderStats(){
-  const skills = data.nodes.filter(n => n.type === "skill");
-  const core = skills.filter(n => n.tier !== "stretch"), stretch = skills.filter(n => n.tier === "stretch");
-  const t = skills.filter(n => ticked.has(n.id)).length, tc = core.filter(n => ticked.has(n.id)).length, ts = stretch.filter(n => ticked.has(n.id)).length;
+  const skills = Object.values(SK).filter(s => s.badge);
+  const core = skills.filter(s => s.tier !== "stretch"), stretch = skills.filter(s => s.tier === "stretch");
+  const t = skills.filter(s => ticked.has(s.id)).length, tc = core.filter(s => ticked.has(s.id)).length, ts = stretch.filter(s => ticked.has(s.id)).length;
   $("#statSkills").textContent = t; $("#statTotal").textContent = skills.length;
-  $("#statBadges").textContent = badges().filter(b => doneSet.has(b.id)).length + " of " + badges().length;
+  $("#statBadges").textContent = allBadges().filter(b => done(b.id)).length + " of " + allBadges().length;
   const pc = core.length ? Math.round(100 * tc / core.length) : 0;
   $("#statCorePct").textContent = pc + "%"; $("#meterCore").style.width = pc + "%";
   $("#statStretch").textContent = `${ts} of ${stretch.length}`; $("#meterStretch").style.width = (stretch.length ? 100 * ts / stretch.length : 0) + "%";
@@ -570,33 +576,34 @@ function renderStats(){
 /* ===== Read-out ===== */
 function themeOf(b){ return (b.themes && b.themes[0]) || "other"; }
 function themeLabel(id){ const t = data.themes.find(t => t.id === id); return t ? t.label : "Other skills"; }
-const stageOrder = id => { const p = placement(id); return p ? J.stages.findIndex(s => s.id === p[0]) : 99; };
 function analyse(){
-  const bs = badges().slice().sort((a, b) => stageOrder(a.id) - stageOrder(b.id));
-  const earned = bs.filter(b => doneSet.has(b.id));
-  const inProg = bs.filter(b => !doneSet.has(b.id) && badgeProgress(b.id)[0] > 0);
-  const nx = nextSet(), ready = bs.filter(b => nx.has(b.id) && badgeProgress(b.id)[0] === 0 && b.tier !== "stretch");
-  const hero = data.nodes.find(n => n.type === "hero" && doneSet.has(n.id));
-  const skills = data.nodes.filter(n => n.type === "skill" && ticked.has(n.id));
+  const order = J.trees.flatMap(t => t.badges.map(e => BD[e.id]));
+  let earned = order.filter(b => done(b.id));
+  // a team series reports only its highest level earned
+  earned = earned.filter(b => !b.series || !earned.some(o => o.series === b.series && o.level > b.level));
+  const inProg = order.filter(b => !done(b.id) && prog(b.id)[0] > 0);
+  const nextUp = order.filter(b => !done(b.id) && prog(b.id)[0] === 0 && ready(b) && b.tier !== "stretch" && b.parents.length && b.parents.some(p => p !== "root" && done(p)));
+  const skills = Object.values(SK).filter(s => s.badge && ticked.has(s.id));
   const strength = {};
-  for (const s of skills){ const g = groupOf(s.id); const th = g ? themeOf(idx[g]) : "other"; strength[th] = (strength[th] || 0) + 1; }
-  const stagesTouched = new Set(skills.map(s => groupOf(s.id)).filter(Boolean).map(g => placement(g) && placement(g)[0]).filter(Boolean));
-  return { earned, inProg, ready, hero, skills, strength, stagesTouched };
+  for (const s of skills){ const th = themeOf(BD[s.badge]); strength[th] = (strength[th] || 0) + 1; }
+  const trees = new Set(skills.map(s => BD[s.badge].tree));
+  const hero = allBadges().every(b => done(b.id));
+  return { earned, inProg, nextUp, skills, strength, trees, hero };
 }
 const lowerFirst = s => s ? s.charAt(0).toLowerCase() + s.slice(1) : s;
 const joinList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
 function summaryText(A){
   if (!A.skills.length) return "";
   const top = Object.entries(A.strength).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([k]) => lowerFirst(themeLabel(k)));
-  let s = `On Arts in the Age of Data I developed ${A.skills.length} practical data skills across ${A.stagesTouched.size} of the ${J.stages.length} stages of a data project`;
+  let s = `On Arts in the Age of Data I developed ${A.skills.length} practical skills across ${A.trees.size === 4 ? "all four" : A.trees.size + " of the four"} areas of the unit`;
   s += top.length ? `, with particular strength in ${joinList(top)}.` : ".";
-  if (A.skills.filter(x => x.strand === "humanist").length >= 4) s += " Throughout, I questioned where the data came from, what it left out and what it could honestly show.";
-  if (doneSet.has("integrated")) s += " I applied them in a group project that took a question of our own choosing from finding data through analysis to a finished infographic.";
+  if (A.skills.filter(x => BD[x.badge].tree === "lens").length >= 6) s += " Throughout, I questioned where data comes from, who it serves and what it leaves out.";
+  if (done("integrated")) s += " I applied them in a group project that took a question of our own choosing from finding data through analysis to a finished infographic.";
   return s;
 }
 function renderReadout(){
   const host = $("#readout"), A = analyse();
-  if (!A.skills.length){ host.innerHTML = `<div class="ro-empty">Open a badge in the tree and tick the skills you've learned. Your read-out will build here.</div>`; return; }
+  if (!A.skills.length){ host.innerHTML = `<div class="ro-empty">Pick a badge in the trees above and tick the skills you've learned. Your read-out will build here.</div>`; return; }
   let h = `<h3>In a sentence or two</h3><p class="lead">A starting point for a personal statement or LinkedIn summary. Make it yours.</p><p class="summary">${esc(summaryText(A))}</p>`;
   h += `<h3>Skills in employers' language</h3><p class="lead">Grouped the way graduate job descriptions tend to group them. Each line comes from a badge you've earned or are working towards.</p>`;
   for (const tid of [...data.themes.map(t => t.id), "other"]){
@@ -605,27 +612,28 @@ function renderReadout(){
     const t = data.themes.find(x => x.id === tid);
     h += `<div class="theme"><h4>${esc(themeLabel(tid))}</h4>${t && t.blurb ? `<p class="blurb">${esc(t.blurb)}</p>` : ""}<ul>`;
     for (const b of e) h += `<li>${esc(b.cv || b.label)} <span class="from">(${esc(b.label)}${b.tier === "stretch" ? ", stretch" : ""})</span></li>`;
-    for (const b of p){ const [k, n] = badgeProgress(b.id); h += `<li class="dev">Developing: ${esc(b.label)}, ${k} of ${n} skills so far.</li>`; }
+    for (const b of p){ const [k, n] = prog(b.id); h += `<li class="dev">Developing: ${esc(b.label)}, ${k} of ${n} skills so far.</li>`; }
     h += `</ul></div>`;
   }
-  if (A.earned.length){
+  const storyBadges = A.earned.filter(b => b.story);
+  if (storyBadges.length){
     h += `<h3>Stories to prepare</h3><p class="lead">Interviewers ask for examples. For each badge, jot down a real moment from your project using Situation, Task, Action, Result. Your notes stay in this browser.</p>`;
-    [...A.earned].sort((a, b) => (a.tier === "stretch") - (b.tier === "stretch")).forEach((b, i) => {
-      if (!b.story) return; const val = progress.stories[b.id] || "";
+    storyBadges.sort((a, b) => (a.tier === "stretch") - (b.tier === "stretch")).forEach((b, i) => {
+      const key = b.series ? "series-" + b.series : b.id, val = progress.stories[key] || "";
       h += `<details class="story"${i < 2 || val ? " open" : ""}><summary>${esc(b.label)}<span class="b">${esc(themeLabel(themeOf(b)))}</span></summary><div class="inner"><p class="q">${esc(b.story)}</p>`
-        + `<label class="visually-hidden" for="st-${esc(b.id)}">Your notes for ${esc(b.label)}</label><textarea id="st-${esc(b.id)}" data-story="${esc(b.id)}" placeholder="Situation… Task… Action… Result…">${esc(val)}</textarea>`
+        + `<label class="visually-hidden" for="st-${esc(key)}">Your notes for ${esc(b.label)}</label><textarea id="st-${esc(key)}" data-story="${esc(key)}" placeholder="Situation… Task… Action… Result…">${esc(val)}</textarea>`
         + `<p class="star">Keep the Action part about what <em>you</em> did, even in group work.</p></div></details>`;
     });
   }
   const kw = [...new Set(A.earned.flatMap(b => b.keywords || []))];
   if (kw.length) h += `<h3>Keywords for applications</h3><p class="lead">Terms recruiters and application systems look for. Use the ones that are true of you, and match them to the wording of the job advert.</p><ul class="chips">${kw.map(k => `<li>${esc(k)}</li>`).join("")}</ul>`;
   const nexts = [];
-  for (const b of A.inProg){ const todo = (members[b.id] || []).filter(s => !ticked.has(s)).map(s => idx[s].label);
-    nexts.push(`<li><b>Finish ${esc(b.label)}</b><span class="ttag ${esc(b.tier)}">${esc(b.tier)}</span><p class="todo">Still to tick: ${esc(todo.join(", "))}</p></li>`); }
-  for (const b of A.ready.slice(0, 4)) nexts.push(`<li><b>Next: ${esc(b.label)}</b><span class="ttag">${esc(stageLabel(placement(b.id)[0]))}</span><p class="todo">${esc(blurb(b.id))}</p></li>`);
+  for (const b of A.inProg){ const todo = b.skills.filter(s => !ticked.has(s)).map(s => SK[s].label);
+    nexts.push(`<li><b>Finish ${esc(b.label)}</b><span class="ttag ${esc(b.tier)}">${esc(TR[b.tree].label)}</span><p class="todo">Still to tick: ${esc(todo.join(", "))}</p></li>`); }
+  for (const b of A.nextUp.slice(0, 4)) nexts.push(`<li><b>Unlocked: ${esc(b.label)}</b><span class="ttag">${esc(TR[b.tree].label)}</span>${b.blurb ? `<p class="todo">${esc(b.blurb)}</p>` : ""}</li>`);
   for (const b of A.earned.filter(b => b.next).sort((a, c) => (c.tier === "stretch") - (a.tier === "stretch")).slice(0, 4)) nexts.push(`<li><b>Beyond the unit: ${esc(b.label)}</b><p class="how">${esc(b.next)}</p></li>`);
-  if (nexts.length) h += `<h3>Where to take it next</h3><p class="lead">On the tree, and beyond it.</p><ul class="next-list">${nexts.join("")}</ul>`;
-  if (A.hero) h += `<p class="note">You've earned every badge: All Round Data Hero.</p>`;
+  if (nexts.length) h += `<h3>Where to take it next</h3><p class="lead">In the trees, and beyond them.</p><ul class="next-list">${nexts.join("")}</ul>`;
+  if (A.hero) h += `<p class="note">You've earned every badge in all four trees: ${esc(J.hero.label)}.</p>`;
   host.innerHTML = h;
 }
 function readoutText(){
@@ -637,16 +645,16 @@ function readoutText(){
     const e = A.earned.filter(b => themeOf(b) === tid), p = A.inProg.filter(b => themeOf(b) === tid);
     if (!e.length && !p.length) continue;
     L.push("", themeLabel(tid)); e.forEach(b => L.push(`- ${b.cv || b.label}`));
-    p.forEach(b => { const [k, n] = badgeProgress(b.id); L.push(`- Developing: ${b.label} (${k} of ${n} skills)`); });
+    p.forEach(b => { const [k, n] = prog(b.id); L.push(`- Developing: ${b.label} (${k} of ${n} skills)`); });
   }
-  if (A.earned.some(b => b.story)){ L.push("", "STORIES TO PREPARE");
-    A.earned.filter(b => b.story).forEach(b => { L.push("", `${b.label}: ${b.story}`); const v = (progress.stories[b.id] || "").trim(); if (v) L.push(v); }); }
+  const sb = A.earned.filter(b => b.story);
+  if (sb.length){ L.push("", "STORIES TO PREPARE"); sb.forEach(b => { L.push("", `${b.label}: ${b.story}`); const v = (progress.stories[b.series ? "series-" + b.series : b.id] || "").trim(); if (v) L.push(v); }); }
   const kw = [...new Set(A.earned.flatMap(b => b.keywords || []))]; if (kw.length) L.push("", "KEYWORDS", kw.join(", "));
   const nx = [];
-  A.inProg.forEach(b => nx.push(`- Finish ${b.label}: ${(members[b.id] || []).filter(s => !ticked.has(s)).map(s => idx[s].label).join(", ")}`));
+  A.inProg.forEach(b => nx.push(`- Finish ${b.label}: ${b.skills.filter(s => !ticked.has(s)).map(s => SK[s].label).join(", ")}`));
   A.earned.filter(b => b.next).slice(0, 4).forEach(b => nx.push(`- Beyond the unit (${b.label}): ${b.next}`));
   if (nx.length) L.push("", "WHERE TO TAKE IT NEXT", ...nx);
-  L.push("", "Made with the skills tree at jamesfreemanhistorian.com/tools/age-of-data-skills/");
+  L.push("", "Made with the skill trees at jamesfreemanhistorian.com/tools/age-of-data-skills/");
   return L.join("\n");
 }
 
@@ -654,32 +662,26 @@ function readoutText(){
 const fileStem = () => "age-of-data-skills" + (progress.name.trim() ? "-" + progress.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "");
 function saveBlob(blob, name){ const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); }
 const today = () => new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-
 function downloadCsv(){
   const q = v => { v = String(v ?? ""); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
-  const rows = [["Stage", "Row", "Badge", "Badge path", "Badge earned", "Skill", "Skill path", "Description", "Learned"]];
-  for (const bid of Object.keys(J.placements).filter(id => idx[id])){
-    const b = idx[bid], p = J.placements[bid], lane = (J.lanes.find(l => l.id === p[1]) || {}).label;
-    for (const sid of members[bid] || []){ const s = idx[sid];
-      rows.push([stageLabel(p[0]), lane, b.label, b.tier, doneSet.has(bid) ? "Yes" : "No", s.label, s.tier, s.desc || "", ticked.has(sid) ? "Yes" : "No"]); }
-  }
+  const rows = [["Tree", "Badge", "Stage or week", "Badge path", "Badge earned", "Skill", "Description", "Learned"]];
+  for (const t of J.trees) for (const e of t.badges){ const b = BD[e.id];
+    for (const sid of b.skills){ const s = SK[sid];
+      rows.push([t.label, b.label, b.stage ? stageLabel(b.stage) : b.week ? "Week " + b.week : "", b.tier, done(b.id) ? "Yes" : "No", s.label, s.desc, ticked.has(sid) ? "Yes" : "No"]); } }
   saveBlob(new Blob(["﻿" + rows.map(r => r.map(q).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" }), fileStem() + ".csv");
   toast("Spreadsheet downloaded");
 }
 function buildRecord(){
-  const A = analyse(), name = progress.name.trim(), skills = data.nodes.filter(n => n.type === "skill");
+  const A = analyse(), name = progress.name.trim(), total = Object.values(SK).filter(s => s.badge).length;
   let h = `<h1>${esc(J.title)}</h1><p class="sub2">${esc((name ? name + " · " : "") + "Skills record · " + today())}</p>
-    <div class="totals"><div><b>${A.skills.length} of ${skills.length}</b>skills</div><div><b>${A.earned.length} of ${badges().length}</b>badges earned</div></div>`;
-  J.stages.forEach((st, i) => {
-    h += `<h2>${i + 1}. ${esc(st.label)}</h2>`;
-    if (J.lens[st.id]) h += `<p class="lensline">Critical lens: ${esc(J.lens[st.id].question)}</p>`;
-    for (const l of J.lanes) for (const b of cellBadges(st.id, l.id)){
-      const [k, t] = badgeProgress(b.id);
-      h += `<div class="rb"><h3>${esc(b.label)} <small>${esc(l.label)}${b.tier === "stretch" ? " · stretch" : ""} · ${k}/${t}${doneSet.has(b.id) ? " · <b>badge earned</b>" : ""}</small></h3><ul>`
-        + (members[b.id] || []).map(s => `<li>${ticked.has(s) ? "☑" : "☐"} ${esc(idx[s].label)}</li>`).join("") + `</ul></div>`;
-    }
-  });
-  h += `<p class="sub2" style="margin-top:1rem">☑ skill learned · ☐ not yet. Made with the skills tree at jamesfreemanhistorian.com/tools/age-of-data-skills/</p>`;
+    <div class="totals"><div><b>${A.skills.length} of ${total}</b>skills</div><div><b>${allBadges().filter(b => done(b.id)).length} of ${allBadges().length}</b>badges earned</div></div>`;
+  for (const t of J.trees){
+    h += `<h2>${esc(t.label)}</h2>`;
+    for (const e of t.badges){ const b = BD[e.id], [k, n] = prog(b.id);
+      h += `<div class="rb"><h3>${esc(b.label)} <small>${esc([b.stage ? stageLabel(b.stage) : null, b.week ? "Week " + b.week : null, b.tier === "stretch" ? "stretch" : null].filter(Boolean).join(" · "))} · ${k}/${n}${done(b.id) ? " · <b>badge earned</b>" : ""}</small></h3><ul>`
+        + b.skills.map(s => `<li>${ticked.has(s) ? "☑" : "☐"} ${esc(SK[s].label)}</li>`).join("") + `</ul></div>`; }
+  }
+  h += `<p class="sub2" style="margin-top:1rem">☑ skill learned · ☐ not yet. Made with the skill trees at jamesfreemanhistorian.com/tools/age-of-data-skills/</p>`;
   $("#record").innerHTML = h;
 }
 function printAs(kind){
@@ -689,118 +691,52 @@ function printAs(kind){
   window.print();
 }
 window.addEventListener("afterprint", () => document.body.classList.remove("print-record", "print-readout"));
-
-/* The image is drawn from the tree as laid out on screen, with every badge closed */
 async function downloadPng(){
-  try { if (document.fonts) await document.fonts.ready; } catch(e){}
-  const wasOpen = [...open]; open.clear(); renderMap();
-  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-  drawRails();
-  const map = $("#map"), mr = map.getBoundingClientRect();
-  const SANS = '"Geist", system-ui, -apple-system, "Segoe UI", sans-serif', SERIF = '"Newsreader", Georgia, serif';
-  const pad = 40, headH = 112, keyH = 84, W = Math.round(mr.width + pad * 2), H = Math.round(headH + mr.height + keyH);
-  const c = document.createElement("canvas"), x = c.getContext("2d"), S = 2;
-  c.width = W * S; c.height = H * S; x.scale(S, S);
-  const wrap = (text, font, maxW) => { x.font = font; const words = String(text).split(/\s+/), lines = []; let cur = "";
-    for (const w of words){ const t = cur ? cur + " " + w : w; if (x.measureText(t).width <= maxW || !cur) cur = t; else { lines.push(cur); cur = w; } } if (cur) lines.push(cur); return lines; };
-  const R = el => { const r = el.getBoundingClientRect(); return { x: r.left - mr.left + pad, y: r.top - mr.top + headH, w: r.width, h: r.height }; };
-  const rr = (X, Y, w, h, r) => { x.beginPath(); x.moveTo(X + r, Y); x.arcTo(X + w, Y, X + w, Y + h, r); x.arcTo(X + w, Y + h, X, Y + h, r); x.arcTo(X, Y + h, X, Y, r); x.arcTo(X, Y, X + w, Y, r); x.closePath(); };
-  const mix = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
-  x.fillStyle = "#FBFAFC"; x.fillRect(0, 0, W, H);
-  const A = analyse(), name = progress.name.trim();
-  x.fillStyle = "#0F2B22"; x.fillRect(0, 0, W, headH - 26);
-  x.fillStyle = "#fff"; x.font = `300 34px ${SERIF}`; x.fillText(J.title, pad, 48);
-  x.fillStyle = "#BFD8CB"; x.font = `400 15px ${SANS}`;
-  x.fillText(`${name ? name + "  ·  " : ""}${A.skills.length} of ${data.nodes.filter(n => n.type === "skill").length} skills  ·  ${A.earned.length} of ${badges().length} badges earned  ·  ${today()}`, pad, 74);
-  map.querySelectorAll(".cell.lane-lens").forEach(el => { const r = R(el); x.fillStyle = "#FFF6EE"; x.fillRect(r.x, r.y, r.w + 1, r.h); });
-  x.strokeStyle = "#E4E0EA"; x.lineWidth = 1;
-  map.querySelectorAll(".cell,.lane-h").forEach(el => { const r = R(el); x.beginPath(); x.moveTo(r.x, r.y + .5); x.lineTo(r.x + r.w, r.y + .5); x.stroke(); });
-  map.querySelectorAll(".stage .stage-h").forEach(el => {
-    const r = R(el), sn = R(el.querySelector(".sn")), cp = R(el.querySelector(".caps"));
-    x.fillStyle = "#B4ACC0"; x.font = `300 26px ${SERIF}`; x.fillText(el.querySelector(".sn").textContent, sn.x, sn.y + sn.h - 4);
-    x.fillStyle = "#211A29"; x.font = `700 12.5px ${SANS}`; x.fillText(el.querySelector(".caps").textContent.toUpperCase(), cp.x, cp.y + cp.h - 3);
-    const sb = R(el.querySelector(".sb"));
-    x.fillStyle = "#56635C"; wrap(el.querySelector(".sb").textContent, `400 12px ${SANS}`, sb.w + 1).forEach((ln, i) => { x.font = `400 12px ${SANS}`; x.fillText(ln, sb.x, sb.y + 12 + i * 15.6); });
-    const bar = R(el.querySelector(".bar")), fill = parseFloat(el.querySelector(".bar i").style.width) || 0;
-    x.fillStyle = "#E4E0EA"; rr(bar.x, bar.y, bar.w, 3, 1.5); x.fill(); if (fill){ x.fillStyle = "#7C4DDB"; rr(bar.x, bar.y, Math.max(3, bar.w * fill / 100), 3, 1.5); x.fill(); }
+  const cellW = 900, gap = 24, pad = 40, headH = 120;
+  const imgs = await Promise.all(J.trees.map(t => new Promise((res, rej) => {
+    const im = new Image(); const url = URL.createObjectURL(new Blob([treeSVG(t, { export: true })], { type: "image/svg+xml" }));
+    im.onload = () => { URL.revokeObjectURL(url); res({ t, im }); }; im.onerror = rej; im.src = url;
+  })));
+  const scaled = imgs.map(({ t, im }) => ({ t, im, w: cellW, h: cellW * t.h / t.w }));
+  const row1 = Math.max(scaled[0].h, scaled[1].h) + 44, row2 = Math.max(scaled[2].h, scaled[3].h) + 44;
+  const W = pad * 2 + cellW * 2 + gap, H = headH + row1 + gap + row2 + 60, S = 1.5;
+  const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = W * S; c.height = H * S; x.scale(S, S);
+  x.fillStyle = "#120F17"; x.fillRect(0, 0, W, H);
+  const A = analyse(), name = progress.name.trim(), total = Object.values(SK).filter(s => s.badge).length;
+  x.fillStyle = "#fff"; x.font = "300 40px Newsreader, Georgia, serif"; x.fillText(J.title, pad, 62);
+  x.fillStyle = "#C9C2D6"; x.font = "400 17px Geist, Helvetica, Arial, sans-serif";
+  x.fillText(`${name ? name + "  ·  " : ""}${A.skills.length} of ${total} skills  ·  ${allBadges().filter(b => done(b.id)).length} of ${allBadges().length} badges earned  ·  ${today()}`, pad, 94);
+  scaled.forEach((s, i) => {
+    const cx = pad + (i % 2) * (cellW + gap), cy = headH + (i < 2 ? 0 : row1 + gap), [k, n] = treeProgress(s.t);
+    x.fillStyle = s.t.colour; x.font = "700 13px Geist, Helvetica, Arial, sans-serif"; x.fillText(s.t.label.toUpperCase(), cx, cy + 16);
+    x.fillStyle = "#8E86A0"; x.font = "400 13px Geist, Helvetica, Arial, sans-serif"; x.fillText(`${k} of ${n} badges`, cx + x.measureText(s.t.label.toUpperCase()).width + 70, cy + 16);
+    x.save(); x.beginPath(); x.roundRect ? x.roundRect(cx, cy + 30, s.w, s.h, 14) : x.rect(cx, cy + 30, s.w, s.h); x.clip(); x.drawImage(s.im, cx, cy + 30, s.w, s.h); x.restore();
   });
-  map.querySelectorAll(".lanes-col .lane-h").forEach(el => {
-    const r = R(el), lens = el.classList.contains("lane-lens");
-    x.fillStyle = lens ? "#9A4210" : "#211A29"; x.font = `700 11.5px ${SANS}`; x.fillText(el.querySelector(".caps").textContent.toUpperCase(), r.x, r.y + 27);
-    x.fillStyle = "#56635C"; wrap(el.querySelectorAll("span")[1].textContent, `400 11.8px ${SANS}`, r.w - 13).forEach((ln, i) => { x.font = `400 11.8px ${SANS}`; x.fillText(ln, r.x, r.y + 46 + i * 15.5); });
-  });
-  for (const rl of railData){
-    x.save(); x.translate(pad, headH); x.lineCap = "round"; x.lineJoin = "round";
-    if (rl.style === "core"){ x.strokeStyle = mix("#7C4DDB", rl.lit ? 1 : .35); x.lineWidth = rl.lit ? 2.6 : 2.2; x.setLineDash([]); }
-    else { x.strokeStyle = rl.lit ? "#8C8597" : "#BDB6C8"; x.lineWidth = 2.2; x.setLineDash(rl.lit ? [] : [4, 5]); }
-    x.stroke(new Path2D(rl.d)); x.setLineDash([]);
-    if (rl.cross && rl.style === "core"){ const [ax, ay] = rl.pts[rl.pts.length - 1]; x.fillStyle = mix("#7C4DDB", rl.lit ? 1 : .35); x.beginPath(); x.moveTo(ax - 8, ay - 4.5); x.lineTo(ax - 1, ay); x.lineTo(ax - 8, ay + 4.5); x.closePath(); x.fill(); }
-    x.restore();
-  }
-  map.querySelectorAll(".lensbox").forEach(el => {
-    const q = el.querySelector(".q"), rq = R(q); x.fillStyle = "#9A4210";
-    wrap(q.textContent, `italic 400 14.4px ${SERIF}`, rq.w + 1).forEach((ln, i) => { x.font = `italic 400 14.4px ${SERIF}`; x.fillText(ln, rq.x, rq.y + 14 + i * 18.7); });
-    el.querySelectorAll(".sub").forEach(sb => { const r = R(sb), on = sb.getAttribute("aria-pressed") === "true", tx = R(sb.lastElementChild), dt = R(sb.querySelector(".dot"));
-      x.fillStyle = on ? mix("#EC6A2C", .12) : "rgba(255,255,255,.75)"; rr(r.x, r.y, r.w, r.h, 9); x.fill();
-      x.beginPath(); x.arc(dt.x + dt.w / 2, dt.y + dt.h / 2, dt.w / 2 - .8, 0, Math.PI * 2); x.fillStyle = on ? "#EC6A2C" : "#fff"; x.fill(); x.strokeStyle = on ? "#EC6A2C" : "#B9B1C6"; x.lineWidth = 1.6; x.stroke();
-      x.fillStyle = "#211A29"; wrap(sb.textContent, `400 12.8px ${SANS}`, tx.w + 1).forEach((ln, i) => { x.font = `400 12.8px ${SANS}`; x.fillText(ln, tx.x, tx.y + 12 + i * 16.6); }); });
-  });
-  for (const el of map.querySelectorAll(".nd[data-badge]")){
-    const b = idx[el.dataset.badge], r = R(el), col = colourOf(b), done = doneSet.has(b.id), st = b.tier === "stretch", nxt = el.classList.contains("next");
-    const [k, t] = badgeProgress(b.id), m = members[b.id] || [];
-    if (nxt){ rr(r.x - 3, r.y - 3, r.w + 6, r.h + 6, 17); x.fillStyle = mix(col, .16); x.fill(); }
-    rr(r.x, r.y, r.w, r.h, 14);
-    x.fillStyle = done ? "#211A29" : (st ? "rgba(255,255,255,.6)" : "#fff"); x.fill();
-    x.setLineDash(st && !done ? [4, 3] : []); x.strokeStyle = done ? "#211A29" : nxt ? col : (st ? "#CFC8D9" : "#E4E0EA"); x.lineWidth = 1; x.stroke(); x.setLineDash([]);
-    const em = R(el.querySelector(".emb")), ex = em.x + em.w / 2, ey = em.y + em.h / 2, sc = em.w / 42;
-    x.beginPath(); x.arc(ex, ey, 18 * sc, 0, Math.PI * 2); x.strokeStyle = done ? "rgba(255,255,255,.14)" : "#E4E0EA"; x.lineWidth = 3; x.stroke();
-    if (k){ x.beginPath(); x.arc(ex, ey, 18 * sc, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * k / t); x.strokeStyle = col; x.lineCap = "round"; x.stroke(); x.lineCap = "butt"; }
-    x.beginPath(); x.arc(ex, ey, 14 * sc, 0, Math.PI * 2); x.fillStyle = done ? col : mix(col, .12); x.fill();
-    const ico = (J.icons || {})[b.strand];
-    if (ico){ x.save(); x.translate(ex - 8.4 * sc, ey - 8.4 * sc); x.scale(.7 * sc, .7 * sc); x.strokeStyle = done ? "#fff" : col; x.lineWidth = 2.2; x.lineCap = "round"; x.lineJoin = "round"; x.stroke(new Path2D(ico)); x.restore(); }
-    const rn = R(el.querySelector(".nm"));
-    x.fillStyle = done ? "#fff" : "#211A29";
-    wrap(b.label, `600 13.8px ${SANS}`, rn.w + 1).forEach((ln, i) => { x.font = `600 13.8px ${SANS}`; x.fillText(ln, rn.x, rn.y + 12.5 + i * 16.8); });
-    const pp = el.querySelector(".pips");
-    m.forEach((s, i) => { const pe = pp.children[i]; if (!pe) return; const q = R(pe); x.fillStyle = (done || ticked.has(s)) ? col : "#E4E0EA"; rr(q.x, q.y, q.w, q.h, 2); x.fill(); });
-    const cn = R(el.querySelector(".cnt")); x.fillStyle = done ? "rgba(255,255,255,.65)" : "#8C8597"; x.font = `400 11.2px ${SANS}`; x.fillText(`${k}/${t}`, cn.x, cn.y + cn.h - 3);
-    const fl = el.querySelector(".flag");
-    if (fl && getComputedStyle(fl).display !== "none"){ const rf = R(fl), isSt = fl.classList.contains("st");
-      rr(rf.x, rf.y, rf.w, rf.h, 5); x.fillStyle = isSt ? "#fff" : col; x.fill(); if (isSt){ x.setLineDash([3, 2]); x.strokeStyle = "#CFC8D9"; x.lineWidth = 1; x.stroke(); x.setLineDash([]); }
-      x.fillStyle = isSt ? "#8C8597" : "#fff"; x.font = `700 9.3px ${SANS}`; x.fillText(fl.textContent.toUpperCase(), rf.x + 7, rf.y + rf.h - 4.3); }
-  }
-  let ky = headH + mr.height + 46, kx = pad;
-  const keyItem = (draw, label, w) => { draw(kx, ky); x.fillStyle = "#211A29"; x.font = `400 14px ${SANS}`; x.fillText(label, kx + w + 10, ky + 5); kx += w + 10 + x.measureText(label).width + 34; };
-  keyItem((X, Y) => { x.beginPath(); x.moveTo(X, Y); x.lineTo(X + 36, Y); x.lineWidth = 2.6; x.strokeStyle = "#7C4DDB"; x.stroke(); x.fillStyle = "#7C4DDB"; x.beginPath(); x.moveTo(X + 35, Y - 4.5); x.lineTo(X + 42, Y); x.lineTo(X + 35, Y + 4.5); x.fill(); }, "Where everyone will get to", 42);
-  keyItem((X, Y) => { x.beginPath(); x.moveTo(X, Y); x.lineTo(X + 40, Y); x.lineWidth = 2.2; x.strokeStyle = "#BDB6C8"; x.setLineDash([4, 5]); x.stroke(); x.setLineDash([]); }, "How you can take things further", 42);
-  keyItem((X, Y) => { rr(X, Y - 8, 26, 16, 5); x.fillStyle = "#211A29"; x.fill(); }, "Badge earned", 26);
-  x.fillStyle = "#56635C"; x.font = `400 13px ${SANS}`; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", W - pad, ky + 5); x.textAlign = "left";
-  wasOpen.forEach(id => open.add(id)); renderMap();
+  x.fillStyle = "#8E86A0"; x.font = "400 13px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", W - pad, H - 24);
   c.toBlob(bl => { saveBlob(bl, fileStem() + ".png"); toast("Image downloaded"); }, "image/png");
 }
-
-$("#dlPng").onclick = () => downloadPng();
+$("#dlPng").onclick = () => downloadPng().catch(() => toast("Sorry, the image couldn't be made in this browser"));
 $("#dlCsv").onclick = downloadCsv;
 $("#dlRecord").onclick = () => printAs("record");
 $("#printBtn").onclick = () => printAs("readout");
 $("#copyText").onclick = async () => { try { await navigator.clipboard.writeText(readoutText()); toast("Read-out copied"); } catch(e){ toast("Couldn't copy: try Download instead"); } };
-$("#downloadText").onclick = () => { saveBlob(new Blob([readoutText()], { type: "text/plain;charset=utf-8" }), fileStem() + "-readout.txt"); };
+$("#downloadText").onclick = () => saveBlob(new Blob([readoutText()], { type: "text/plain;charset=utf-8" }), fileStem() + "-readout.txt");
 let storyTimer;
 $("#readout").addEventListener("input", e => { const id = e.target.dataset.story; if (!id) return; progress.stories[id] = e.target.value; clearTimeout(storyTimer); storyTimer = setTimeout(saveProgress, 300); });
 $("#studentName").addEventListener("input", e => { progress.name = e.target.value; saveProgress(); });
 
-/* ===== Render ===== */
-function renderAll(){ reindex(); computeDone(); renderMap(); renderStats(); renderReadout(); }
+/* ===== Boot ===== */
 (async function boot(){
   try{
     const [a, b] = await Promise.all([fetch("../skills.json", { cache: "no-cache" }), fetch("journey.json", { cache: "no-cache" })]);
     if (!a.ok || !b.ok) throw new Error("load");
     data = await a.json(); J = await b.json();
-  } catch(err){ $("#map").innerHTML = `<div class="loading">The skills tree couldn't be loaded. Try refreshing the page.</div>`; return; }
+  } catch(err){ $("#canvas").innerHTML = `<div class="loading">The skill trees couldn't be loaded. Try refreshing the page.</div>`; return; }
+  build();
   $("#title").textContent = J.title; $("#intro").textContent = J.intro || "";
   $("#studentName").value = progress.name;
-  renderAll();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawRails);
+  switchTree("project"); renderStats(); renderReadout();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { wrapCache.clear(); renderTree(); });
 })();
 </script>
 </body>
