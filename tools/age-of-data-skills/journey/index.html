@@ -44,7 +44,31 @@
   .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:3.5rem;align-items:center}
   .hero h1{font-weight:300;font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1;letter-spacing:-.035em;margin:0 0 1.1rem}
   .hero-lede{font-family:var(--serif);font-weight:300;font-size:clamp(1.15rem,1.9vw,1.42rem);line-height:1.38;margin:0 0 1rem;max-width:44rem}
-  .hero-note{color:var(--mint);font-size:.93rem;margin:0;max-width:36rem}
+  .hero-note{color:var(--mint);font-size:.86rem;margin:.8rem 0 0;max-width:38rem}
+  .hero-tools{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin:1.3rem 0 0}
+  .hgroup{display:inline-flex;flex-wrap:wrap;gap:.4rem}
+  .hbtn{display:inline-flex;align-items:center;gap:.45rem;font:500 .86rem/1.2 var(--sans);cursor:pointer;border-radius:999px;padding:.42rem .9rem;border:1px solid rgba(191,216,203,.45);background:transparent;color:#fff;transition:background .15s,border-color .15s}
+  .hbtn:hover{background:rgba(255,255,255,.1);border-color:var(--mint)}
+  .hbtn.tour{background:var(--mint);color:var(--forest);border-color:var(--mint);font-weight:600}
+  .hbtn.tour:hover{background:#fff}
+  .hbtn.tour.new{box-shadow:0 0 0 0 rgba(191,216,203,.7);animation:nudge 2s ease-out 3}
+  @keyframes nudge{0%{box-shadow:0 0 0 0 rgba(191,216,203,.7)}100%{box-shadow:0 0 0 14px rgba(191,216,203,0)}}
+  .toast .act{margin-left:.7rem;border:0;background:none;color:#F6C76B;font:600 .88rem var(--sans);cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
+  .toast.actionable{pointer-events:auto}
+  /* guided tour */
+  .tour-block{position:fixed;inset:0;z-index:80}
+  .tour-spot{position:fixed;z-index:81;border-radius:14px;box-shadow:0 0 0 9999px rgba(12,9,17,.66);outline:2px solid #F6C76B;outline-offset:2px;pointer-events:none;transition:all .3s ease}
+  .tour-spot.none{width:0;height:0;left:50%;top:45%;outline:0}
+  .tour-pop{position:fixed;z-index:82;width:min(23rem,calc(100vw - 24px));background:#fff;color:var(--ink);border-radius:16px;padding:1rem 1.1rem .9rem;box-shadow:0 18px 50px rgba(0,0,0,.35);transition:top .3s ease,left .3s ease}
+  .tour-pop .k{font:700 .66rem var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--slate)}
+  .tour-pop h3{font:400 1.35rem/1.2 var(--serif);margin:.2rem 0 .4rem}
+  .tour-pop p{margin:0;font-size:.92rem;line-height:1.5;color:#2D3732}
+  .tour-pop .nav{display:flex;align-items:center;gap:.5rem;margin-top:.9rem}
+  .tour-pop .nav .skip{margin-right:auto;border:0;background:none;color:var(--slate);font:500 .84rem var(--sans);cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:.2em}
+  .tour-pop .dots{display:flex;gap:4px;margin-right:.4rem}
+  .tour-pop .dots i{width:6px;height:6px;border-radius:50%;background:#D8E0DB}
+  .tour-pop .dots i.on{background:var(--green)}
+  @media (prefers-reduced-motion:reduce){.tour-spot,.tour-pop{transition:none}.hbtn.tour.new{animation:none}}
   .stat-card{background:var(--forest-2);border-radius:20px;padding:1.35rem 1.4rem 1.25rem}
   .stat-big{font-family:var(--serif);font-weight:300;font-size:3rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
   .stat-big small{font-size:1.1rem;color:var(--mint);letter-spacing:0;margin-left:.25rem}
@@ -93,6 +117,7 @@
   @media (max-width:1000px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.apex{grid-column:1 / -1}}
 
   .stage{display:grid;grid-template-columns:minmax(0,1fr) 23rem;gap:1rem;align-items:start}
+  .world-host{height:100%}
   @media (max-width:1000px){.stage{grid-template-columns:minmax(0,1fr)}}
   .canvas{position:relative;border:1px solid var(--edge);border-radius:18px;overflow-x:auto;overflow-y:hidden;min-height:260px;transition:height .35s ease,background .4s;
     background:radial-gradient(120% 85% at 50% 108%,color-mix(in srgb,var(--c,#7C4DDB) 30%,transparent),transparent 62%),
@@ -141,7 +166,7 @@
   .tip.show{opacity:1}
   .tip small{display:block;color:var(--dim);font-size:.72rem}
 
-  .panel{position:sticky;top:1rem;background:var(--panel);border:1px solid var(--edge);border-radius:18px;padding:1.1rem 1.15rem 1.2rem;max-height:calc(100vh - 2rem);overflow:auto}
+  .panel{position:sticky;top:1rem;transition:height .35s ease;background:var(--panel);border:1px solid var(--edge);border-radius:18px;padding:1.1rem 1.15rem 1.2rem;max-height:calc(100vh - 2rem);overflow:auto}
   @media (max-width:1000px){.panel{position:static;max-height:none}}
   .pn-k{color:var(--c);font:700 .66rem/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase}
   .panel h3{font:400 1.7rem/1.1 var(--serif);color:#fff;margin:.3rem 0 .35rem}
@@ -288,7 +313,12 @@
     <div>
       <h1 id="title">Arts in the Age of Data: skill trees</h1>
       <p class="hero-lede" id="intro"></p>
-      <p class="hero-note">Your ticks and notes are saved in this browser on this device only. Nothing is sent anywhere.</p>
+      <div class="hero-tools">
+        <button type="button" class="hbtn tour" id="tourBtn"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.4 5.2 L11 8 L6.4 10.8z" fill="currentColor"/></svg>Take the tour</button>
+        <span class="hgroup" id="progressTools"><button type="button" class="hbtn" id="saveBtn">Save progress</button><button type="button" class="hbtn" id="loadBtn">Load progress</button><button type="button" class="hbtn" id="resetBtn">Reset</button></span>
+        <input type="file" id="loadFile" accept=".json,application/json" hidden>
+      </div>
+      <p class="hero-note">Your ticks and notes are saved in this browser on this device only, and nothing is sent anywhere. Save a progress file to keep a copy or carry on from another computer.</p>
     </div>
     <div class="stat-card" aria-live="polite">
       <div class="stat-big"><span id="statSkills">0</span><small>of <span id="statTotal">0</span> skills</small></div>
@@ -315,12 +345,12 @@
         </div>
         <aside class="panel" id="panel" aria-live="polite"></aside>
       </div>
-      <div class="legend">
+      <div class="legend" id="legend">
         <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#14998F"/><circle r="10" fill="none" stroke="#14998F" stroke-width="1.6"/></svg>Badge earned</span>
         <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#241E2C"/><circle r="10" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="2 3"/></svg>Ready to start</span>
         <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#1B1721"/><circle r="10" fill="none" stroke="#3A3344" stroke-width="1.6"/></svg>Builds on an earlier badge</span>
         <span><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#14998F"/></svg><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#16121C" stroke="#14998F" stroke-width="1.4"/></svg>A skill: learned, not yet</span>
-        <span><svg width="24" height="24" viewBox="-12 -12 24 24" aria-hidden="true"><circle r="9" fill="#2A2334"/><circle r="9" fill="url(#hatch-key)"/><circle r="11" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="3 3"/></svg>Extension: beyond the unit, optional</span>
+        <span id="legendExt"><svg width="24" height="24" viewBox="-12 -12 24 24" aria-hidden="true"><circle r="9" fill="#2A2334"/><circle r="9" fill="url(#hatch-key)"/><circle r="11" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="3 3"/></svg>Extension: beyond the unit, optional</span>
         <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-key" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.2" height="5" fill="#fff" fill-opacity=".22"/></pattern></defs></svg>
       </div>
     </div>
@@ -376,7 +406,12 @@ const store = {
 };
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function toast(html){ const t = $("#toast"); t.innerHTML = html; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200); }
+function toastAction(html, label, fn){
+  const t = $("#toast"); t.innerHTML = html + ` <button type="button" class="act">${esc(label)}</button>`; t.classList.add("show", "actionable");
+  t.querySelector(".act").onclick = () => { fn(); t.classList.remove("show", "actionable"); };
+  clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show", "actionable"), 7000);
+}
+function toast(html){ $("#toast").classList.remove("actionable"); const t = $("#toast"); t.innerHTML = html; t.classList.add("show"); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove("show"), 2200); }
 
 let data = null, J = null;
 const SK = {}, BD = {}, TR = {};
@@ -649,12 +684,23 @@ function renderTree(){
 function fitCanvas(px){
   const c = $("#canvas"); c.style.height = Math.round(px) + "px";
 }
+let treeH = 0;
+const sideBySide = () => window.matchMedia("(min-width: 1001px)").matches;
+/* Side by side, the tree and its panel share one height: at least the tree, or the panel's list of skills
+   up to most of the screen (the panel scrolls beyond that), so a small tree doesn't sit beside a long list. */
+function syncHeights(){
+  const p = $("#panel");
+  if (current === "all" || !sideBySide()){ p.style.height = ""; p.style.maxHeight = ""; if (current !== "all") fitCanvas(treeH); return; }
+  p.style.height = "auto"; p.style.maxHeight = "none";
+  const H = Math.round(Math.max(treeH, Math.min(p.scrollHeight, window.innerHeight * .86), 560));
+  fitCanvas(H); p.style.height = H + "px"; p.style.maxHeight = H + "px";
+}
 function sizeTree(L){
   const c = $("#canvas"), host = $("#worldHost"), svg = host.querySelector("svg");
   const w = Math.round(L.box.w * L.scale), h = Math.round(L.box.h * L.scale);
   svg.setAttribute("width", w); svg.setAttribute("height", h);
   host.style.minHeight = "";
-  fitCanvas(h + 34);
+  treeH = h + 34; syncHeights();
   if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;
 }
 function sizeHero(){
@@ -697,6 +743,12 @@ function renderOverview(){
     + (nextUp.length ? `<div class="pn-h ready">Ready to start</div><div class="links">${nextUp.map(b => linkBtn(b.id)).join("")}</div>` : "");
 }
 function renderPanel(){
+  const p0 = $("#panel"), keep = p0.scrollTop, same = renderPanel.last === (current === "all" ? "all" : selected);
+  renderPanel.last = current === "all" ? "all" : selected;
+  renderPanelInner(); syncHeights();
+  if (same) p0.scrollTop = keep; else p0.scrollTop = 0;
+}
+function renderPanelInner(){
   if (current === "all") return renderOverview();
   const p = $("#panel"), b = BD[selected];
   if (!b){ p.innerHTML = `<p class="pn-blurb">Pick a badge on the tree.</p>`; return; }
@@ -978,6 +1030,102 @@ $("#readout").addEventListener("click", e => { const g = e.target.closest("[data
 $("#readout").addEventListener("input", e => { const r = e.target.dataset.reflect; if (r){ progress.reflect[r] = e.target.value; clearTimeout(storyTimer); storyTimer = setTimeout(saveProgress, 300); return; } const id = e.target.dataset.story; if (!id) return; progress.stories[id] = e.target.value; clearTimeout(storyTimer); storyTimer = setTimeout(saveProgress, 300); });
 $("#studentName").addEventListener("input", e => { progress.name = e.target.value; saveProgress(); });
 
+/* ===== Progress: reset, save to a file, load from a file ===== */
+function refreshAll(){ renderTabs(); renderTree(); renderPanel(); renderStats(); renderReadout(); $("#studentName").value = progress.name || ""; }
+function snapshotProgress(){ return JSON.stringify({ ticked: [...ticked], stories: progress.stories, reflect: progress.reflect, name: progress.name }); }
+function restoreProgress(snap){ const o = JSON.parse(snap); ticked.clear(); o.ticked.forEach(x => ticked.add(x)); Object.assign(progress, { stories: o.stories || {}, reflect: o.reflect || {}, name: o.name || "" }); saveProgress(); refreshAll(); }
+$("#resetBtn").onclick = () => {
+  if (!ticked.size){ toast("Nothing to reset: no skills are ticked"); return; }
+  if (!confirm(`Untick all ${ticked.size} skills across the four trees?\n\nYour notes are kept. You can undo straight afterwards.`)) return;
+  const before = snapshotProgress(); ticked.clear(); saveProgress(); refreshAll();
+  toastAction("All skills unticked.", "Undo", () => { restoreProgress(before); toast("Ticks restored"); });
+};
+$("#saveBtn").onclick = () => {
+  const file = { type: "age-of-data-skill-trees-progress", version: 1, savedAt: new Date().toISOString(), name: progress.name || "", ticked: [...ticked], stories: progress.stories, reflect: progress.reflect };
+  const stem = "age-of-data-progress" + (progress.name.trim() ? "-" + progress.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "") + "-" + new Date().toISOString().slice(0, 10);
+  saveBlob(new Blob([JSON.stringify(file, null, 1)], { type: "application/json" }), stem + ".json");
+  toast("Progress saved to your downloads");
+};
+$("#loadBtn").onclick = () => $("#loadFile").click();
+$("#loadFile").addEventListener("change", e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    let o; try { o = JSON.parse(r.result); } catch(err){ o = null; }
+    if (!o || o.type !== "age-of-data-skill-trees-progress" || !Array.isArray(o.ticked)){ alert("That file isn't a progress file from these skill trees."); return; }
+    const known = o.ticked.filter(x => SK[x] && SK[x].badge).length, when = o.savedAt ? new Date(o.savedAt).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }) : "an earlier date";
+    if (ticked.size && !confirm(`Load the progress saved on ${when}${o.name ? ` by ${o.name}` : ""} (${known} skills ticked)?\n\nThis replaces what's in this browser now. You can undo straight afterwards.`)) return;
+    const before = snapshotProgress();
+    ticked.clear(); o.ticked.forEach(x => typeof x === "string" && ticked.add(x));
+    progress.stories = o.stories && typeof o.stories === "object" ? o.stories : {}; progress.reflect = o.reflect && typeof o.reflect === "object" ? o.reflect : {};
+    if (o.name) progress.name = String(o.name);
+    saveProgress(); refreshAll();
+    toastAction(`Progress loaded: ${known} skills ticked.`, "Undo", () => { restoreProgress(before); toast("Back to how it was"); });
+  };
+  r.readAsText(f);
+});
+
+/* ===== Guided tour ===== */
+const TOUR = [
+  { title: "Welcome", text: "This short tour shows you how to record the skills you build on the unit, and how to turn them into something you can use. It takes about a minute." },
+  { sel: "#tabs [data-tree='project']", title: "Four skill trees", text: "The Project, the Critical Lens, Tools and Teamwork each have their own tree. The bar on each tab shows your progress in it.", before: () => switchTree("project", "launch") },
+  { sel: "#worldHost .bd[data-badge='launch']", pad: 26, title: "Badges and skills", text: "Each large circle is a badge. The small circles around it are its skills. Trees grow upwards: start at the bottom and work up. Click a badge to open it." },
+  { sel: "#panel .rows", title: "Tick what you've learned", text: "Tick skills here, or click the small circles on the tree. When a badge's skills are all ticked you earn it, and the lines to the next badges light up." },
+  { sel: "#panel .pn-lens", title: "The critical lens", text: "Each stage of the project has a critical question to ask, linked to the lectures that help you answer it." },
+  { sel: "#legendExt", title: "Extension", text: "Hatched badges, and skills marked extension, go beyond the unit. They're optional, and encouraged if you want to take something further on your own." },
+  { sel: "#tabs [data-tree='all']", title: "All Round Data Hero", text: "See all four trees as one network. Hover over a badge to see how the areas feed each other.", before: () => switchTree("project", "launch") },
+  { sel: ".stat-card", title: "Your progress", text: "A running count of your skills and badges. Core skills are what everyone reaches; extension skills are extra." },
+  { sel: "#readoutBand .section-head", title: "Your read-out", text: "As you tick, this builds two things: what you can say to employers, and questions to reflect on for yourself as someone living in the age of data. You can add notes to both." },
+  { sel: ".ro-side", title: "Downloads", text: "Download your trees as an image, a skills record or a spreadsheet, and copy or print your read-out." },
+  { sel: "#progressTools", title: "Keep your progress", text: "Your ticks live in this browser only. Save progress to keep a file you can load again later or on another computer. Reset unticks everything." },
+];
+let tourI = -1, tourEls = null;
+function tourPlace(){
+  if (tourI < 0) return;
+  const st = TOUR[tourI], el = st.sel && document.querySelector(st.sel), spot = tourEls.spot, pop = tourEls.pop, pad = st.pad || 8;
+  if (!el){ spot.className = "tour-spot none"; spot.removeAttribute("style"); pop.style.left = (window.innerWidth - pop.offsetWidth) / 2 + "px"; pop.style.top = Math.max(16, (window.innerHeight - pop.offsetHeight) / 2) + "px"; return; }
+  const r = el.getBoundingClientRect();
+  spot.className = "tour-spot"; Object.assign(spot.style, { left: r.left - pad + "px", top: r.top - pad + "px", width: r.width + pad * 2 + "px", height: r.height + pad * 2 + "px" });
+  const pw = pop.offsetWidth, ph = pop.offsetHeight, vw = window.innerWidth, vh = window.innerHeight, gap = 16;
+  let top = r.bottom + pad + gap, left = r.left + r.width / 2 - pw / 2;
+  if (top + ph > vh - 12) top = r.top - pad - gap - ph;
+  if (top < 12){ top = Math.min(vh - ph - 12, Math.max(12, r.top + r.height / 2 - ph / 2)); left = r.right + pad + gap; if (left + pw > vw - 12) left = r.left - pad - gap - pw; }
+  pop.style.left = Math.max(12, Math.min(vw - pw - 12, left)) + "px"; pop.style.top = Math.max(12, Math.min(vh - ph - 12, top)) + "px";
+}
+function tourShow(i){
+  tourI = i; const st = TOUR[i];
+  if (st.before) st.before();
+  const el = st.sel && document.querySelector(st.sel);
+  tourEls.pop.innerHTML = `<div class="k">Step ${i + 1} of ${TOUR.length}</div><h3 id="tourTitle">${esc(st.title)}</h3><p>${esc(st.text)}</p>`
+    + `<div class="nav"><button type="button" class="skip" data-t="end">${i === TOUR.length - 1 ? "Close" : "Skip tour"}</button><span class="dots" aria-hidden="true">${TOUR.map((_, j) => `<i class="${j === i ? "on" : ""}"></i>`).join("")}</span>`
+    + (i ? `<button type="button" class="btn btn-sm" data-t="back">Back</button>` : "")
+    + `<button type="button" class="btn btn-sm btn-solid" data-t="next">${i === TOUR.length - 1 ? "Finish" : i ? "Next" : "Start"}</button></div>`;
+  if (el) el.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  tourPlace(); setTimeout(tourPlace, 380); setTimeout(tourPlace, 700);
+  tourEls.pop.querySelector("[data-t='next']").focus({ preventScroll: true });
+}
+function tourStart(){
+  if (tourEls) return;
+  tourEls = { block: document.createElement("div"), spot: document.createElement("div"), pop: document.createElement("div") };
+  tourEls.block.className = "tour-block"; tourEls.pop.className = "tour-pop"; tourEls.pop.setAttribute("role", "dialog"); tourEls.pop.setAttribute("aria-modal", "true"); tourEls.pop.setAttribute("aria-labelledby", "tourTitle");
+  document.body.append(tourEls.block, tourEls.spot, tourEls.pop);
+  tourEls.pop.addEventListener("click", e => { const t = e.target.closest("[data-t]"); if (!t) return; if (t.dataset.t === "next") (tourI < TOUR.length - 1 ? tourShow(tourI + 1) : tourEnd()); else if (t.dataset.t === "back") tourShow(tourI - 1); else tourEnd(); });
+  try { localStorage.setItem("aod-tour-seen", "1"); } catch(e){}
+  $("#tourBtn").classList.remove("new");
+  tourShow(0);
+}
+function tourEnd(){ if (!tourEls) return; Object.values(tourEls).forEach(el => el.remove()); tourEls = null; tourI = -1; $("#tourBtn").focus({ preventScroll: true }); }
+$("#tourBtn").onclick = tourStart;
+window.addEventListener("scroll", () => { if (tourEls) tourPlace(); }, { passive: true });
+window.addEventListener("resize", () => { if (tourEls) tourPlace(); });
+document.addEventListener("keydown", e => {
+  if (!tourEls) return;
+  if (e.key === "Escape"){ e.preventDefault(); tourEnd(); }
+  else if (e.key === "ArrowRight"){ e.preventDefault(); tourI < TOUR.length - 1 ? tourShow(tourI + 1) : tourEnd(); }
+  else if (e.key === "ArrowLeft" && tourI > 0){ e.preventDefault(); tourShow(tourI - 1); }
+  else if (e.key === "Tab"){ const f = [...tourEls.pop.querySelectorAll("button")], a = f.indexOf(document.activeElement); e.preventDefault(); f[(a + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus(); }
+});
+
 /* ===== Boot ===== */
 (async function boot(){
   try{
@@ -989,6 +1137,7 @@ $("#studentName").addEventListener("input", e => { progress.name = e.target.valu
   $("#title").textContent = J.title; $("#intro").textContent = J.intro || "";
   $("#studentName").value = progress.name;
   switchTree("project"); renderStats(); renderReadout();
+  try { if (!localStorage.getItem("aod-tour-seen")) $("#tourBtn").classList.add("new"); } catch(e){}
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { wrapCache.clear(); renderTree(); });
 })();
 </script>
