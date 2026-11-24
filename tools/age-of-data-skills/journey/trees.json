@@ -1294,7 +1294,7 @@
      "id": "launch",
      "label": "Launch Data Project",
      "tier": "core",
-     "x": 598,
+     "x": 650,
      "y": 890,
      "parents": [],
      "skills": [
@@ -1329,7 +1329,7 @@
      "id": "data-gatherer",
      "label": "Data Gatherer",
      "tier": "core",
-     "x": 598,
+     "x": 650,
      "y": 775,
      "parents": [
       "launch"
@@ -1361,8 +1361,8 @@
      "id": "data-creator",
      "label": "Data Creator",
      "tier": "extension",
-     "x": 1115,
-     "y": 775,
+     "x": 460,
+     "y": 800,
      "parents": [
       "data-gatherer"
      ],
@@ -1391,8 +1391,8 @@
      "id": "adv-data-types",
      "label": "Advanced Data Types",
      "tier": "extension",
-     "x": 1115,
-     "y": 500,
+     "x": 290,
+     "y": 760,
      "parents": [
       "data-creator"
      ],
@@ -1424,7 +1424,7 @@
      "id": "wrangler",
      "label": "Wrangler",
      "tier": "core",
-     "x": 598,
+     "x": 650,
      "y": 660,
      "parents": [
       "data-gatherer"
@@ -1458,8 +1458,8 @@
      "id": "adv-wrangler",
      "label": "Advanced Wrangler",
      "tier": "extension",
-     "x": 1115,
-     "y": 640,
+     "x": 850,
+     "y": 690,
      "parents": [
       "wrangler"
      ],
@@ -1488,7 +1488,7 @@
      "id": "analyst-foundations",
      "label": "Analyst Foundations",
      "tier": "core",
-     "x": 397,
+     "x": 420,
      "y": 545,
      "parents": [
       "wrangler"
@@ -1519,7 +1519,7 @@
      "id": "common-vis",
      "label": "Common visualisations",
      "tier": "core",
-     "x": 800,
+     "x": 880,
      "y": 545,
      "parents": [
       "wrangler"
@@ -1551,7 +1551,7 @@
      "id": "summarise",
      "label": "Summarise data",
      "tier": "core",
-     "x": 397,
+     "x": 420,
      "y": 430,
      "parents": [
       "analyst-foundations"
@@ -1579,7 +1579,7 @@
      "id": "design-principles",
      "label": "Design principles",
      "tier": "core",
-     "x": 712,
+     "x": 780,
      "y": 430,
      "parents": [
       "common-vis"
@@ -1641,7 +1641,7 @@
      "id": "change",
      "label": "Change over time",
      "tier": "core",
-     "x": 563,
+     "x": 610,
      "y": 455,
      "parents": [
       "summarise"
@@ -1673,7 +1673,7 @@
      "id": "infographic",
      "label": "Infographic design",
      "tier": "core",
-     "x": 800,
+     "x": 880,
      "y": 315,
      "parents": [
       "design-principles"
@@ -1702,8 +1702,8 @@
      "id": "mapping",
      "label": "Mapping",
      "tier": "optional",
-     "x": 950,
-     "y": 250,
+     "x": 1130,
+     "y": 315,
      "parents": [
       "chart-repertoire"
      ],
@@ -1790,7 +1790,7 @@
      "id": "integrated",
      "label": "Integrated report: text & data viz",
      "tier": "core",
-     "x": 598,
+     "x": 650,
      "y": 90,
      "parents": [
       "analyst",
@@ -1821,7 +1821,7 @@
      "id": "adv-storytelling",
      "label": "Advanced data viz storytelling",
      "tier": "extension",
-     "x": 1115,
+     "x": 860,
      "y": 90,
      "parents": [
       "integrated"
@@ -1850,7 +1850,7 @@
      "id": "analyst",
      "label": "Analyst",
      "tier": "core",
-     "x": 397,
+     "x": 420,
      "y": 315,
      "parents": [
       "compare",
@@ -1882,7 +1882,7 @@
      "id": "chart-repertoire",
      "label": "Chart Repertoire",
      "tier": "core",
-     "x": 897,
+     "x": 990,
      "y": 430,
      "parents": [
       "common-vis"
@@ -2294,8 +2294,8 @@
      "id": "excel-l3",
      "label": "Excel User L3",
      "tier": "extension",
-     "x": 665,
-     "y": 415,
+     "x": 330,
+     "y": 290,
      "parents": [
       "excel-l2"
      ],
@@ -2326,8 +2326,8 @@
      "id": "tableau-l1",
      "label": "Tableau User L1",
      "tier": "extension",
-     "x": 665,
-     "y": 555,
+     "x": 670,
+     "y": 290,
      "parents": [
       "excel-l2"
      ],
@@ -2357,8 +2357,8 @@
      "id": "tableau-l2",
      "label": "Tableau User L2",
      "tier": "extension",
-     "x": 665,
-     "y": 280,
+     "x": 670,
+     "y": 160,
      "parents": [
       "tableau-l1"
      ],
