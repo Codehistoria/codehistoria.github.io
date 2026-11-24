@@ -482,12 +482,45 @@ function satPos(b, i){
   return [b.x + ORB * Math.cos(a), b.y + ORB * Math.sin(a)];
 }
 /* ===== A tree, drawn to fit its panel whole. The glow and dots behind it are CSS on the panel, so they fill any shape ===== */
-function treeBounds(t){
-  const bs = t.badges.map(e => BD[e.id]);
-  const x0 = Math.min(...bs.map(b => b.x)) - 78, x1 = Math.max(...bs.map(b => b.x)) + 78;
-  const y0 = Math.min(...bs.map(b => b.y)) - 72, y1 = Math.max(...bs.map(b => b.y)) + 72;
-  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+/* Extension badges never sit on the main line: they go in a "Beyond the unit" area beside the tree,
+   level with the badge they build on (an extension that builds on another goes above it). */
+const ZONE_GAP = 165, ZONE_COL = 150, ZONE_ROW = 135;
+function placeZone(bs, pos, x0, step, row, maxCols){
+  const ext = bs.filter(b => b.tier === "stretch"), isE = new Set(ext.map(b => b.id)), cols = [], colOf = {};
+  if (!ext.length) return null;
+  const left = [...ext];
+  while (left.length){
+    const ok = left.filter(b => b.parents.every(p => !isE.has(p) || pos[p]));
+    const pick = ok.length ? ok : left;
+    const want = b => { const ps = b.parents.filter(p => pos[p]); return ps.length ? Math.min(...ps.map(p => pos[p][1] - (isE.has(p) ? row : 0))) : 0; };
+    pick.sort((a, c) => want(c) - want(a));
+    const b = pick[0], d = want(b), pc = b.parents.map(p => colOf[p]).find(c => c !== undefined);
+    let best = null;
+    for (let c = 0; c < maxCols; c++){
+      const ys = cols[c] || [];
+      for (let k = 0; k < 400; k++){
+        const y = d + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 10;
+        if (ys.every(v => Math.abs(v - y) >= row)){ const cost = Math.abs(y - d) + (c === pc ? -40 : c * 160); if (!best || cost < best.cost) best = { c, y, cost }; break; }
+      }
+    }
+    (cols[best.c] ||= []).push(best.y); colOf[b.id] = best.c;
+    pos[b.id] = [x0 + best.c * step, best.y];
+    left.splice(left.indexOf(b), 1);
+  }
+  const xs = ext.map(b => pos[b.id][0]);
+  return { x0: Math.min(...xs) - 82, x1: Math.max(...xs) + 82 };
 }
+function boxOf(pos, zone){
+  const xs = Object.values(pos).map(p => p[0]), ys = Object.values(pos).map(p => p[1]);
+  return { x: Math.min(...xs) - 78, y: Math.min(...ys) - 72 - (zone ? 34 : 0), w: Math.max(...xs) - Math.min(...xs) + 156, h: Math.max(...ys) - Math.min(...ys) + 144 + (zone ? 34 : 0) };
+}
+function prefLayout(t){
+  const bs = t.badges.map(e => BD[e.id]), core = bs.filter(b => b.tier !== "stretch"), pos = {};
+  core.forEach(b => { pos[b.id] = [b.x, b.y]; });
+  const zone = placeZone(bs, pos, Math.max(...core.map(b => b.x)) + ZONE_GAP, ZONE_COL, ZONE_ROW, 3);
+  return { pos, zone, box: boxOf(pos, zone) };
+}
+function treeBounds(t){ return prefLayout(t).box; }
 function exportBg(id, col, box, centre){
   return `<defs><radialGradient id="xbg-${id}" cx="50%" cy="${centre ? 50 : 100}%" r="${centre ? 60 : 85}%"><stop offset="0" stop-color="${col}" stop-opacity=".26"/><stop offset=".6" stop-color="${col}" stop-opacity=".04"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs>`
     + `<rect x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" fill="#1A1622"/><rect x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" fill="url(#xbg-${id})"/>`;
@@ -496,28 +529,29 @@ function exportBg(id, col, box, centre){
    the tree reorganises into rows by level, wrapping to the width, so the text never shrinks below the minimum. */
 const MIN_SCALE = .9, MAX_SCALE = 1.05, SLOT = 152, ROW = 142;
 function layoutTree(t, preferred){
-  const bs = t.badges.map(e => BD[e.id]), pb = treeBounds(t), pos = {};
+  const bs = t.badges.map(e => BD[e.id]), P = prefLayout(t), pb = P.box;
   const cw = preferred ? Infinity : Math.max(200, $("#canvas").clientWidth - 40);
   if (preferred || pb.w * MIN_SCALE <= cw){
-    bs.forEach(b => { pos[b.id] = [b.x, b.y]; });
-    const widest = Math.max(...J.trees.map(x => treeBounds(x).w * MIN_SCALE <= cw ? treeBounds(x).w : 0));   // same size across trees
-    return { mode: "preferred", pos, box: pb, scale: preferred ? 1 : Math.min(MAX_SCALE, cw / Math.max(pb.w, widest)) };
+    const widest = Math.max(...J.trees.map(x => { const w = treeBounds(x).w; return w * MIN_SCALE <= cw ? w : 0; }));   // same size across trees
+    return { mode: "preferred", pos: P.pos, zone: P.zone, box: pb, scale: preferred ? 1 : Math.min(MAX_SCALE, cw / Math.max(pb.w, widest)) };
   }
+  const core = bs.filter(b => b.tier !== "stretch"), hasExt = core.length < bs.length, pos = {};
   const depth = {}, d = id => depth[id] ?? (depth[id] = (() => { const ps = BD[id].parents.filter(p => BD[p]); return ps.length ? 1 + Math.max(...ps.map(d)) : 0; })());
-  bs.forEach(b => d(b.id));
-  // lanes: each badge keeps its side of the tree (left branch, trunk, right branch) and sits above what it builds on
-  const lanes = Math.max(1, Math.min(6, Math.floor((cw / MIN_SCALE - 20) / SLOT)));
-  const x0 = Math.min(...bs.map(b => b.x)), x1 = Math.max(...bs.map(b => b.x)), cursor = Array(lanes).fill(0);
-  const order = [...bs].sort((a, c) => depth[a.id] - depth[c.id] || c.y - a.y || a.x - c.x);
+  core.forEach(b => d(b.id));
+  // lanes: each badge keeps its side of the tree (left branch, trunk, right branch) and sits above what it builds on;
+  // the right-most lane is kept for extension badges
+  const all = Math.max(1, Math.min(6, Math.floor((cw / MIN_SCALE - 20) / SLOT))), lanes = hasExt && all > 1 ? all - 1 : all;
+  const x0 = Math.min(...core.map(b => b.x)), x1 = Math.max(...core.map(b => b.x)), cursor = Array(lanes).fill(0);
+  const order = [...core].sort((a, c) => depth[a.id] - depth[c.id] || c.y - a.y || a.x - c.x);
   for (const b of order){
     const lane = lanes === 1 ? 0 : Math.round((b.x - x0) / Math.max(1, x1 - x0) * (lanes - 1));
     const ps = b.parents.filter(p => pos[p]), y = Math.min(cursor[lane], ...ps.map(p => pos[p][1] - ROW));
-    pos[b.id] = [(lane - (lanes - 1) / 2) * SLOT, y];
+    pos[b.id] = [lane * SLOT, y];
     cursor[lane] = y - ROW;
   }
-  const xs = Object.values(pos).map(p => p[0]), ys = Object.values(pos).map(p => p[1]);
-  const box = { x: Math.min(...xs) - 78, y: Math.min(...ys) - 72, w: Math.max(...xs) - Math.min(...xs) + 156, h: Math.max(...ys) - Math.min(...ys) + 144 };
-  return { mode: "compact", pos, box, scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, cw / box.w)) };
+  const zone = placeZone(bs, pos, (lanes - 1) * SLOT + SLOT + (all > lanes ? 16 : 0), SLOT, ROW, 1);
+  const box = boxOf(pos, zone);
+  return { mode: "compact", pos, zone, box, scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, cw / box.w)) };
 }
 /* A link fills from the badge it builds on towards the next one, as the skills at both ends are ticked.
    Both badges earned: the link is complete, solid and glowing. */
@@ -538,6 +572,11 @@ function treeSVG(t, opts = {}){
   if (exp) s += exportBg(t.id, t.colour, box);
   s += `<defs><pattern id="hatch-${t.id}" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="7" fill="#fff" fill-opacity=".1"/></pattern></defs>`;
   s += `<defs><filter id="gl-${t.id}" filterUnits="userSpaceOnUse" x="${box.x - 60}" y="${box.y - 60}" width="${box.w + 120}" height="${box.h + 120}"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  if (L.zone){
+    const z = L.zone;
+    s += `<g pointer-events="none"><rect x="${z.x0}" y="${box.y + 6}" width="${z.x1 - z.x0}" height="${box.h - 12}" rx="22" fill="url(#hatch-${t.id})" fill-opacity=".5" stroke="#8E86A0" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="5 6"/>`
+      + `<text x="${(z.x0 + z.x1) / 2}" y="${box.y + 28}" text-anchor="middle" font-family="${FONT}" font-size="10.5" font-weight="700" letter-spacing="1.6" fill="#B8B0C6">BEYOND THE UNIT</text></g>`;
+  }
   for (const b of badges){
     for (const p of b.parents){
       const P = PM[p]; if (!P) continue;
@@ -578,9 +617,9 @@ const NET = { node: 26 };
 function netPos(){
   const pos = {}, C = (J.network || {}).clusters || {};
   for (const t of J.trees){
-    const c = C[t.id] || { cx: 0, cy: 0, sx: .8, sy: .8 }, bs = t.badges.map(e => BD[e.id]);
-    const mx = (Math.min(...bs.map(b => b.x)) + Math.max(...bs.map(b => b.x))) / 2, my = (Math.min(...bs.map(b => b.y)) + Math.max(...bs.map(b => b.y))) / 2;
-    for (const b of bs) pos[b.id] = [c.cx + (b.x - mx) * (c.sx || c.s), c.cy + (b.y - my) * (c.sy || c.s)];
+    const c = C[t.id] || { cx: 0, cy: 0, sx: .8, sy: .8 }, P = prefLayout(t).pos, ps = Object.values(P);
+    const mx = (Math.min(...ps.map(p => p[0])) + Math.max(...ps.map(p => p[0]))) / 2, my = (Math.min(...ps.map(p => p[1])) + Math.max(...ps.map(p => p[1]))) / 2;
+    for (const [id, p] of Object.entries(P)) pos[id] = [c.cx + (p[0] - mx) * (c.sx || c.s), c.cy + (p[1] - my) * (c.sy || c.s)];
   }
   return pos;
 }
