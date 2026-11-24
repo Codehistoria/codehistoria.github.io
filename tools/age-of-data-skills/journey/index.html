@@ -433,14 +433,43 @@ function exportBg(id, col, box, centre){
   return `<defs><radialGradient id="xbg-${id}" cx="50%" cy="${centre ? 50 : 100}%" r="${centre ? 60 : 85}%"><stop offset="0" stop-color="${col}" stop-opacity=".26"/><stop offset=".6" stop-color="${col}" stop-opacity=".04"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs>`
     + `<rect x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" fill="#1A1622"/><rect x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}" fill="url(#xbg-${id})"/>`;
 }
+/* Each tree has a preferred layout (journey.json). If that won't fit the panel at a readable size,
+   the tree reorganises into rows by level, wrapping to the width, so the text never shrinks below the minimum. */
+const MIN_SCALE = .9, MAX_SCALE = 1.05, SLOT = 152, ROW = 142;
+function layoutTree(t, preferred){
+  const bs = t.badges.map(e => BD[e.id]), pb = treeBounds(t), pos = {};
+  const cw = preferred ? Infinity : Math.max(200, $("#canvas").clientWidth - 40);
+  if (preferred || pb.w * MIN_SCALE <= cw){
+    bs.forEach(b => { pos[b.id] = [b.x, b.y]; });
+    const widest = Math.max(...J.trees.map(x => treeBounds(x).w * MIN_SCALE <= cw ? treeBounds(x).w : 0));   // same size across trees
+    return { mode: "preferred", pos, box: pb, scale: preferred ? 1 : Math.min(MAX_SCALE, cw / Math.max(pb.w, widest)) };
+  }
+  const depth = {}, d = id => depth[id] ?? (depth[id] = (() => { const ps = BD[id].parents.filter(p => BD[p]); return ps.length ? 1 + Math.max(...ps.map(d)) : 0; })());
+  bs.forEach(b => d(b.id));
+  // lanes: each badge keeps its side of the tree (left branch, trunk, right branch) and sits above what it builds on
+  const lanes = Math.max(1, Math.min(6, Math.floor((cw / MIN_SCALE - 20) / SLOT)));
+  const x0 = Math.min(...bs.map(b => b.x)), x1 = Math.max(...bs.map(b => b.x)), cursor = Array(lanes).fill(0);
+  const order = [...bs].sort((a, c) => depth[a.id] - depth[c.id] || c.y - a.y || a.x - c.x);
+  for (const b of order){
+    const lane = lanes === 1 ? 0 : Math.round((b.x - x0) / Math.max(1, x1 - x0) * (lanes - 1));
+    const ps = b.parents.filter(p => pos[p]), y = Math.min(cursor[lane], ...ps.map(p => pos[p][1] - ROW));
+    pos[b.id] = [(lane - (lanes - 1) / 2) * SLOT, y];
+    cursor[lane] = y - ROW;
+  }
+  const xs = Object.values(pos).map(p => p[0]), ys = Object.values(pos).map(p => p[1]);
+  const box = { x: Math.min(...xs) - 78, y: Math.min(...ys) - 72, w: Math.max(...xs) - Math.min(...xs) + 156, h: Math.max(...ys) - Math.min(...ys) + 144 };
+  return { mode: "compact", pos, box, scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, cw / box.w)) };
+}
 function treeSVG(t, opts = {}){
-  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", box = treeBounds(t), badges = t.badges.map(e => BD[e.id]);
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", L = opts.layout || layoutTree(t, exp), box = L.box;
+  const PM = {}; t.badges.forEach(e => { PM[e.id] = { ...BD[e.id], x: L.pos[e.id][0], y: L.pos[e.id][1] }; });
+  const badges = t.badges.map(e => PM[e.id]);
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box.x} ${box.y} ${box.w} ${box.h}"${exp ? ` width="${box.w}" height="${box.h}"` : ` role="group" aria-label="${esc(t.label)} skill tree"`} preserveAspectRatio="xMidYMid meet">`;
   if (exp) s += exportBg(t.id, t.colour, box);
   s += `<defs><filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
   for (const b of badges){
     for (const p of b.parents){
-      const P = BD[p]; if (!P) continue;
+      const P = PM[p]; if (!P) continue;
       const pr = R + 6; let d;
       if (P.y - b.y < 100){ const dir = b.x > P.x ? 1 : -1, x1 = P.x + dir * pr, x2 = b.x - dir * (R + 6), mx = (x1 + x2) / 2; d = `M${x1},${P.y} C${mx},${P.y} ${mx},${b.y} ${x2},${b.y}`; }
       else { const y1 = P.y - pr, y2 = b.y + R + 6, my = (y1 + y2) / 2; d = `M${P.x},${y1} C${P.x},${my} ${b.x},${my} ${b.x},${y2}`; }
@@ -570,24 +599,20 @@ function renderTree(){
   const fb = ae && host.contains(ae) ? (ae.closest(".bd, .nnode")?.dataset.badge || null) : null, fa = ae && host.contains(ae) ? ae.closest(".net-area")?.dataset.treeGo : null;
   c.style.setProperty("--c", current === "all" ? "#F6C76B" : TR[current].colour);
   c.classList.toggle("hero-view", current === "all"); $(".stage").classList.toggle("hero-mode", current === "all");
-  host.innerHTML = current === "all" ? heroSVG() : treeSVG(TR[current]);
-  if (current !== "all") sizeTree();
+  tip.classList.remove("show");
+  if (current === "all"){ host.innerHTML = heroSVG(); host.style.minHeight = ""; }
+  else { const L = layoutTree(TR[current]); host.innerHTML = treeSVG(TR[current], { layout: L }); sizeTree(L); }
   if (fb){ const el = host.querySelector(`[data-badge="${CSS.escape(fb)}"]:is(.bd,.nnode)`); if (el) el.focus({ preventScroll: true }); }
   else if (fa){ host.querySelector(`.net-area[data-tree-go="${CSS.escape(fa)}"]`)?.focus({ preventScroll: true }); }
 }
-const SCALE = { min: .9, max: 1.05 };
-function treeScale(){
-  const maxW = Math.max(...J.trees.map(t => treeBounds(t).w)), cw = $("#canvas").clientWidth - 40;
-  return Math.max(SCALE.min, Math.min(SCALE.max, cw / maxW));
-}
-function sizeTree(){
-  const c = $("#canvas"), host = $("#worldHost"), svg = host.querySelector("svg"), t = TR[current], box = treeBounds(t), k = treeScale();
-  const maxH = Math.max(...J.trees.map(x => treeBounds(x).h)) * k;
-  svg.setAttribute("width", Math.round(box.w * k)); svg.setAttribute("height", Math.round(box.h * k));
-  host.style.minHeight = Math.round(maxH) + "px";
+function sizeTree(L){
+  const c = $("#canvas"), host = $("#worldHost"), svg = host.querySelector("svg");
+  svg.setAttribute("width", Math.round(L.box.w * L.scale)); svg.setAttribute("height", Math.round(L.box.h * L.scale));
+  // keep the panel steady between tabs: as tall as the tallest tree at this width
+  host.style.minHeight = Math.round(Math.max(...J.trees.map(x => { const l = layoutTree(x); return l.box.h * l.scale; }))) + "px";
   if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;
 }
-let resizeT; window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (J && current !== "all") sizeTree(); }, 150); });
+let resizeT; window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (J && current !== "all") renderTree(); }, 150); });
 function linkBtn(id){
   const b = BD[id]; if (!b) return "";
   const [k, n] = prog(id);
@@ -675,13 +700,16 @@ hostEl.addEventListener("keydown", e => {
   const g = e.target.closest(".bd, .nnode"); if (g){ e.preventDefault(); goToBadge(g.dataset.badge, true); return; }
   const a = e.target.closest(".net-area"); if (a){ e.preventDefault(); switchTree(a.dataset.treeGo); }
 });
-hostEl.addEventListener("mousemove", e => {
+hostEl.addEventListener("pointermove", e => {
+  if (e.pointerType !== "mouse"){ tip.classList.remove("show"); return; }   // touch screens fake hover; no tooltips there
   const sat = e.target.closest(".sat"), g = e.target.closest(".bd, .nnode");
   if (!sat && !g){ tip.classList.remove("show"); return; }
   if (sat){ const s = SK[sat.dataset.skill]; tip.innerHTML = `${esc(s.label)}<small>${ticked.has(s.id) ? "Learned · click to untick" : "Click to tick"}</small>`; }
   else { const b = BD[g.dataset.badge], [k, n] = prog(b.id); tip.innerHTML = `${esc(b.label)}<small>${esc(TR[b.tree].label)} · ${k} of ${n} skills${g.classList.contains("nnode") ? " · click to open" : ""}</small>`; }
   tip.style.left = Math.min(window.innerWidth - 270, e.clientX + 14) + "px"; tip.style.top = (e.clientY + 16) + "px"; tip.classList.add("show");
 });
+document.addEventListener("pointerdown", () => tip.classList.remove("show"), true);
+window.addEventListener("scroll", () => tip.classList.remove("show"), { passive: true });
 hostEl.addEventListener("mouseleave", () => tip.classList.remove("show"));
 function lightLinks(id){ hostEl.querySelectorAll(".xlink").forEach(p => p.classList.toggle("on", !!id && (p.dataset.a === id || p.dataset.b === id))); }
 hostEl.addEventListener("mouseover", e => { const n = e.target.closest(".nnode"); lightLinks(n ? n.dataset.badge : null); });
