@@ -105,8 +105,13 @@
   .hero-view .world-host{position:absolute;inset:16px;padding:0;display:block;min-height:0!important;min-width:0}
   .hero-view .world-host svg{width:100%;height:100%}
   .world-host .nnode,.world-host .net-area{cursor:pointer;outline:none}
-  .world-host .xlink{transition:stroke-opacity .2s,stroke .2s}
-  .world-host .xlink.on{stroke:#F6C76B;stroke-opacity:.95}
+  .world-host .xlink{transition:opacity .2s}
+  .world-host.hl .xlink{opacity:.12}
+  .world-host.hl .xlink.on{opacity:1}
+  .world-host .xlink.on path{stroke-opacity:1;stroke-width:4.5;stroke-dasharray:none}
+  .netkey{display:grid;gap:.45rem;margin:.2rem 0 .4rem}
+  .netkey span{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--soft)}
+  .netkey svg{flex:none}
   .stage.hero-mode{grid-template-columns:minmax(0,1fr)}
   .stage.hero-mode .panel{position:static;max-height:none;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:0 2rem;align-items:start}
   .stage.hero-mode .panel > *{grid-column:1}
@@ -458,21 +463,30 @@ function layoutTree(t, preferred){
   const box = { x: Math.min(...xs) - 78, y: Math.min(...ys) - 72, w: Math.max(...xs) - Math.min(...xs) + 156, h: Math.max(...ys) - Math.min(...ys) + 144 };
   return { mode: "compact", pos, box, scale: Math.min(MAX_SCALE, Math.max(MIN_SCALE, cw / box.w)) };
 }
+/* A link fills from the badge it builds on towards the next one, as the skills at both ends are ticked.
+   Both badges earned: the link is complete, solid and glowing. */
+function linkFill(a, b){ const [ka, na] = prog(a), [kb, nb] = prog(b); return (ka / na + kb / nb) / 2; }
+function linkPath(d, a, b, col, stretch, glow, extra = ""){
+  const f = linkFill(a, b), full = done(a) && done(b);
+  let s = `<path d="${d}" fill="none" stroke="${f > 0 ? col : "#3A3344"}" stroke-opacity="${f > 0 ? .28 : 1}" stroke-width="2.2" stroke-linecap="round"${stretch ? ` stroke-dasharray="6 6"` : ""} pointer-events="none"${extra}/>`;
+  if (full) s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="3.4" stroke-linecap="round" filter="url(#${glow})" pointer-events="none"${extra}/>`;
+  else if (f > 0) s += `<path d="${d}" pathLength="1" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${f.toFixed(3)} 2" pointer-events="none"${extra}/>`;
+  return s;
+}
 function treeSVG(t, opts = {}){
   const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", L = opts.layout || layoutTree(t, exp), box = L.box;
   const PM = {}; t.badges.forEach(e => { PM[e.id] = { ...BD[e.id], x: L.pos[e.id][0], y: L.pos[e.id][1] }; });
   const badges = t.badges.map(e => PM[e.id]);
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box.x} ${box.y} ${box.w} ${box.h}"${exp ? ` width="${box.w}" height="${box.h}"` : ` role="group" aria-label="${esc(t.label)} skill tree"`} preserveAspectRatio="xMidYMid meet">`;
   if (exp) s += exportBg(t.id, t.colour, box);
-  s += `<defs><filter id="gl-${t.id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+  s += `<defs><filter id="gl-${t.id}" filterUnits="userSpaceOnUse" x="${box.x - 60}" y="${box.y - 60}" width="${box.w + 120}" height="${box.h + 120}"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
   for (const b of badges){
     for (const p of b.parents){
       const P = PM[p]; if (!P) continue;
       const pr = R + 6; let d;
       if (P.y - b.y < 100){ const dir = b.x > P.x ? 1 : -1, x1 = P.x + dir * pr, x2 = b.x - dir * (R + 6), mx = (x1 + x2) / 2; d = `M${x1},${P.y} C${mx},${P.y} ${mx},${b.y} ${x2},${b.y}`; }
       else { const y1 = P.y - pr, y2 = b.y + R + 6, my = (y1 + y2) / 2; d = `M${P.x},${y1} C${P.x},${my} ${b.x},${my} ${b.x},${y2}`; }
-      const pd = done(p), cd = done(b.id), col = colour(b);
-      s += `<path d="${d}" fill="none" stroke="${pd ? col : "#3A3344"}" stroke-opacity="${pd && cd ? 1 : pd ? .6 : 1}" stroke-width="${pd && cd ? 3 : 2.2}" stroke-linecap="round"${b.tier === "stretch" ? ` stroke-dasharray="6 6"` : ""}${pd && cd ? ` filter="url(#gl-${t.id})"` : ""} pointer-events="none"/>`;
+      s += linkPath(d, p, b.id, colour(b), b.tier === "stretch", `gl-${t.id}`);
     }
   }
   for (const b of badges){
@@ -532,7 +546,7 @@ function heroSVG(opts = {}){
   const box = { x: Math.min(...xs, -160) - 190, y: Math.min(...ys, -200) - 150, w: Math.max(...xs, 160) - Math.min(...xs, -160) + 380, h: Math.max(...ys, 200) - Math.min(...ys, -200) + 240 };
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box.x} ${box.y} ${box.w} ${box.h}"${exp ? ` width="${box.w}" height="${box.h}"` : ` role="group" aria-label="All four skill trees as one network"`} preserveAspectRatio="xMidYMid meet">`;
   if (exp) s += exportBg("hero", "#F6C76B", box, true);
-  s += `<defs><filter id="gl-net" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
+  s += `<defs><filter id="gl-net" filterUnits="userSpaceOnUse" x="${box.x}" y="${box.y}" width="${box.w}" height="${box.h}"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`
     + J.trees.map(t => `<radialGradient id="area-${t.id}"><stop offset="0" stop-color="${t.colour}" stop-opacity=".2"/><stop offset=".7" stop-color="${t.colour}" stop-opacity=".07"/><stop offset="1" stop-color="${t.colour}" stop-opacity="0"/></radialGradient>`).join("") + `</defs>`;
   // each area: a soft wash of its colour behind its badges, and its name
   for (const t of J.trees){
@@ -546,17 +560,30 @@ function heroSVG(opts = {}){
   // threads from each tree's peaks to the hero
   for (const t of J.trees){
     const bs = t.badges.map(e => BD[e.id]), minY = Math.min(...bs.map(b => b.y));
-    bs.filter(b => b.y - minY < 30).forEach(b => { const [x, y] = pos[b.id]; s += `<line x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="0" y2="40" stroke="#F6C76B" stroke-opacity="${done(b.id) ? .6 : .16}" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/>`; });
+    bs.filter(b => b.y - minY < 30).forEach(b => { const [x, y] = pos[b.id], dn = done(b.id); s += `<line class="peak" x1="${x.toFixed(1)}" y1="${y.toFixed(1)}" x2="0" y2="40" stroke="#F6C76B" stroke-opacity="${dn ? .85 : .22}" stroke-width="${dn ? 3 : 2}"${dn ? ` filter="url(#gl-net)"` : ` stroke-dasharray="2 7"`} stroke-linecap="round"/>`; });
   }
   // links between areas
+  let gi = 0, xs2 = "";
   for (const [a, b] of heroLinks()){
-    const [x1, y1] = pos[a], [x2, y2] = pos[b], lit = done(a) && done(b);
-    s += `<path class="xlink" data-a="${esc(a)}" data-b="${esc(b)}" d="M${x1.toFixed(1)},${y1.toFixed(1)} Q${((x1 + x2) * .3).toFixed(1)},${((y1 + y2) * .3).toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}" fill="none" stroke="${lit ? "#F6C76B" : "#B9B1C9"}" stroke-opacity="${exp ? (lit ? .6 : .2) : (lit ? .5 : .14)}" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>`;
+    const [x1, y1] = pos[a], [x2, y2] = pos[b], lit = done(a) && done(b), f = linkFill(a, b), id = `xg${gi++}`;
+    const ca = TR[BD[a].tree].colour, cb = TR[BD[b].tree].colour;
+    // bend the link round the hero rather than through it
+    const hx = 0, hy = 40, mx = (x1 + x2) / 2, my = (y1 + y2) / 2, CLEAR = 230;
+    let vx = mx - hx, vy = my - hy, dl = Math.hypot(vx, vy);
+    if (dl < 1){ vx = -(y2 - y1); vy = x2 - x1; dl = Math.hypot(vx, vy); }
+    const through = dl < CLEAR ? CLEAR : dl * .92, tx = hx + vx / dl * through, ty = hy + vy / dl * through;
+    const qx = 2 * tx - mx, qy = 2 * ty - my;
+    const d = `M${x1.toFixed(1)},${y1.toFixed(1)} Q${qx.toFixed(1)},${qy.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+    s += `<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"><stop offset="0" stop-color="${ca}"/><stop offset="1" stop-color="${cb}"/></linearGradient></defs>`;
+    xs2 += `<g class="xlink${lit ? " lit" : ""}" data-a="${esc(a)}" data-b="${esc(b)}">`
+      + `<path d="${d}" fill="none" stroke="url(#${id})" stroke-opacity="${lit ? .95 : f > 0 ? .55 : .3}" stroke-width="${lit ? 3.6 : 2.6}" stroke-linecap="round"${lit ? ` filter="url(#gl-net)"` : ` stroke-dasharray="1 7"`}/>`
+      + `<circle cx="${x1.toFixed(1)}" cy="${y1.toFixed(1)}" r="5" fill="${ca}" fill-opacity="${lit ? 1 : .6}"/><circle cx="${x2.toFixed(1)}" cy="${y2.toFixed(1)}" r="5" fill="${cb}" fill-opacity="${lit ? 1 : .6}"/></g>`;
   }
+  s += `<g class="xlinks">${xs2}</g>`;
   // links within each tree
   for (const b of allBadges()) for (const p of b.parents){
-    if (!BD[p]) continue; const [x1, y1] = pos[p], [x2, y2] = pos[b.id], lit = done(p) && done(b.id), col = colour(b);
-    s += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${done(p) ? col : "#3A3344"}" stroke-opacity="${lit ? 1 : done(p) ? .55 : 1}" stroke-width="${lit ? 3 : 2}"${b.tier === "stretch" ? ` stroke-dasharray="5 5"` : ""}/>`;
+    if (!BD[p]) continue; const [x1, y1] = pos[p], [x2, y2] = pos[b.id];
+    s += linkPath(`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`, p, b.id, TR[b.tree].colour, b.tier === "stretch", "gl-net");
   }
   // badges
   const r = NET.node, C = 2 * Math.PI * (r + 5);
@@ -641,8 +668,14 @@ function renderOverview(){
   const p = $("#panel"), all = allBadges(), k = all.filter(b => done(b.id)).length;
   p.style.setProperty("--c", "#F6C76B");
   const nextUp = J.trees.flatMap(t => t.badges.map(e => BD[e.id])).filter(b => !done(b.id) && ready(b) && b.tier !== "stretch").slice(0, 6);
-  p.innerHTML = `<div class="pn-k">All four trees, one network</div><h3>${esc(J.hero.label)}</h3><p class="pn-blurb">${esc(J.hero.blurb)} The hero sits at the centre, with each area in its own colour; dotted gold lines run from each tree's peak to the hero. Hover over a badge to light up where the areas feed each other: the critical lens into each project stage, the tools into the work, the team into the project. Pick any badge to open its tree.</p>`
+  p.innerHTML = `<div class="pn-k">All four trees, one network</div><h3>${esc(J.hero.label)}</h3><p class="pn-blurb">${esc(J.hero.blurb)} The hero sits at the centre, with each area in its own colour; dotted gold lines run from each tree's peak to the hero. The coloured links show where the areas feed each other: the critical lens into each project stage, the tools into the work, the team into the project. Pick any badge to open its tree.</p>`
     + `<div class="pn-state"><b>${k} of ${all.length} badges</b><span class="pbar"><i style="width:${100 * k / all.length}%"></i></span></div>`
+    + `<div class="pn-h">Reading the lines</div><div class="netkey">`
+    + `<span><svg width="44" height="10"><path d="M2 5H42" stroke="#14998F" stroke-opacity=".28" stroke-width="2.2" stroke-linecap="round"/><path d="M2 5H24" stroke="#14998F" stroke-width="3" stroke-linecap="round"/></svg>Within a tree: fills as you tick skills at either end</span>`
+    + `<span><svg width="44" height="10"><defs><linearGradient id="kg"><stop offset="0" stop-color="#14998F"/><stop offset="1" stop-color="#EC6A2C"/></linearGradient></defs><path d="M2 5H42" stroke="url(#kg)" stroke-width="2.6" stroke-dasharray="1 7" stroke-linecap="round"/></svg>Between trees: one area feeds another</span>`
+    + `<span><svg width="44" height="10"><path d="M2 5H42" stroke="url(#kg)" stroke-width="3.6" stroke-linecap="round"/></svg>Solid and glowing: both badges earned</span>`
+    + `<span><svg width="44" height="10"><path d="M2 5H42" stroke="#F6C76B" stroke-opacity=".5" stroke-width="2" stroke-dasharray="2 7" stroke-linecap="round"/></svg>Gold: a tree's peak, leading to the hero</span>`
+    + `</div><p class="pn-blurb" style="font-size:.8rem">Hover over a badge or an area name to pick out its links.</p>`
     + `<div class="pn-h trees">The trees</div><div class="ov">` + J.trees.map(t => { const [tk, tn] = treeProgress(t);
         return `<button type="button" class="ovt" data-tree-go="${esc(t.id)}" style="--lc:${esc(t.colour)}"><b>${esc(t.label)}</b><span>${tk} of ${tn} badges</span><i><i style="width:${100 * tk / tn}%"></i></i></button>`; }).join("") + `</div>`
     + (nextUp.length ? `<div class="pn-h ready">Ready to start</div><div class="links">${nextUp.map(b => linkBtn(b.id)).join("")}</div>` : "");
@@ -730,9 +763,19 @@ hostEl.addEventListener("pointermove", e => {
 document.addEventListener("pointerdown", () => tip.classList.remove("show"), true);
 window.addEventListener("scroll", () => tip.classList.remove("show"), { passive: true });
 hostEl.addEventListener("mouseleave", () => tip.classList.remove("show"));
-function lightLinks(id){ hostEl.querySelectorAll(".xlink").forEach(p => p.classList.toggle("on", !!id && (p.dataset.a === id || p.dataset.b === id))); }
-hostEl.addEventListener("mouseover", e => { const n = e.target.closest(".nnode"); lightLinks(n ? n.dataset.badge : null); });
-hostEl.addEventListener("focusin", e => { const n = e.target.closest(".nnode"); lightLinks(n ? n.dataset.badge : null); });
+function lightLinks(ids){
+  const set = new Set(ids || []);
+  hostEl.classList.toggle("hl", set.size > 0);
+  hostEl.querySelectorAll(".xlink").forEach(p => p.classList.toggle("on", set.has(p.dataset.a) || set.has(p.dataset.b)));
+}
+function hoverIds(el){
+  const n = el && el.closest && el.closest(".nnode"); if (n) return [n.dataset.badge];
+  const a = el && el.closest && el.closest(".net-area"); if (a) return TR[a.dataset.treeGo].badges.map(e => e.id);
+  return null;
+}
+hostEl.addEventListener("mouseover", e => lightLinks(hoverIds(e.target)));
+hostEl.addEventListener("mouseleave", () => lightLinks(null));
+hostEl.addEventListener("focusin", e => lightLinks(hoverIds(e.target)));
 $("#panel").addEventListener("click", e => {
   const r = e.target.closest(".row");
   if (r){ toggleSkill(r.dataset.skill); $(`#panel .row[data-skill="${CSS.escape(r.dataset.skill)}"]`)?.focus({ preventScroll: true }); return; }
