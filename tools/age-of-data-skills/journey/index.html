@@ -94,9 +94,9 @@
 
   .stage{display:grid;grid-template-columns:minmax(0,1fr) 23rem;gap:1rem;align-items:start}
   @media (max-width:1000px){.stage{grid-template-columns:minmax(0,1fr)}}
-  .canvas{position:relative;border:1px solid var(--edge);border-radius:18px;overflow-x:auto;overflow-y:hidden;
+  .canvas{position:relative;border:1px solid var(--edge);border-radius:18px;overflow-x:auto;overflow-y:hidden;min-height:260px;transition:height .35s ease,background .4s;
     background:radial-gradient(120% 85% at 50% 108%,color-mix(in srgb,var(--c,#7C4DDB) 30%,transparent),transparent 62%),
-      radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#1A1622;transition:background .4s}
+      radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#1A1622}
   .canvas.hero-view{overflow:hidden;background:radial-gradient(55% 60% at 50% 50%,rgba(246,199,107,.16),transparent 70%),radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1.3px) 0 0/26px 26px,#16121D}
   /* a tree: drawn at a fixed, readable size and centred; the panel grows to the tallest tree */
   .world-host{display:flex;align-items:center;justify-content:center;padding:16px;min-width:min-content}
@@ -108,8 +108,6 @@
   .world-host .xlink{transition:stroke-opacity .2s,stroke .2s}
   .world-host .xlink.on{stroke:#F6C76B;stroke-opacity:.95}
   .stage.hero-mode{grid-template-columns:minmax(0,1fr)}
-  .stage.hero-mode .canvas{height:clamp(600px,86vh,1000px)}
-  @media (max-width:760px){.stage.hero-mode .canvas{height:72vh}}
   .stage.hero-mode .panel{position:static;max-height:none;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr);gap:0 2rem;align-items:start}
   .stage.hero-mode .panel > *{grid-column:1}
   .stage.hero-mode .panel .pn-h.trees,.stage.hero-mode .panel .ov{grid-column:2}
@@ -133,7 +131,7 @@
   .canvas .sat:hover{stroke-width:2.4}
   .avail{animation:breathe 2.4s ease-in-out infinite}
   @keyframes breathe{0%,100%{stroke-opacity:.35}50%{stroke-opacity:1}}
-  @media (prefers-reduced-motion:reduce){.avail{animation:none}}
+  @media (prefers-reduced-motion:reduce){.avail{animation:none}.canvas{transition:none}}
   .tip{position:fixed;z-index:30;max-width:16rem;background:#000;color:#fff;border:1px solid var(--edge);border-radius:8px;padding:.4rem .6rem;font-size:.8rem;line-height:1.35;pointer-events:none;opacity:0;transition:opacity .1s}
   .tip.show{opacity:1}
   .tip small{display:block;color:var(--dim);font-size:.72rem}
@@ -600,19 +598,40 @@ function renderTree(){
   c.style.setProperty("--c", current === "all" ? "#F6C76B" : TR[current].colour);
   c.classList.toggle("hero-view", current === "all"); $(".stage").classList.toggle("hero-mode", current === "all");
   tip.classList.remove("show");
-  if (current === "all"){ host.innerHTML = heroSVG(); host.style.minHeight = ""; }
+  if (current === "all"){ host.innerHTML = heroSVG(); host.style.minHeight = ""; sizeHero(); }
   else { const L = layoutTree(TR[current]); host.innerHTML = treeSVG(TR[current], { layout: L }); sizeTree(L); }
   if (fb){ const el = host.querySelector(`[data-badge="${CSS.escape(fb)}"]:is(.bd,.nnode)`); if (el) el.focus({ preventScroll: true }); }
   else if (fa){ host.querySelector(`.net-area[data-tree-go="${CSS.escape(fa)}"]`)?.focus({ preventScroll: true }); }
 }
+function fitCanvas(px){
+  const c = $("#canvas"); c.style.height = Math.round(px) + "px";
+}
 function sizeTree(L){
   const c = $("#canvas"), host = $("#worldHost"), svg = host.querySelector("svg");
-  svg.setAttribute("width", Math.round(L.box.w * L.scale)); svg.setAttribute("height", Math.round(L.box.h * L.scale));
-  // keep the panel steady between tabs: as tall as the tallest tree at this width
-  host.style.minHeight = Math.round(Math.max(...J.trees.map(x => { const l = layoutTree(x); return l.box.h * l.scale; }))) + "px";
+  const w = Math.round(L.box.w * L.scale), h = Math.round(L.box.h * L.scale);
+  svg.setAttribute("width", w); svg.setAttribute("height", h);
+  host.style.minHeight = "";
+  fitCanvas(h + 34);
   if (c.scrollWidth > c.clientWidth) c.scrollLeft = (c.scrollWidth - c.clientWidth) / 2;
 }
-let resizeT; window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (J && current !== "all") renderTree(); }, 150); });
+function sizeHero(){
+  // the network keeps its shape: as tall as the width needs, within the screen
+  const c = $("#canvas"), svg = $("#worldHost svg"), vb = svg.viewBox.baseVal, w = c.clientWidth - 32;
+  fitCanvas(Math.min(Math.max(320, w * vb.height / vb.width + 32), Math.max(420, window.innerHeight * .88)));
+}
+let resizeT, lastW = 0;
+function onViewportChange(){
+  clearTimeout(resizeT);
+  resizeT = setTimeout(() => {
+    const w = $("#canvas").clientWidth;
+    if (!J || Math.abs(w - lastW) < 2 && current !== "all") return;
+    lastW = w; renderTree();
+  }, 120);
+}
+window.addEventListener("resize", onViewportChange);
+window.addEventListener("orientationchange", () => setTimeout(onViewportChange, 250));
+if (window.visualViewport) visualViewport.addEventListener("resize", onViewportChange);
+if ("ResizeObserver" in window) new ResizeObserver(onViewportChange).observe(document.querySelector("#canvas").parentElement);
 function linkBtn(id){
   const b = BD[id]; if (!b) return "";
   const [k, n] = prog(id);
