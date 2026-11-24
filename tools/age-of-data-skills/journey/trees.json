@@ -1298,14 +1298,14 @@
      "y": 890,
      "parents": [],
      "skills": [
-      "backup",
-      "space-setup",
-      "good-questions",
-      "define-problem",
       "briefed",
-      "project-plan",
       "topic-selection",
+      "define-problem",
+      "good-questions",
       "what-to-measure",
+      "project-plan",
+      "space-setup",
+      "backup",
       "zip-folder"
      ],
      "strand": "project",
@@ -1336,9 +1336,9 @@
      ],
      "skills": [
       "data-search",
-      "extract-report",
       "download-xlsx",
-      "download-csv"
+      "download-csv",
+      "extract-report"
      ],
      "strand": "wild",
      "stage": "find",
@@ -1368,8 +1368,8 @@
      ],
      "skills": [
       "web-db",
-      "time-series",
-      "digitize"
+      "digitize",
+      "time-series"
      ],
      "strand": "wild",
      "stage": "find",
@@ -1397,11 +1397,11 @@
       "data-creator"
      ],
      "skills": [
-      "shapefile",
-      "twitter",
-      "word-counts",
       "weighted-survey",
-      "json"
+      "word-counts",
+      "twitter",
+      "json",
+      "shapefile"
      ],
      "strand": "wild",
      "stage": "find",
@@ -1431,11 +1431,11 @@
      ],
      "skills": [
       "discovery",
-      "validate",
-      "cleaning",
       "attribute-sources",
       "field-definitions",
-      "enrich"
+      "cleaning",
+      "enrich",
+      "validate"
      ],
      "strand": "project",
      "stage": "prepare",
@@ -1465,8 +1465,8 @@
      ],
      "skills": [
       "structuring",
-      "storing",
-      "process-3"
+      "process-3",
+      "storing"
      ],
      "strand": "project",
      "stage": "prepare",
@@ -1494,11 +1494,11 @@
       "wrangler"
      ],
      "skills": [
-      "totalling",
-      "percentages",
-      "quick-maths",
       "categorical",
-      "numerical"
+      "numerical",
+      "quick-maths",
+      "totalling",
+      "percentages"
      ],
      "strand": "analysis",
      "stage": "analyse",
@@ -1557,9 +1557,9 @@
       "analyst-foundations"
      ],
      "skills": [
+      "freq-counts",
       "mmm",
-      "range-pct",
-      "freq-counts"
+      "range-pct"
      ],
      "strand": "analysis",
      "stage": "analyse",
@@ -1586,13 +1586,13 @@
      ],
      "skills": [
       "audience",
+      "avoid-distortion",
       "low-ink",
       "remove-features",
-      "add-annotation",
       "axis-formatting",
       "legends",
       "color-features",
-      "avoid-distortion"
+      "add-annotation"
      ],
      "strand": "viz",
      "stage": "visualise",
@@ -1619,8 +1619,8 @@
       "summarise"
      ],
      "skills": [
-      "std-dev",
-      "variance"
+      "variance",
+      "std-dev"
      ],
      "strand": "analysis",
      "stage": "analyse",
@@ -1647,11 +1647,11 @@
       "summarise"
      ],
      "skills": [
-      "index-numbers",
+      "pct-change",
       "avg-growth",
+      "index-numbers",
       "inflation",
-      "trendlines",
-      "pct-change"
+      "trendlines"
      ],
      "strand": "analysis",
      "stage": "analyse",
@@ -1679,9 +1679,9 @@
       "design-principles"
      ],
      "skills": [
-      "structure-flow",
       "viz-sketch",
-      "viz-hierarchy"
+      "viz-hierarchy",
+      "structure-flow"
      ],
      "strand": "viz",
      "stage": "visualise",
@@ -1708,10 +1708,10 @@
       "chart-repertoire"
      ],
      "skills": [
-      "map-uk",
       "map-thematic",
-      "map-world",
-      "map-cities"
+      "map-cities",
+      "map-uk",
+      "map-world"
      ],
      "strand": "viz",
      "stage": "visualise",
@@ -1797,8 +1797,8 @@
       "infographic"
      ],
      "skills": [
-      "concise-text",
       "clear-explanations",
+      "concise-text",
       "report-captions"
      ],
      "strand": "viz",
@@ -1827,8 +1827,8 @@
       "integrated"
      ],
      "skills": [
-      "replicate",
-      "inspiration"
+      "inspiration",
+      "replicate"
      ],
      "strand": "viz",
      "stage": "tell",
@@ -1857,9 +1857,9 @@
       "change"
      ],
      "skills": [
-      "data-assumptions",
+      "identify-patterns",
       "generate-hypothesis",
-      "identify-patterns"
+      "data-assumptions"
      ],
      "strand": "analysis",
      "stage": "analyse",
@@ -1888,12 +1888,12 @@
       "common-vis"
      ],
      "skills": [
-      "tree-map",
-      "radar",
       "area-chart",
       "pyramid",
-      "word-cloud",
-      "sparklines"
+      "tree-map",
+      "radar",
+      "sparklines",
+      "word-cloud"
      ],
      "strand": "viz",
      "stage": "visualise",
@@ -1983,9 +1983,9 @@
       "lens-w2"
      ],
      "skills": [
-      "data-ethics",
       "lens-bias",
-      "lens-harm"
+      "lens-harm",
+      "data-ethics"
      ],
      "week": 3,
      "blurb": "Week 3: oppressive algorithms, inequity and justice.",
@@ -2012,9 +2012,9 @@
      ],
      "skills": [
       "history-dataviz",
+      "lens-decode",
       "theory-history",
-      "data-spun",
-      "lens-decode"
+      "data-spun"
      ],
      "week": 4,
      "blurb": "Week 4: the top 50 data visualisations of all time.",
@@ -2041,8 +2041,8 @@
       "lens-w2"
      ],
      "skills": [
-      "what-we-measure",
       "common-stats",
+      "what-we-measure",
       "lens-metric-limits"
      ],
      "week": 5,
@@ -2069,9 +2069,9 @@
       "lens-w2"
      ],
      "skills": [
-      "judge-survey",
       "why-exist",
-      "lens-wording"
+      "lens-wording",
+      "judge-survey"
      ],
      "week": 7,
      "blurb": "Week 7: social surveys, sex and what you ask.",
@@ -2125,9 +2125,9 @@
       "lens-w5"
      ],
      "skills": [
-      "not-counted",
+      "lens-class",
       "lens-categories",
-      "lens-class"
+      "not-counted"
      ],
      "week": 8,
      "blurb": "Week 8: sorting and classifying, poverty and social class.",
@@ -2184,11 +2184,11 @@
       "lens-w9"
      ],
      "skills": [
-      "situate-project",
-      "situate-findings",
       "findings-mean",
       "recognise-alt",
       "nuance",
+      "situate-findings",
+      "situate-project",
       "lens-essay"
      ],
      "strand": "humanist",
@@ -2226,19 +2226,19 @@
      "y": 540,
      "parents": [],
      "skills": [
-      "rel-refs",
+      "load-save",
+      "using-sheets",
+      "selection-shortcuts",
+      "format-cell",
+      "set-data-types",
       "cell-refs",
       "simple-formulae",
-      "selection-shortcuts",
-      "load-save",
+      "rel-refs",
       "paste-special",
-      "filters",
-      "using-sheets",
-      "tables",
-      "set-data-types",
-      "format-cell",
       "find-replace",
-      "sort"
+      "sort",
+      "filters",
+      "tables"
      ],
      "strand": "software",
      "blurb": "Spreadsheet basics: tidy, sort, filter, calculate.",
@@ -2265,13 +2265,13 @@
       "excel-l1"
      ],
      "skills": [
-      "v-lookups",
+      "convert-format",
       "text-functions",
       "dropdown",
       "if-conditions",
       "sumif",
+      "v-lookups",
       "pivot-tables",
-      "convert-format",
       "power-query"
      ],
      "strand": "software",
@@ -2300,12 +2300,12 @@
       "excel-l2"
      ],
      "skills": [
-      "pivot-graphs",
-      "cond-formatting",
-      "slicers",
-      "goto-special",
       "text-to-columns",
-      "calc-pivot"
+      "goto-special",
+      "cond-formatting",
+      "calc-pivot",
+      "pivot-graphs",
+      "slicers"
      ],
      "strand": "software",
      "blurb": "Interactive and advanced Excel.",
@@ -2332,11 +2332,11 @@
       "excel-l2"
      ],
      "skills": [
-      "tab-basic-format",
-      "tab-charts",
       "tab-import",
+      "tab-measures",
+      "tab-charts",
       "tab-markers",
-      "tab-measures"
+      "tab-basic-format"
      ],
      "strand": "software",
      "blurb": "First charts in Tableau.",
@@ -2363,12 +2363,12 @@
       "tableau-l1"
      ],
      "skills": [
-      "tab-adv-format",
       "tab-joins",
-      "tab-export",
-      "tab-story",
+      "tab-maps",
+      "tab-adv-format",
       "tab-interactive",
-      "tab-maps"
+      "tab-story",
+      "tab-export"
      ],
      "strand": "software",
      "blurb": "Dashboards, maps and stories in Tableau.",
