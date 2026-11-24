@@ -701,9 +701,9 @@
    "tier": "core"
   },
   "structuring": {
-   "label": "Structuring",
+   "label": "Reshaping data",
    "desc": "Reshape data into tidy rows and columns.",
-   "tier": "core"
+   "tier": "extension"
   },
   "cleaning": {
    "label": "Cleaning",
@@ -728,7 +728,7 @@
   "validate": {
    "label": "Validate",
    "desc": "Check combined data for errors and mismatches.",
-   "tier": "extension"
+   "tier": "core"
   },
   "storing": {
    "label": "Storing lots of data",
@@ -1431,7 +1431,7 @@
      ],
      "skills": [
       "discovery",
-      "structuring",
+      "validate",
       "cleaning",
       "attribute-sources",
       "field-definitions",
@@ -1464,7 +1464,7 @@
       "wrangler"
      ],
      "skills": [
-      "validate",
+      "structuring",
       "storing",
       "process-3"
      ],
