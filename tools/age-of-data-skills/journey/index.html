@@ -199,7 +199,8 @@
   .extnote svg{flex:none;margin-top:.1rem}
   .extnote span{font-size:.82rem;line-height:1.45;color:var(--soft)}
   .extnote b{display:block;color:#fff;font-weight:600;font-size:.86rem}
-  .pn-h.ext{color:var(--c)}
+  .pn-h.ext,.pn-h.opt{color:var(--c)}
+  .rows.opt .row{border:1px dotted color-mix(in srgb,var(--c) 45%,transparent);background:transparent}
   .rows.ext .row{border:1px dashed color-mix(in srgb,var(--c) 35%,transparent);background:transparent}
   .rows.ext .row .k{border-style:dashed}
   .pn-reflect{margin-top:1rem;border-top:1px dashed #3E5C72;padding-top:.8rem}
@@ -325,7 +326,9 @@
       <p class="stat-label"><span id="statBadges">0</span> badges earned</p>
       <div class="meter-row"><span>Core skills (everyone)</span><b id="statCorePct">0%</b></div>
       <div class="meter core"><i id="meterCore" style="width:0"></i></div>
-      <div class="meter-row"><span>Extension skills (optional)</span><b id="statStretch">0</b></div>
+      <div class="meter-row"><span>Optional skills (by interest)</span><b id="statOpt">0</b></div>
+      <div class="meter"><i id="meterOpt" style="width:0"></i></div>
+      <div class="meter-row"><span>Extension (beyond the unit)</span><b id="statStretch">0</b></div>
       <div class="meter"><i id="meterStretch" style="width:0"></i></div>
     </div>
   </div>
@@ -350,6 +353,7 @@
         <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#241E2C"/><circle r="10" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="2 3"/></svg>Ready to start</span>
         <span><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="8" fill="#1B1721"/><circle r="10" fill="none" stroke="#3A3344" stroke-width="1.6"/></svg>Builds on an earlier badge</span>
         <span><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#14998F"/></svg><svg width="16" height="16" viewBox="-8 -8 16 16" aria-hidden="true"><circle r="5" fill="#16121C" stroke="#14998F" stroke-width="1.4"/></svg>A skill: learned, not yet</span>
+        <span id="legendOpt"><svg width="24" height="24" viewBox="-12 -12 24 24" aria-hidden="true"><circle r="9" fill="#2A2334"/><circle r="11" fill="none" stroke="#14998F" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 4.6"/></svg>Optional: in the unit, by interest or project</span>
         <span id="legendExt"><svg width="24" height="24" viewBox="-12 -12 24 24" aria-hidden="true"><circle r="9" fill="#2A2334"/><circle r="9" fill="url(#hatch-key)"/><circle r="11" fill="none" stroke="#14998F" stroke-width="1.6" stroke-dasharray="3 3"/></svg>Extension: beyond the unit, optional</span>
         <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-key" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.2" height="5" fill="#fff" fill-opacity=".22"/></pattern></defs></svg>
       </div>
@@ -423,7 +427,7 @@ let current = "project", selected = null;
 
 /* ===== Model: everything comes from trees.json (edited with the separate editor) ===== */
 function build(){
-  const T = x => x === "extension" ? "stretch" : "core";
+  const T = x => x === "extension" ? "stretch" : x === "optional" ? "optional" : "core";
   for (const [id, s] of Object.entries(J.skills)) SK[id] = { id, label: s.label, desc: s.desc || "", tier: T(s.tier) };
   for (const t of J.trees){
     TR[t.id] = t;
@@ -439,9 +443,14 @@ function build(){
 const colour = b => { const t = TR[b.tree]; return t.colourBy === "strand" && b.strand && J.palette[b.strand] ? J.palette[b.strand] : t.colour; };
 /* Extension = beyond the unit: optional, encouraged as independent learning. An extension skill inside a core
    badge doesn't count towards earning that badge; an extension badge needs all of its own skills. */
+/* Three paths. Core: everyone. Optional: in the unit, depending on interests and project design.
+   Extension: beyond the unit. A badge counts only skills on its own path or a more central one. */
+const RANK = { core: 0, optional: 1, stretch: 2 };
 const isExt = sid => !!SK[sid] && SK[sid].tier === "stretch";
-const coreOf = b => { const c = b.tier === "stretch" ? b.skills : b.skills.filter(s => !isExt(s)); return c.length ? c : b.skills; };
-const extOf = b => b.tier === "stretch" ? [] : b.skills.filter(isExt);
+const isOpt = sid => !!SK[sid] && SK[sid].tier === "optional";
+const coreOf = b => { const c = b.skills.filter(s => RANK[SK[s].tier] <= RANK[b.tier]); return c.length ? c : b.skills; };
+const extOf = b => b.skills.filter(s => RANK[SK[s].tier] > RANK[b.tier]);
+const PATH = { core: "Core", optional: "Optional", stretch: "Extension" };
 const done = id => { const b = BD[id]; return !!b && b.skills.length > 0 && coreOf(b).every(s => ticked.has(s)); };
 const prog = id => { const b = BD[id], c = coreOf(b); return [c.filter(s => ticked.has(s)).length, c.length]; };
 const ready = b => b.parents.every(p => p === "root" || done(p));
@@ -513,9 +522,10 @@ function layoutTree(t, preferred){
 /* A link fills from the badge it builds on towards the next one, as the skills at both ends are ticked.
    Both badges earned: the link is complete, solid and glowing. */
 function linkFill(a, b){ const [ka, na] = prog(a), [kb, nb] = prog(b); return (ka / na + kb / nb) / 2; }
-function linkPath(d, a, b, col, stretch, glow, extra = ""){
-  const f = linkFill(a, b), full = done(a) && done(b);
-  let s = `<path d="${d}" fill="none" stroke="${f > 0 ? col : "#3A3344"}" stroke-opacity="${f > 0 ? .28 : 1}" stroke-width="2.2" stroke-linecap="round"${stretch ? ` stroke-dasharray="6 6"` : ""} pointer-events="none"${extra}/>`;
+const DASH = { core: "", optional: "1 6", stretch: "6 6" };
+function linkPath(d, a, b, col, tier, glow, extra = ""){
+  const f = linkFill(a, b), full = done(a) && done(b), dash = DASH[tier] || "";
+  let s = `<path d="${d}" fill="none" stroke="${f > 0 ? col : "#3A3344"}" stroke-opacity="${f > 0 ? .28 : 1}" stroke-width="${tier === "optional" ? 2.6 : 2.2}" stroke-linecap="round"${dash ? ` stroke-dasharray="${dash}"` : ""} pointer-events="none"${extra}/>`;
   if (full) s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="3.4" stroke-linecap="round" filter="url(#${glow})" pointer-events="none"${extra}/>`;
   else if (f > 0) s += `<path d="${d}" pathLength="1" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${f.toFixed(3)} 2" pointer-events="none"${extra}/>`;
   return s;
@@ -534,26 +544,26 @@ function treeSVG(t, opts = {}){
       const pr = R + 6; let d;
       if (P.y - b.y < 100){ const dir = b.x > P.x ? 1 : -1, x1 = P.x + dir * pr, x2 = b.x - dir * (R + 6), mx = (x1 + x2) / 2; d = `M${x1},${P.y} C${mx},${P.y} ${mx},${b.y} ${x2},${b.y}`; }
       else { const y1 = P.y - pr, y2 = b.y + R + 6, my = (y1 + y2) / 2; d = `M${P.x},${y1} C${P.x},${my} ${b.x},${my} ${b.x},${y2}`; }
-      s += linkPath(d, p, b.id, colour(b), b.tier === "stretch", `gl-${t.id}`);
+      s += linkPath(d, p, b.id, colour(b), b.tier, `gl-${t.id}`);
     }
   }
   for (const b of badges){
-    const col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b), st = b.tier === "stretch", sel = !exp && selected === b.id, lockedLook = !dn && k === 0 && !rd;
-    s += `<g class="bd" data-badge="${esc(b.id)}" tabindex="${exp ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills${dn ? ", earned" : ""}${st ? ", stretch" : ""}">`;
+    const col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b), st = b.tier === "stretch", op = b.tier === "optional", sel = !exp && selected === b.id, lockedLook = !dn && k === 0 && !rd;
+    s += `<g class="bd" data-badge="${esc(b.id)}" tabindex="${exp ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills${dn ? ", earned" : ""}${st ? ", extension" : op ? ", optional" : ""}">`;
     b.skills.forEach((sid, i) => {
       const [sx, sy] = satPos(b, i), on = ticked.has(sid), dx = sx - b.x, dy = sy - b.y, dd = Math.hypot(dx, dy), ux = dx / dd, uy = dy / dd;
       s += `<line x1="${(b.x + ux * (R + 4)).toFixed(1)}" y1="${(b.y + uy * (R + 4)).toFixed(1)}" x2="${(sx - ux * SR).toFixed(1)}" y2="${(sy - uy * SR).toFixed(1)}" stroke="${on ? col : "#3A3344"}" stroke-opacity="${on ? .7 : 1}" stroke-width="1.2"/>`;
-      s += `<circle class="sat" data-skill="${esc(sid)}" data-badge="${esc(b.id)}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${SR}" fill="${on ? col : "#16121C"}" stroke="${col}" stroke-opacity="${on ? 1 : lockedLook ? .3 : .75}" stroke-width="1.5"${isExt(sid) && !st ? ` stroke-dasharray="2 2"` : ""}${on ? ` filter="url(#gl-${t.id})"` : ""}/>`;
+      s += `<circle class="sat" data-skill="${esc(sid)}" data-badge="${esc(b.id)}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="${SR}" fill="${on ? col : "#16121C"}" stroke="${col}" stroke-opacity="${on ? 1 : lockedLook ? .3 : .75}" stroke-width="1.5"${RANK[SK[sid].tier] > RANK[b.tier] ? ` stroke-dasharray="${isExt(sid) ? "2 2" : "1 2.4"}"` : ""}${on ? ` filter="url(#gl-${t.id})"` : ""}/>`;
     });
     if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${R + 12}" fill="${col}" fill-opacity=".14"/>`;
     const RR = R + 5, C = 2 * Math.PI * RR;
-    s += `<circle class="${!dn && k === 0 && rd && !exp ? "avail" : ""}" cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn || lockedLook ? 1 : .35}" stroke-width="2.2"${st || (!dn && k === 0 && rd) ? ` stroke-dasharray="3 4"` : ""}/>`;
+    s += `<circle class="${!dn && k === 0 && rd && !exp ? "avail" : ""}" cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn || lockedLook ? 1 : .35}" stroke-width="${op ? 2.8 : 2.2}" stroke-linecap="round"${op && !dn ? ` stroke-dasharray="1 5.2"` : st || (!dn && k === 0 && rd) ? ` stroke-dasharray="3 4"` : ""}/>`;
     if (k && !dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / n).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${b.x} ${b.y})"/>`;
     if (dn) s += `<circle cx="${b.x}" cy="${b.y}" r="${RR}" fill="none" stroke="${col}" stroke-width="3" filter="url(#gl-${t.id})"/>`;
     s += `<circle class="body" cx="${b.x}" cy="${b.y}" r="${R}" fill="${dn ? col : lockedLook ? "#1B1721" : "#2A2334"}"/>`;
     if (st) s += `<circle cx="${b.x}" cy="${b.y}" r="${R}" fill="url(#hatch-${t.id})" pointer-events="none"/>`;
     s += `<circle class="focusring" cx="${b.x}" cy="${b.y}" r="${R + 9}" fill="none" stroke="#fff" stroke-opacity="${sel ? .9 : 0}" stroke-width="1.6"/>`;
-    const pre = b.week ? `WEEK ${b.week}` : st ? "EXTENSION" : "", { fs, lines } = wrapLabel(b.label, 57, pre ? 3 : 4), lh = fs * 1.12;
+    const pre = b.week ? `WEEK ${b.week}` : st ? "EXTENSION" : op ? "OPTIONAL" : "", { fs, lines } = wrapLabel(b.label, 57, pre ? 3 : 4), lh = fs * 1.12;
     let y0 = b.y - (lines.length * lh + (pre ? 9 : 0)) / 2 + fs * .82;
     const tc = dn ? "#FFFFFF" : lockedLook ? "#8E86A0" : "#F3F0F8";
     if (pre){ s += `<text x="${b.x}" y="${(y0 - 1).toFixed(1)}" text-anchor="middle" font-family="${FONT}" font-size="${pre.length > 7 ? 6.4 : 7.4}" font-weight="700" letter-spacing="${pre.length > 7 ? .6 : 1}" fill="${dn ? "#fff" : col}" fill-opacity="${dn ? .8 : 1}" pointer-events="none">${pre}</text>`; y0 += 9; }
@@ -583,7 +593,7 @@ function netLabel(b){
   return lines.length > 2 ? [lines[0], lines.slice(1).join(" ")] : lines;
 }
 function heroLinks(){
-  const L = [], first = st => TR.project.badges.map(e => BD[e.id]).find(b => b.stage === st && b.tier !== "stretch");
+  const L = [], first = st => TR.project.badges.map(e => BD[e.id]).find(b => b.stage === st && b.tier === "core");
   for (const [st, v] of Object.entries(J.lens || {})){ const p = first(st); if (p) (v.badges || []).forEach(id => BD[id] && L.push([p.id, id])); }
   for (const [a, b] of ((J.network || {}).cross || [])) if (BD[a] && BD[b]) L.push([a, b]);
   return L;
@@ -633,14 +643,14 @@ function heroSVG(opts = {}){
   // links within each tree
   for (const b of allBadges()) for (const p of b.parents){
     if (!BD[p]) continue; const [x1, y1] = pos[p], [x2, y2] = pos[b.id];
-    s += linkPath(`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`, p, b.id, TR[b.tree].colour, b.tier === "stretch", "gl-net");
+    s += linkPath(`M${x1.toFixed(1)},${y1.toFixed(1)} L${x2.toFixed(1)},${y2.toFixed(1)}`, p, b.id, TR[b.tree].colour, b.tier, "gl-net");
   }
   // badges
   const r = NET.node, C = 2 * Math.PI * (r + 5);
   for (const b of allBadges()){
     const [x, y] = pos[b.id], col = TR[b.tree].colour, [k, n] = prog(b.id), dn = done(b.id), lockedLook = !dn && k === 0 && !ready(b);
     s += `<g class="nnode" data-badge="${esc(b.id)}" tabindex="${exp ? -1 : 0}" role="button" aria-label="${esc(b.label)}: ${k} of ${n} skills. Open in ${esc(TR[b.tree].label)}">`
-      + `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r + 5}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn ? 1 : .3}" stroke-width="2.4"${b.tier === "stretch" ? ` stroke-dasharray="3 4"` : ""}/>`
+      + `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r + 5}" fill="none" stroke="${lockedLook ? "#3A3344" : col}" stroke-opacity="${dn ? 1 : .3}" stroke-width="${b.tier === "optional" ? 3 : 2.4}" stroke-linecap="round"${b.tier === "stretch" ? ` stroke-dasharray="3 4"` : b.tier === "optional" && !dn ? ` stroke-dasharray="1 6"` : ""}/>`
       + (k && !dn ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r + 5}" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${(C * k / n).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 ${x.toFixed(1)} ${y.toFixed(1)})"/>` : "")
       + `<circle class="body" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${dn ? col : lockedLook ? "#1B1721" : "#2A2334"}"${dn ? ` filter="url(#gl-net)"` : ""}/>`
       + (b.tier === "stretch" ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="url(#hatch-net)" pointer-events="none"/>` : "")
@@ -729,7 +739,7 @@ function linkBtn(id){
 function renderOverview(){
   const p = $("#panel"), all = allBadges(), k = all.filter(b => done(b.id)).length;
   p.style.setProperty("--c", "#F6C76B");
-  const nextUp = J.trees.flatMap(t => t.badges.map(e => BD[e.id])).filter(b => !done(b.id) && ready(b) && b.tier !== "stretch").slice(0, 6);
+  const nextUp = J.trees.flatMap(t => t.badges.map(e => BD[e.id])).filter(b => !done(b.id) && ready(b) && b.tier === "core").slice(0, 6);
   p.innerHTML = `<div class="pn-k">All four trees, one network</div><h3>${esc(J.hero.label)}</h3><p class="pn-blurb">${esc(J.hero.blurb)} The hero sits at the centre, with each area in its own colour; dotted gold lines run from each tree's peak to the hero. The coloured links show where the areas feed each other: the critical lens into each project stage, the tools into the work, the team into the project. Pick any badge to open its tree.</p>`
     + `<div class="pn-state"><b>${k} of ${all.length} badges</b><span class="pbar"><i style="width:${100 * k / all.length}%"></i></span></div>`
     + `<div class="pn-h">Reading the lines</div><div class="netkey">`
@@ -754,13 +764,14 @@ function renderPanelInner(){
   if (!b){ p.innerHTML = `<p class="pn-blurb">Pick a badge on the tree.</p>`; return; }
   const t = TR[b.tree], col = colour(b), [k, n] = prog(b.id), dn = done(b.id), rd = ready(b);
   p.style.setProperty("--c", col);
-  const kicker = [t.label, b.stage ? stageLabel(b.stage) : null, b.week ? `Week ${b.week}` : null, b.series ? `Level ${roman(b.level)}` : null, b.tier === "stretch" ? "Extension" : "Core"].filter(Boolean).join(" · ");
+  const kicker = [t.label, b.stage ? stageLabel(b.stage) : null, b.week ? `Week ${b.week}` : null, b.series ? `Level ${roman(b.level)}` : null, PATH[b.tier]].filter(Boolean).join(" · ");
   const state = dn ? "Badge earned" : k ? `${k} of ${n} skills` : rd ? "Ready to start" : "Builds on an earlier badge";
   let h = `<div class="pn-k">${esc(kicker)}</div><h3>${esc(b.label)}</h3>${b.blurb ? `<p class="pn-blurb">${esc(b.blurb)}</p>` : ""}`
     + `<div class="pn-state"><b>${esc(state)}</b><span class="pbar"><i style="width:${n ? 100 * k / n : 0}%"></i></span><span>${k}/${n}</span></div>`
-    + (b.tier === "stretch" ? extNote() : "")
+    + (b.tier === "stretch" ? extNote() : b.tier === "optional" ? optNote() : "")
     + `<div class="pn-h">Skills</div><ul class="rows">` + coreOf(b).map(rowHTML).join("") + `</ul>`
-    + (extOf(b).length ? `<div class="pn-h ext">Extension · beyond the unit</div><p class="pn-blurb" style="font-size:.8rem;margin:-.2rem 0 .45rem">Optional: these don't count towards the badge.</p><ul class="rows ext">` + extOf(b).map(rowHTML).join("") + `</ul>` : "")
+    + ["optional", "stretch"].map(tr => { const xs = extOf(b).filter(s => SK[s].tier === tr); if (!xs.length) return "";
+        return `<div class="pn-h ${tr === "stretch" ? "ext" : "opt"}">${tr === "stretch" ? "Extension · beyond the unit" : "Optional · by interest or project"}</div><p class="pn-blurb" style="font-size:.8rem;margin:-.2rem 0 .45rem">These don't count towards the badge.</p><ul class="rows ${tr === "stretch" ? "ext" : "opt"}">` + xs.map(rowHTML).join("") + `</ul>`; }).join("")
     + `<div class="pn-acts"><button type="button" class="gbtn${dn ? "" : " solid"}" data-all="${esc(b.id)}">${dn ? "Untick all" : "Tick all"}</button></div>`;
   const parents = b.parents.filter(x => BD[x]);
   if (parents.length) h += `<div class="pn-h">Builds on</div><div class="links">${parents.map(linkBtn).join("")}</div>`;
@@ -771,7 +782,7 @@ function renderPanelInner(){
   if (b.tree === "lens"){
     const used = Object.entries(J.lens).filter(([, L]) => (L.badges || []).includes(b.id)).map(([st]) => st);
     if (used.length){
-      const targets = used.map(st => TR.project.badges.map(e => BD[e.id]).find(x => x.stage === st && x.tier !== "stretch")).filter(Boolean);
+      const targets = used.map(st => TR.project.badges.map(e => BD[e.id]).find(x => x.stage === st && x.tier === "core")).filter(Boolean);
       h += `<div class="pn-lens"><div class="pn-h" style="margin-top:0;color:#F08A54">Use it in your project at</div><div class="links">${targets.map(x => `<button type="button" class="lnk" data-goto="${esc(x.id)}" style="--lc:${esc(colour(x))}"><i></i>${esc(stageLabel(x.stage))}: ${esc(x.label)}</button>`).join("")}</div></div>`;
     }
   }
@@ -783,10 +794,11 @@ function rowHTML(sid){
   const s = SK[sid], on = ticked.has(sid);
   return `<li><button type="button" class="row" data-skill="${esc(sid)}" aria-pressed="${on}"><span class="k" aria-hidden="true"></span><span><b>${esc(s.label)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ""}</span></button></li>`;
 }
+function optNote(){ const E = J.optional || {}; return `<div class="extnote opt"><svg width="26" height="26" viewBox="-13 -13 26 26" aria-hidden="true"><circle r="11" fill="#2A2334"/><circle r="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 4.6"/></svg><span><b>${esc(E.long || "Optional, in the unit")}</b>${esc(E.note || "")}</span></div>`; }
 function extNote(){ const E = J.extension || {}; return `<div class="extnote"><svg width="26" height="26" viewBox="-13 -13 26 26" aria-hidden="true"><circle r="11" fill="#2A2334"/><circle r="11" fill="url(#hatch-key)"/><circle r="11" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span><b>${esc(E.long || "Beyond the unit")}</b>${esc(E.note || "")}</span></div>`; }
 function defaultSelection(treeId){
   const bs = TR[treeId].badges.map(e => BD[e.id]);
-  return (bs.find(b => !done(b.id) && prog(b.id)[0] > 0) || bs.find(b => !done(b.id) && ready(b) && b.tier !== "stretch") || bs.find(b => !done(b.id)) || bs[0]).id;
+  return (bs.find(b => !done(b.id) && prog(b.id)[0] > 0) || bs.find(b => !done(b.id) && ready(b) && b.tier === "core") || bs.find(b => !done(b.id)) || bs[0]).id;
 }
 function select(id, focusPanel){ selected = id; renderTree(); renderPanel(); if (focusPanel) $("#panel .row, #panel .gbtn")?.focus({ preventScroll: true }); }
 function switchTree(id, sel){
@@ -861,7 +873,9 @@ $("#panel").addEventListener("click", e => {
 /* ===== Stats ===== */
 function renderStats(){
   const skills = Object.values(SK).filter(s => s.badge);
-  const core = skills.filter(s => s.tier !== "stretch"), stretch = skills.filter(s => s.tier === "stretch");
+  const core = skills.filter(s => s.tier === "core"), stretch = skills.filter(s => s.tier === "stretch"), opt = skills.filter(s => s.tier === "optional");
+  const to = opt.filter(s => ticked.has(s.id)).length;
+  $("#statOpt").textContent = `${to} of ${opt.length}`; $("#meterOpt").style.width = (opt.length ? 100 * to / opt.length : 0) + "%";
   const t = skills.filter(s => ticked.has(s.id)).length, tc = core.filter(s => ticked.has(s.id)).length, ts = stretch.filter(s => ticked.has(s.id)).length;
   $("#statSkills").textContent = t; $("#statTotal").textContent = skills.length;
   $("#statBadges").textContent = allBadges().filter(b => done(b.id)).length + " of " + allBadges().length;
@@ -879,7 +893,7 @@ function analyse(){
   // a team series reports only its highest level earned
   earned = earned.filter(b => !b.series || !earned.some(o => o.series === b.series && o.level > b.level));
   const inProg = order.filter(b => !done(b.id) && prog(b.id)[0] > 0);
-  const nextUp = order.filter(b => !done(b.id) && prog(b.id)[0] === 0 && ready(b) && b.tier !== "stretch" && b.parents.length && b.parents.some(p => p !== "root" && done(p)));
+  const nextUp = order.filter(b => !done(b.id) && prog(b.id)[0] === 0 && ready(b) && b.tier === "core" && b.parents.length && b.parents.some(p => p !== "root" && done(p)));
   const skills = Object.values(SK).filter(s => s.badge && ticked.has(s.id));
   const strength = {};
   for (const s of skills){ const th = themeOf(BD[s.badge]); strength[th] = (strength[th] || 0) + 1; }
@@ -970,7 +984,7 @@ function downloadCsv(){
   const rows = [["Tree", "Badge", "Stage or week", "Path", "Badge earned", "Skill", "Description", "Learned"]];
   for (const t of J.trees) for (const e of t.badges){ const b = BD[e.id];
     for (const sid of b.skills){ const s = SK[sid];
-      rows.push([t.label, b.label, b.stage ? stageLabel(b.stage) : b.week ? "Week " + b.week : "", b.tier === "stretch" || isExt(sid) ? "extension (beyond the unit)" : "core", done(b.id) ? "Yes" : "No", s.label, s.desc, ticked.has(sid) ? "Yes" : "No"]); } }
+      rows.push([t.label, b.label, b.stage ? stageLabel(b.stage) : b.week ? "Week " + b.week : "", b.tier === "stretch" || isExt(sid) ? "extension (beyond the unit)" : b.tier === "optional" || isOpt(sid) ? "optional (in the unit)" : "core", done(b.id) ? "Yes" : "No", s.label, s.desc, ticked.has(sid) ? "Yes" : "No"]); } }
   saveBlob(new Blob(["﻿" + rows.map(r => r.map(q).join(",")).join("\r\n")], { type: "text/csv;charset=utf-8" }), fileStem() + ".csv");
   toast("Spreadsheet downloaded");
 }
@@ -981,7 +995,7 @@ function buildRecord(){
   for (const t of J.trees){
     h += `<h2>${esc(t.label)}</h2>`;
     for (const e of t.badges){ const b = BD[e.id], [k, n] = prog(b.id);
-      h += `<div class="rb"><h3>${esc(b.label)} <small>${esc([b.stage ? stageLabel(b.stage) : null, b.week ? "Week " + b.week : null, b.tier === "stretch" ? "extension" : null].filter(Boolean).join(" · "))} · ${k}/${n}${done(b.id) ? " · <b>badge earned</b>" : ""}</small></h3><ul>`
+      h += `<div class="rb"><h3>${esc(b.label)} <small>${esc([b.stage ? stageLabel(b.stage) : null, b.week ? "Week " + b.week : null, b.tier !== "core" ? PATH[b.tier].toLowerCase() : null].filter(Boolean).join(" · "))} · ${k}/${n}${done(b.id) ? " · <b>badge earned</b>" : ""}</small></h3><ul>`
         + b.skills.map(s => `<li>${ticked.has(s) ? "☑" : "☐"} ${esc(SK[s].label)}</li>`).join("") + `</ul></div>`; }
   }
   h += `<p class="sub2" style="margin-top:1rem">☑ skill learned · ☐ not yet. Made with the skill trees at jamesfreemanhistorian.com/tools/age-of-data-skills/</p>`;
@@ -1072,7 +1086,7 @@ const TOUR = [
   { sel: "#worldHost .bd[data-badge='launch']", pad: 26, title: "Badges and skills", text: "Each large circle is a badge. The small circles around it are its skills. Trees grow upwards: start at the bottom and work up. Click a badge to open it." },
   { sel: "#panel .rows", title: "Tick what you've learned", text: "Tick skills here, or click the small circles on the tree. When a badge's skills are all ticked you earn it, and the lines to the next badges light up." },
   { sel: "#panel .pn-lens", title: "The critical lens", text: "Each stage of the project has a critical question to ask, linked to the lectures that help you answer it." },
-  { sel: "#legendExt", title: "Extension", text: "Hatched badges, and skills marked extension, go beyond the unit. They're optional, and encouraged if you want to take something further on your own." },
+  { sel: "#legendOpt", title: "Core, optional and extension", text: "Solid badges are core: everyone gets there. Dotted badges are optional: part of the unit, but whether you need them depends on your interests and project. Hatched badges are extension: beyond the unit, encouraged if you want to go further on your own." },
   { sel: "#tabs [data-tree='all']", title: "All Round Data Hero", text: "See all four trees as one network. Hover over a badge to see how the areas feed each other.", before: () => switchTree("project", "launch") },
   { sel: ".stat-card", title: "Your progress", text: "A running count of your skills and badges. Core skills are what everyone reaches; extension skills are extra." },
   { sel: "#readoutBand .section-head", title: "Your read-out", text: "As you tick, this builds two things: what you can say to employers, and questions to reflect on for yourself as someone living in the age of data. You can add notes to both." },

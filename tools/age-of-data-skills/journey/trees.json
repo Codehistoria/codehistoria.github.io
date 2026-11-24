@@ -998,27 +998,27 @@
   "scatter": {
    "label": "Scatter graphs",
    "desc": "Plot two variables against each other.",
-   "tier": "core"
+   "tier": "optional"
   },
   "correlation-theory": {
    "label": "Correlation theory",
    "desc": "Know what correlation can and cannot tell you.",
-   "tier": "core"
+   "tier": "optional"
   },
   "finding-r": {
    "label": "Finding R",
    "desc": "Calculate and interpret the correlation coefficient.",
-   "tier": "core"
+   "tier": "optional"
   },
   "contingency": {
    "label": "Contingency Coefficient",
    "desc": "Measure association between categorical variables.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "regression": {
    "label": "Linear Regression",
    "desc": "Model how one variable changes with another.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "add-annotation": {
    "label": "Add annotation",
@@ -1143,22 +1143,22 @@
   "map-uk": {
    "label": "UK",
    "desc": "Map data for the UK's nations and regions.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "map-thematic": {
    "label": "Thematic maps",
    "desc": "Shade areas by a variable (choropleth and similar).",
-   "tier": "extension"
+   "tier": "optional"
   },
   "map-world": {
    "label": "Around the world",
    "desc": "Map data for countries worldwide.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "map-cities": {
    "label": "Cities",
    "desc": "Map data within and across cities.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "lens-consequences": {
    "label": "Weigh the consequences of datafication",
@@ -1701,7 +1701,7 @@
     {
      "id": "mapping",
      "label": "Mapping",
-     "tier": "extension",
+     "tier": "optional",
      "x": 1130,
      "y": 315,
      "parents": [
@@ -1732,12 +1732,11 @@
     {
      "id": "detect",
      "label": "Detect relationships",
-     "tier": "core",
-     "x": 420,
+     "tier": "optional",
+     "x": 230,
      "y": 315,
      "parents": [
-      "compare",
-      "change"
+      "compare"
      ],
      "skills": [
       "scatter",
@@ -1762,9 +1761,9 @@
     {
      "id": "causation",
      "label": "Causation",
-     "tier": "extension",
+     "tier": "optional",
      "x": 230,
-     "y": 240,
+     "y": 190,
      "parents": [
       "detect"
      ],
@@ -1852,9 +1851,10 @@
      "label": "Analyst",
      "tier": "core",
      "x": 420,
-     "y": 200,
+     "y": 315,
      "parents": [
-      "detect"
+      "compare",
+      "change"
      ],
      "skills": [
       "data-assumptions",
@@ -2816,5 +2816,10 @@
     }
    ]
   }
- ]
+ ],
+ "optional": {
+  "label": "Optional",
+  "long": "Optional, in the unit",
+  "note": "Part of the unit, but whether you need it depends on your interests and how you design your project."
+ }
 }
