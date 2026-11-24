@@ -1361,8 +1361,8 @@
      "id": "data-creator",
      "label": "Data Creator",
      "tier": "extension",
-     "x": 460,
-     "y": 800,
+     "x": 500,
+     "y": 775,
      "parents": [
       "data-gatherer"
      ],
@@ -1391,8 +1391,8 @@
      "id": "adv-data-types",
      "label": "Advanced Data Types",
      "tier": "extension",
-     "x": 290,
-     "y": 760,
+     "x": 350,
+     "y": 775,
      "parents": [
       "data-creator"
      ],
@@ -1458,8 +1458,8 @@
      "id": "adv-wrangler",
      "label": "Advanced Wrangler",
      "tier": "extension",
-     "x": 850,
-     "y": 690,
+     "x": 800,
+     "y": 660,
      "parents": [
       "wrangler"
      ],
@@ -1821,7 +1821,7 @@
      "id": "adv-storytelling",
      "label": "Advanced data viz storytelling",
      "tier": "extension",
-     "x": 860,
+     "x": 800,
      "y": 90,
      "parents": [
       "integrated"
@@ -2294,8 +2294,8 @@
      "id": "excel-l3",
      "label": "Excel User L3",
      "tier": "extension",
-     "x": 330,
-     "y": 290,
+     "x": 350,
+     "y": 415,
      "parents": [
       "excel-l2"
      ],
@@ -2326,8 +2326,8 @@
      "id": "tableau-l1",
      "label": "Tableau User L1",
      "tier": "extension",
-     "x": 670,
-     "y": 290,
+     "x": 650,
+     "y": 415,
      "parents": [
       "excel-l2"
      ],
@@ -2357,8 +2357,8 @@
      "id": "tableau-l2",
      "label": "Tableau User L2",
      "tier": "extension",
-     "x": 670,
-     "y": 160,
+     "x": 800,
+     "y": 415,
      "parents": [
       "tableau-l1"
      ],
