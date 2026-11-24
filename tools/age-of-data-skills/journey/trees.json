@@ -1,0 +1,2820 @@
+{
+ "version": 3,
+ "title": "Arts in the Age of Data: skill trees",
+ "intro": "Four skill trees: the data project, the critical lens, the tools and the teamwork. Pick a badge to see its skills, tick what you've learned, and watch the trees light up. Your read-out below turns it into language for CVs, applications and interviews.",
+ "extension": {
+  "label": "Extension",
+  "long": "Beyond the unit",
+  "note": "Optional, and encouraged: skills that go beyond what the unit teaches, for you to pick up independently."
+ },
+ "hero": {
+  "label": "All Round Data Hero",
+  "blurb": "Every badge in all four trees."
+ },
+ "stages": [
+  {
+   "id": "setup",
+   "label": "Set up",
+   "blurb": "Form the team, pick a topic, plan."
+  },
+  {
+   "id": "find",
+   "label": "Find data",
+   "blurb": "Search, judge and download sources."
+  },
+  {
+   "id": "prepare",
+   "label": "Prepare data",
+   "blurb": "Clean, structure and combine."
+  },
+  {
+   "id": "analyse",
+   "label": "Analyse",
+   "blurb": "Summarise, compare, test."
+  },
+  {
+   "id": "visualise",
+   "label": "Visualise",
+   "blurb": "Choose and design charts."
+  },
+  {
+   "id": "tell",
+   "label": "Tell the story",
+   "blurb": "Bring words and charts together."
+  }
+ ],
+ "lens": {
+  "setup": {
+   "question": "Why this topic, and whose story does the data tell?",
+   "badges": [
+    "lens-w1",
+    "lens-w2"
+   ]
+  },
+  "find": {
+   "question": "Who collected this data, and what does it leave out?",
+   "badges": [
+    "lens-w7",
+    "lens-w5"
+   ]
+  },
+  "prepare": {
+   "question": "What assumptions are you building in as you clean and combine?",
+   "badges": [
+    "lens-w8",
+    "lens-w3"
+   ]
+  },
+  "analyse": {
+   "question": "Could something else explain this pattern?",
+   "badges": [
+    "lens-w9",
+    "lens-w5"
+   ]
+  },
+  "visualise": {
+   "question": "Does your design inform, or does it spin?",
+   "badges": [
+    "lens-w4"
+   ]
+  },
+  "tell": {
+   "question": "What do the findings mean, and for whom?",
+   "badges": [
+    "data-humanist",
+    "lens-w10"
+   ]
+  }
+ },
+ "themes": [
+  {
+   "id": "digital",
+   "label": "Digital and technical skills"
+  },
+  {
+   "id": "research",
+   "label": "Research and data gathering"
+  },
+  {
+   "id": "analysis",
+   "label": "Analytical and numerical reasoning"
+  },
+  {
+   "id": "critical",
+   "label": "Critical thinking and ethical judgement"
+  },
+  {
+   "id": "communication",
+   "label": "Communicating with data"
+  },
+  {
+   "id": "teamwork",
+   "label": "Teamwork and leadership"
+  },
+  {
+   "id": "project",
+   "label": "Project management and organisation"
+  }
+ ],
+ "palette": {
+  "software": "#6E5FE0",
+  "wild": "#3F7FE0",
+  "project": "#14998F",
+  "teamwork": "#D9961C",
+  "humanist": "#EC6A2C",
+  "analysis": "#3E9E62",
+  "viz": "#C8418A"
+ },
+ "icons": {
+  "software": "M4 5h16v14H4z M4 10h16 M10 5v14",
+  "wild": "M10.5 4a6.5 6.5 0 1 0 0 13a6.5 6.5 0 1 0 0-13z M15.5 15.5L20 20",
+  "project": "M4 6h6v5H4z M14 13h6v5h-6z M7 11v4.5h7",
+  "teamwork": "M9 11a3 3 0 1 0 0-6a3 3 0 1 0 0 6z M3.5 19c.8-3 3-4.5 5.5-4.5s4.7 1.5 5.5 4.5 M16 11a2.5 2.5 0 1 0 0-5 M17 14.5c1.8.4 3 1.8 3.5 4",
+  "humanist": "M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z M12 9.5a2.5 2.5 0 1 0 0 5a2.5 2.5 0 1 0 0-5z",
+  "analysis": "M4 19h16 M6 15l4-4 3 3 5-6 M15 8h3v3",
+  "viz": "M11 4.1A8 8 0 1 0 19.9 13H11z M13.5 2.6A7.5 7.5 0 0 1 21.4 10.5h-7.9z",
+  "hero": "M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8L3.5 9.7l5.9-.9z"
+ },
+ "network": {
+  "clusters": {
+   "project": {
+    "cx": -720,
+    "cy": 60,
+    "sx": 0.9,
+    "sy": 0.9
+   },
+   "tools": {
+    "cx": 0,
+    "cy": -470,
+    "sx": 0.85,
+    "sy": 0.8
+   },
+   "lens": {
+    "cx": 660,
+    "cy": -330,
+    "sx": 1,
+    "sy": 0.98
+   },
+   "team": {
+    "cx": 660,
+    "cy": 420,
+    "sx": 0.85,
+    "sy": 0.82
+   }
+  },
+  "cross": [
+   [
+    "excel-l1",
+    "data-gatherer"
+   ],
+   [
+    "excel-l2",
+    "wrangler"
+   ],
+   [
+    "tableau-l1",
+    "common-vis"
+   ],
+   [
+    "team-form",
+    "launch"
+   ],
+   [
+    "team-deliver-3",
+    "integrated"
+   ]
+  ]
+ },
+ "activities": [
+  {
+   "id": "dc1",
+   "label": "Data Challenge 1",
+   "detail": "Combining country data",
+   "skills": [
+    "load-save",
+    "space-setup",
+    "download-xlsx",
+    "download-csv",
+    "filters",
+    "set-data-types",
+    "simple-formulae",
+    "rel-refs",
+    "cell-refs",
+    "v-lookups",
+    "if-conditions",
+    "power-query",
+    "cleaning",
+    "structuring",
+    "enrich",
+    "attribute-sources",
+    "percentages",
+    "data-assumptions",
+    "not-counted",
+    "radar"
+   ]
+  },
+  {
+   "id": "dc2",
+   "label": "Data Challenge 2",
+   "detail": "Cleaning and formatting CND membership data",
+   "skills": [
+    "load-save",
+    "format-cell",
+    "set-data-types",
+    "selection-shortcuts",
+    "using-sheets",
+    "paste-special",
+    "filters",
+    "simple-formulae",
+    "rel-refs",
+    "text-functions",
+    "if-conditions",
+    "goto-special",
+    "cond-formatting",
+    "cleaning",
+    "pct-change",
+    "inflation",
+    "line-graphs",
+    "identify-patterns"
+   ]
+  },
+  {
+   "id": "dc3",
+   "label": "Data Challenge 3",
+   "detail": "Words as data",
+   "skills": [
+    "word-counts",
+    "totalling",
+    "percentages",
+    "mmm",
+    "range-pct",
+    "std-dev",
+    "pie-charts",
+    "column-charts",
+    "line-graphs",
+    "axis-formatting",
+    "legends"
+   ]
+  },
+  {
+   "id": "dc4",
+   "label": "Data Challenge 4",
+   "detail": "Pivot tables and frequency distributions",
+   "skills": [
+    "download-csv",
+    "convert-format",
+    "structuring",
+    "pivot-tables",
+    "filters",
+    "freq-counts",
+    "histograms",
+    "mmm",
+    "categorical",
+    "numerical"
+   ]
+  },
+  {
+   "id": "hunt",
+   "label": "Bristol Data Hunt",
+   "detail": "Finding and reading ward data",
+   "skills": [
+    "data-search",
+    "extract-report",
+    "download-csv",
+    "why-exist",
+    "not-counted",
+    "shared-task"
+   ]
+  },
+  {
+   "id": "out-there",
+   "label": "What data is out there?",
+   "detail": "Exploring the data sources list",
+   "skills": [
+    "data-search",
+    "why-exist",
+    "attribute-sources"
+   ]
+  },
+  {
+   "id": "topic",
+   "label": "Topic and data planning workshop",
+   "detail": "Questions and data requirements",
+   "skills": [
+    "topic-selection",
+    "good-questions",
+    "define-problem",
+    "what-to-measure",
+    "project-plan"
+   ]
+  },
+  {
+   "id": "cards",
+   "label": "Data stories card activity",
+   "detail": "Chaining data with places and operations",
+   "skills": [
+    "good-questions",
+    "generate-hypothesis",
+    "shared-task",
+    "compromise"
+   ]
+  },
+  {
+   "id": "ethics",
+   "label": "Data injustices and ethics week",
+   "detail": "Lecture and seminar",
+   "skills": [
+    "data-ethics",
+    "power-data",
+    "not-counted"
+   ]
+  },
+  {
+   "id": "vizhistory",
+   "label": "Data visualisation history week",
+   "detail": "Decoding four famous infographics",
+   "skills": [
+    "history-dataviz",
+    "theory-history",
+    "avoid-distortion",
+    "clear-explanations"
+   ]
+  },
+  {
+   "id": "metrics",
+   "label": "Ideology and metrics week",
+   "detail": "GDP, HDI and situated knowledge",
+   "skills": [
+    "what-we-measure",
+    "common-stats",
+    "not-counted",
+    "recognise-alt",
+    "nuance"
+   ]
+  },
+  {
+   "id": "tableau",
+   "label": "Tableau workshop",
+   "detail": "Rebuilding the Hong Kong strandings graphic",
+   "skills": [
+    "tab-import",
+    "tab-measures",
+    "tab-markers",
+    "tab-charts",
+    "tab-basic-format",
+    "replicate"
+   ]
+  },
+  {
+   "id": "group",
+   "label": "Group set-up and decision log",
+   "detail": "Weekly decisions and contributions",
+   "skills": [
+    "team-formation",
+    "team-protocols",
+    "identify-role",
+    "action-list",
+    "progress-update"
+   ]
+  },
+  {
+   "id": "midpoint",
+   "label": "Mid-point review",
+   "detail": "With staff, using your decision log",
+   "skills": [
+    "progress-update",
+    "ask-feedback",
+    "hit-targets",
+    "responsible-part"
+   ]
+  }
+ ],
+ "skills": {
+  "rel-refs": {
+   "label": "Relative & fixed references",
+   "desc": "Use $ signs so formulae copy correctly across rows and columns.",
+   "tier": "core"
+  },
+  "cell-refs": {
+   "label": "Cell references",
+   "desc": "Point formulae at the right cells and ranges.",
+   "tier": "core"
+  },
+  "simple-formulae": {
+   "label": "Simple formulae",
+   "desc": "Write basic calculations: add, subtract, multiply, divide.",
+   "tier": "core"
+  },
+  "selection-shortcuts": {
+   "label": "Selection shortcuts",
+   "desc": "Move and select large ranges quickly with the keyboard.",
+   "tier": "core"
+  },
+  "load-save": {
+   "label": "Load and Save",
+   "desc": "Open, save and keep track of versions of your workbooks.",
+   "tier": "core"
+  },
+  "paste-special": {
+   "label": "Paste special",
+   "desc": "Paste values, formats or transposed data rather than everything.",
+   "tier": "core"
+  },
+  "filters": {
+   "label": "Filters",
+   "desc": "Show only the rows you need.",
+   "tier": "core"
+  },
+  "using-sheets": {
+   "label": "Using Sheets",
+   "desc": "Organise a workbook across several named sheets.",
+   "tier": "core"
+  },
+  "tables": {
+   "label": "Tables",
+   "desc": "Turn a range into an Excel Table that grows and formats itself.",
+   "tier": "core"
+  },
+  "set-data-types": {
+   "label": "Set data types",
+   "desc": "Make sure numbers, dates and text are stored as the right type.",
+   "tier": "core"
+  },
+  "format-cell": {
+   "label": "Format a cell",
+   "desc": "Control number formats, alignment and borders.",
+   "tier": "core"
+  },
+  "find-replace": {
+   "label": "Find and Replace",
+   "desc": "Fix repeated errors and inconsistencies in one go.",
+   "tier": "core"
+  },
+  "sort": {
+   "label": "Sort",
+   "desc": "Order data by one or more columns.",
+   "tier": "core"
+  },
+  "v-lookups": {
+   "label": "V-Lookups",
+   "desc": "Pull matching values from one table into another.",
+   "tier": "core"
+  },
+  "text-functions": {
+   "label": "Text functions",
+   "desc": "Split, join and tidy text with functions such as LEFT, TRIM and CONCAT.",
+   "tier": "core"
+  },
+  "dropdown": {
+   "label": "Dropdown",
+   "desc": "Use data validation lists to control what can be entered.",
+   "tier": "core"
+  },
+  "if-conditions": {
+   "label": "IF conditions",
+   "desc": "Make formulae that return different results depending on a test.",
+   "tier": "core"
+  },
+  "sumif": {
+   "label": "SUMIF, COUNTIF, AVERAGEIF",
+   "desc": "Total, count or average only the rows that meet a condition.",
+   "tier": "core"
+  },
+  "pivot-tables": {
+   "label": "Pivot tables",
+   "desc": "Summarise large tables by category in a few clicks.",
+   "tier": "core"
+  },
+  "convert-format": {
+   "label": "Convert data format",
+   "desc": "Move data between formats such as .csv and .xlsx without losing anything.",
+   "tier": "core"
+  },
+  "pivot-graphs": {
+   "label": "Pivot Graphs",
+   "desc": "Chart directly from a pivot table.",
+   "tier": "extension"
+  },
+  "cond-formatting": {
+   "label": "Conditional formatting",
+   "desc": "Highlight cells automatically by rule, such as colour scales.",
+   "tier": "extension"
+  },
+  "slicers": {
+   "label": "Slicers",
+   "desc": "Add clickable filters to pivot tables and charts.",
+   "tier": "extension"
+  },
+  "goto-special": {
+   "label": "Goto special",
+   "desc": "Select blanks, formulae or errors across a sheet at once.",
+   "tier": "extension"
+  },
+  "text-to-columns": {
+   "label": "Text to columns",
+   "desc": "Split one column into several at a delimiter.",
+   "tier": "extension"
+  },
+  "calc-pivot": {
+   "label": "Calculated pivot fields",
+   "desc": "Add your own calculations inside a pivot table.",
+   "tier": "extension"
+  },
+  "power-query": {
+   "label": "Power Query",
+   "desc": "Import, clean and join data with repeatable steps.",
+   "tier": "core"
+  },
+  "tab-basic-format": {
+   "label": "Basic Formatting",
+   "desc": "Format titles, axes and labels in Tableau.",
+   "tier": "extension"
+  },
+  "tab-charts": {
+   "label": "Tableau Charts",
+   "desc": "Build standard chart types in Tableau.",
+   "tier": "extension"
+  },
+  "tab-import": {
+   "label": "Import data into Tableau",
+   "desc": "Connect Tableau to Excel or .csv data.",
+   "tier": "extension"
+  },
+  "tab-markers": {
+   "label": "Tableau Markers",
+   "desc": "Use the Marks card for colour, size, labels and detail.",
+   "tier": "extension"
+  },
+  "tab-measures": {
+   "label": "Measures, dimension, attributes",
+   "desc": "Know how Tableau treats categories and numbers.",
+   "tier": "extension"
+  },
+  "tab-adv-format": {
+   "label": "Advanced Formatting",
+   "desc": "Fine-tune design across a whole workbook.",
+   "tier": "extension"
+  },
+  "tab-joins": {
+   "label": "Joining datasets",
+   "desc": "Combine tables with joins and relationships.",
+   "tier": "extension"
+  },
+  "tab-export": {
+   "label": "Export images",
+   "desc": "Export charts at a quality fit for reports.",
+   "tier": "extension"
+  },
+  "tab-story": {
+   "label": "Story boards",
+   "desc": "Sequence views into a Tableau Story.",
+   "tier": "extension"
+  },
+  "tab-interactive": {
+   "label": "Interactive Tableaus",
+   "desc": "Build dashboards with filters and actions.",
+   "tier": "extension"
+  },
+  "tab-maps": {
+   "label": "Tableau Maps",
+   "desc": "Plot data geographically in Tableau.",
+   "tier": "extension"
+  },
+  "data-search": {
+   "label": "Data search",
+   "desc": "Find suitable datasets for a question.",
+   "tier": "core"
+  },
+  "extract-report": {
+   "label": "Extract report table",
+   "desc": "Lift tables out of published reports into a spreadsheet.",
+   "tier": "core"
+  },
+  "download-xlsx": {
+   "label": "Download .xlsx data",
+   "desc": "Download and open published Excel datasets.",
+   "tier": "core"
+  },
+  "web-db": {
+   "label": "Web database extracts",
+   "desc": "Query an online database and download a custom extract.",
+   "tier": "extension"
+  },
+  "download-csv": {
+   "label": "Download .csv data",
+   "desc": "Work with plain-text .csv downloads.",
+   "tier": "core"
+  },
+  "time-series": {
+   "label": "Create time series",
+   "desc": "Assemble figures from several releases into one series over time.",
+   "tier": "extension"
+  },
+  "digitize": {
+   "label": "Digitize data",
+   "desc": "Turn printed tables, charts or archives into usable data.",
+   "tier": "extension"
+  },
+  "shapefile": {
+   "label": "Shapefile data",
+   "desc": "Use geographic boundary files for mapping.",
+   "tier": "extension"
+  },
+  "twitter": {
+   "label": "Twitter data",
+   "desc": "Work with social-media posts as data.",
+   "tier": "extension"
+  },
+  "word-counts": {
+   "label": "Word counts data",
+   "desc": "Turn text into counts you can analyse.",
+   "tier": "extension"
+  },
+  "weighted-survey": {
+   "label": "Weighted survey data",
+   "desc": "Apply survey weights so results represent the population.",
+   "tier": "extension"
+  },
+  "json": {
+   "label": "JSON data",
+   "desc": "Read data in the nested JSON format used by many web sources.",
+   "tier": "extension"
+  },
+  "backup": {
+   "label": "Backup procedures",
+   "desc": "Keep safe copies so no work is lost.",
+   "tier": "core"
+  },
+  "space-setup": {
+   "label": "Project space setup",
+   "desc": "Set up a shared folder structure for the group.",
+   "tier": "core"
+  },
+  "good-questions": {
+   "label": "Ask good data questions",
+   "desc": "Frame questions that data can actually answer.",
+   "tier": "core"
+  },
+  "team-protocols": {
+   "label": "Team protocols",
+   "desc": "Agree how the group will communicate and decide.",
+   "tier": "core"
+  },
+  "define-problem": {
+   "label": "Defining a problem",
+   "desc": "Turn a broad interest into a focused problem.",
+   "tier": "core"
+  },
+  "team-formation": {
+   "label": "Team formation",
+   "desc": "Form a group and get to know each other's strengths.",
+   "tier": "core"
+  },
+  "briefed": {
+   "label": "Briefed & Ready to Go",
+   "desc": "Understand the brief and what success looks like.",
+   "tier": "core"
+  },
+  "project-plan": {
+   "label": "Project plan",
+   "desc": "Plan the stages, tasks and deadlines.",
+   "tier": "core"
+  },
+  "topic-selection": {
+   "label": "Topic selection",
+   "desc": "Choose a topic with data available to support it.",
+   "tier": "core"
+  },
+  "what-to-measure": {
+   "label": "What to measure",
+   "desc": "Decide which indicators will answer your question.",
+   "tier": "core"
+  },
+  "zip-folder": {
+   "label": "Create a ZIP folder",
+   "desc": "Package files for sharing and submission.",
+   "tier": "core"
+  },
+  "discovery": {
+   "label": "Discovery",
+   "desc": "Explore a new dataset to see what it contains.",
+   "tier": "core"
+  },
+  "structuring": {
+   "label": "Structuring",
+   "desc": "Reshape data into tidy rows and columns.",
+   "tier": "core"
+  },
+  "cleaning": {
+   "label": "Cleaning",
+   "desc": "Fix errors, gaps and inconsistencies.",
+   "tier": "core"
+  },
+  "attribute-sources": {
+   "label": "Attribute sources",
+   "desc": "Record where every dataset came from.",
+   "tier": "core"
+  },
+  "field-definitions": {
+   "label": "Field definitions",
+   "desc": "Document what each column means.",
+   "tier": "core"
+  },
+  "enrich": {
+   "label": "Enrich & combine",
+   "desc": "Join datasets to add new variables.",
+   "tier": "core"
+  },
+  "validate": {
+   "label": "Validate",
+   "desc": "Check combined data for errors and mismatches.",
+   "tier": "extension"
+  },
+  "storing": {
+   "label": "Storing lots of data",
+   "desc": "Manage large files and many versions.",
+   "tier": "extension"
+  },
+  "process-3": {
+   "label": "Process 3 datasets",
+   "desc": "Prepare and integrate three or more datasets.",
+   "tier": "extension"
+  },
+  "shared-task": {
+   "label": "Complete a shared task",
+   "desc": "Finish a piece of work together.",
+   "tier": "core"
+  },
+  "action-list": {
+   "label": "Write up meeting action list",
+   "desc": "Record who will do what by when.",
+   "tier": "core"
+  },
+  "progress-update": {
+   "label": "Update on your progress",
+   "desc": "Keep the group informed about your work.",
+   "tier": "core"
+  },
+  "identify-role": {
+   "label": "Identify your role",
+   "desc": "Know what you are responsible for in the group.",
+   "tier": "core"
+  },
+  "compromise": {
+   "label": "Make a compromise",
+   "desc": "Find a way forward when views differ.",
+   "tier": "core"
+  },
+  "ask-feedback": {
+   "label": "Ask for feedback from team",
+   "desc": "Invite comments on your work.",
+   "tier": "core"
+  },
+  "responsible-part": {
+   "label": "Responsible part of team project",
+   "desc": "Own a distinct part of the project.",
+   "tier": "core"
+  },
+  "negotiate-focus": {
+   "label": "Negotiate individual report focus",
+   "desc": "Agree your individual angle within the group project.",
+   "tier": "core"
+  },
+  "hit-targets": {
+   "label": "Hit targets for agreed actions",
+   "desc": "Deliver what you said you would, on time.",
+   "tier": "core"
+  },
+  "offer-feedback": {
+   "label": "Offer constructive feedback",
+   "desc": "Give useful, specific and kind feedback.",
+   "tier": "core"
+  },
+  "help-member": {
+   "label": "Help team member",
+   "desc": "Support a colleague who is stuck.",
+   "tier": "extension"
+  },
+  "assess-track": {
+   "label": "Assess if team on track",
+   "desc": "Check progress against the plan.",
+   "tier": "extension"
+  },
+  "consult": {
+   "label": "Consult on ways forward",
+   "desc": "Gather views before deciding.",
+   "tier": "extension"
+  },
+  "group-agreement": {
+   "label": "Generate group agreement",
+   "desc": "Bring the group to a shared decision.",
+   "tier": "extension"
+  },
+  "action-plan-wrong": {
+   "label": "Action plan something going wrong",
+   "desc": "Respond with a plan when things go off track.",
+   "tier": "extension"
+  },
+  "data-ethics": {
+   "label": "Data ethics",
+   "desc": "Weigh the ethical questions raised by collecting and using data.",
+   "tier": "core"
+  },
+  "scale-of-data": {
+   "label": "Scale of data",
+   "desc": "Understand how much data now exists and why that matters.",
+   "tier": "core"
+  },
+  "origins-data-state": {
+   "label": "Origins of the Data State",
+   "desc": "Know how and why states began counting their people.",
+   "tier": "core"
+  },
+  "power-data": {
+   "label": "Power and data",
+   "desc": "Ask who controls data and who benefits.",
+   "tier": "core"
+  },
+  "what-we-measure": {
+   "label": "What we choose to measure",
+   "desc": "See that choosing a measure is itself a decision.",
+   "tier": "core"
+  },
+  "judge-survey": {
+   "label": "How to judge a survey",
+   "desc": "Assess a survey's sample, questions and method.",
+   "tier": "core"
+  },
+  "read-poll": {
+   "label": "How to read a poll",
+   "desc": "Interpret polls, margins of error and headlines.",
+   "tier": "core"
+  },
+  "common-stats": {
+   "label": "Society's common stats",
+   "desc": "Know the everyday statistics that shape public debate.",
+   "tier": "core"
+  },
+  "data-spun": {
+   "label": "How is data spun?",
+   "desc": "Spot selective or misleading uses of data.",
+   "tier": "core"
+  },
+  "why-exist": {
+   "label": "Why does this data exist?",
+   "desc": "Ask who collected the data and for what purpose.",
+   "tier": "core"
+  },
+  "not-counted": {
+   "label": "What is or isn't counted?",
+   "desc": "Notice who and what is missing from a dataset.",
+   "tier": "core"
+  },
+  "data-assumptions": {
+   "label": "Data assumptions",
+   "desc": "Make the assumptions behind your analysis explicit.",
+   "tier": "core"
+  },
+  "generate-hypothesis": {
+   "label": "Generate hypothesis",
+   "desc": "Propose an explanation you can test.",
+   "tier": "core"
+  },
+  "clear-explanations": {
+   "label": "Clear explanations of what data shows",
+   "desc": "Say plainly what the data does and does not show.",
+   "tier": "core"
+  },
+  "identify-patterns": {
+   "label": "Identify patterns",
+   "desc": "Spot trends, outliers and differences.",
+   "tier": "core"
+  },
+  "recognise-alt": {
+   "label": "Recognise alternative",
+   "desc": "Consider other explanations for a finding.",
+   "tier": "core"
+  },
+  "nuance": {
+   "label": "Nuance",
+   "desc": "Avoid overclaiming; acknowledge complexity.",
+   "tier": "core"
+  },
+  "situate-project": {
+   "label": "Situate project in Age of Data",
+   "desc": "Connect your project to the unit's wider themes.",
+   "tier": "core"
+  },
+  "situate-findings": {
+   "label": "Situate findings in topic literature",
+   "desc": "Relate your results to what others have written.",
+   "tier": "core"
+  },
+  "theory-history": {
+   "label": "Theory & history inform viz choices",
+   "desc": "Let theory and history shape how you visualise.",
+   "tier": "core"
+  },
+  "findings-mean": {
+   "label": "What findings mean",
+   "desc": "Explain why the results matter.",
+   "tier": "core"
+  },
+  "totalling": {
+   "label": "Totalling",
+   "desc": "Add up columns and groups accurately.",
+   "tier": "core"
+  },
+  "percentages": {
+   "label": "%s",
+   "desc": "Calculate and interpret percentages.",
+   "tier": "core"
+  },
+  "quick-maths": {
+   "label": "Quick maths in Excel",
+   "desc": "Do fast calculations with Excel.",
+   "tier": "core"
+  },
+  "categorical": {
+   "label": "Categorical data",
+   "desc": "Work with data in categories.",
+   "tier": "core"
+  },
+  "numerical": {
+   "label": "Numerical data",
+   "desc": "Work with data measured in numbers.",
+   "tier": "core"
+  },
+  "mmm": {
+   "label": "Mean, Median, Mode",
+   "desc": "Choose the right average for the data.",
+   "tier": "core"
+  },
+  "range-pct": {
+   "label": "Range & Percentiles",
+   "desc": "Describe the spread of values.",
+   "tier": "core"
+  },
+  "freq-counts": {
+   "label": "Frequency counts",
+   "desc": "Count how often each value occurs.",
+   "tier": "core"
+  },
+  "std-dev": {
+   "label": "Standard deviation",
+   "desc": "Measure how spread out values are.",
+   "tier": "core"
+  },
+  "variance": {
+   "label": "Variance",
+   "desc": "Measure spread as the average squared distance from the mean.",
+   "tier": "core"
+  },
+  "index-numbers": {
+   "label": "Index numbers",
+   "desc": "Express values relative to a base year set to 100.",
+   "tier": "core"
+  },
+  "avg-growth": {
+   "label": "Avg. % growth",
+   "desc": "Calculate average growth over several periods.",
+   "tier": "core"
+  },
+  "inflation": {
+   "label": "Adjusting for inflation",
+   "desc": "Compare money values across years in real terms.",
+   "tier": "core"
+  },
+  "trendlines": {
+   "label": "Trendlines",
+   "desc": "Fit a line to show the direction of change.",
+   "tier": "core"
+  },
+  "pct-change": {
+   "label": "% change",
+   "desc": "Calculate the percentage change between two values.",
+   "tier": "core"
+  },
+  "scatter": {
+   "label": "Scatter graphs",
+   "desc": "Plot two variables against each other.",
+   "tier": "core"
+  },
+  "correlation-theory": {
+   "label": "Correlation theory",
+   "desc": "Know what correlation can and cannot tell you.",
+   "tier": "core"
+  },
+  "finding-r": {
+   "label": "Finding R",
+   "desc": "Calculate and interpret the correlation coefficient.",
+   "tier": "core"
+  },
+  "contingency": {
+   "label": "Contingency Coefficient",
+   "desc": "Measure association between categorical variables.",
+   "tier": "extension"
+  },
+  "regression": {
+   "label": "Linear Regression",
+   "desc": "Model how one variable changes with another.",
+   "tier": "extension"
+  },
+  "add-annotation": {
+   "label": "Add annotation",
+   "desc": "Label the key points readers should notice.",
+   "tier": "core"
+  },
+  "color-features": {
+   "label": "Color features",
+   "desc": "Use colour with purpose.",
+   "tier": "core"
+  },
+  "remove-features": {
+   "label": "Remove features",
+   "desc": "Strip out clutter from default charts.",
+   "tier": "core"
+  },
+  "legends": {
+   "label": "Legends",
+   "desc": "Add, place or replace legends.",
+   "tier": "core"
+  },
+  "axis-formatting": {
+   "label": "Axis formatting",
+   "desc": "Set scales, labels and number formats on axes.",
+   "tier": "core"
+  },
+  "line-graphs": {
+   "label": "Line graphs",
+   "desc": "Show change over time.",
+   "tier": "core"
+  },
+  "column-charts": {
+   "label": "Column charts",
+   "desc": "Compare quantities across categories.",
+   "tier": "core"
+  },
+  "pie-charts": {
+   "label": "Pie charts",
+   "desc": "Show parts of a whole, and know when not to.",
+   "tier": "core"
+  },
+  "audience": {
+   "label": "Audience",
+   "desc": "Design for the people who will read it.",
+   "tier": "core"
+  },
+  "low-ink": {
+   "label": "Low ink",
+   "desc": "Remove everything that doesn't carry information.",
+   "tier": "core"
+  },
+  "sparklines": {
+   "label": "Sparklines",
+   "desc": "Show trends in a small, word-sized chart.",
+   "tier": "core"
+  },
+  "histograms": {
+   "label": "Histograms",
+   "desc": "Show the distribution of a numerical variable.",
+   "tier": "core"
+  },
+  "doughnut": {
+   "label": "Doughnut charts",
+   "desc": "Use a ring chart for parts of a whole.",
+   "tier": "core"
+  },
+  "structure-flow": {
+   "label": "Structure and flow",
+   "desc": "Lead the reader through the page in a clear order.",
+   "tier": "core"
+  },
+  "word-cloud": {
+   "label": "Word Cloud",
+   "desc": "Visualise word frequency in text.",
+   "tier": "core"
+  },
+  "tree-map": {
+   "label": "Tree map",
+   "desc": "Show nested parts of a whole as rectangles.",
+   "tier": "core"
+  },
+  "radar": {
+   "label": "Radar chart",
+   "desc": "Compare several measures on one chart.",
+   "tier": "core"
+  },
+  "concise-text": {
+   "label": "Concise text",
+   "desc": "Write short, precise text to go with charts.",
+   "tier": "core"
+  },
+  "pyramid": {
+   "label": "Pyramid chart",
+   "desc": "Compare two distributions back to back, such as by age and sex.",
+   "tier": "core"
+  },
+  "area-chart": {
+   "label": "Area chart",
+   "desc": "Show volume over time.",
+   "tier": "core"
+  },
+  "avoid-distortion": {
+   "label": "Avoiding distortion",
+   "desc": "Keep scales and shapes honest.",
+   "tier": "core"
+  },
+  "history-dataviz": {
+   "label": "History of Data Viz",
+   "desc": "Learn from landmark designs and designers.",
+   "tier": "core"
+  },
+  "replicate": {
+   "label": "Replicate famous design",
+   "desc": "Rebuild a classic visualisation to learn how it works.",
+   "tier": "extension"
+  },
+  "inspiration": {
+   "label": "Find inspiration",
+   "desc": "Collect and learn from good current work.",
+   "tier": "extension"
+  },
+  "map-uk": {
+   "label": "UK",
+   "desc": "Map data for the UK's nations and regions.",
+   "tier": "extension"
+  },
+  "map-thematic": {
+   "label": "Thematic maps",
+   "desc": "Shade areas by a variable (choropleth and similar).",
+   "tier": "extension"
+  },
+  "map-world": {
+   "label": "Around the world",
+   "desc": "Map data for countries worldwide.",
+   "tier": "extension"
+  },
+  "map-cities": {
+   "label": "Cities",
+   "desc": "Map data within and across cities.",
+   "tier": "extension"
+  },
+  "lens-consequences": {
+   "label": "Weigh the consequences of datafication",
+   "desc": "Think through what turning life into data changes for people and society.",
+   "tier": "core"
+  },
+  "lens-surveillance": {
+   "label": "Surveillance and freedom",
+   "desc": "Ask what data collection costs in privacy and freedom, and who decides.",
+   "tier": "core"
+  },
+  "lens-bias": {
+   "label": "Bias in data and algorithms",
+   "desc": "Spot how bias gets built into data and automated decisions.",
+   "tier": "core"
+  },
+  "lens-harm": {
+   "label": "Who is harmed, who benefits?",
+   "desc": "Ask who gains and who loses when decisions are made by data.",
+   "tier": "core"
+  },
+  "lens-decode": {
+   "label": "Decode a visualisation",
+   "desc": "Work out the data behind a chart and how it was combined.",
+   "tier": "core"
+  },
+  "lens-metric-limits": {
+   "label": "What a metric leaves out",
+   "desc": "Say what a measure such as GDP captures and what it misses.",
+   "tier": "core"
+  },
+  "lens-wording": {
+   "label": "How you ask shapes the answer",
+   "desc": "Notice how question wording and order affect survey results.",
+   "tier": "core"
+  },
+  "lens-categories": {
+   "label": "Question the categories",
+   "desc": "Ask who designed the categories data sorts people into, and why.",
+   "tier": "core"
+  },
+  "lens-class": {
+   "label": "Measuring poverty and class",
+   "desc": "Understand how poverty and social class have been defined and counted.",
+   "tier": "core"
+  },
+  "lens-sample": {
+   "label": "Who was asked?",
+   "desc": "Judge whether a poll's sample represents the people it claims to.",
+   "tier": "core"
+  },
+  "lens-ai-data": {
+   "label": "What did the AI learn from?",
+   "desc": "Ask what data an AI system was trained on, and what that means for its outputs.",
+   "tier": "core"
+  },
+  "lens-ai-power": {
+   "label": "AI, capital and power",
+   "desc": "Weigh who gains from AI and the data economy.",
+   "tier": "core"
+  },
+  "team-share-skills": {
+   "label": "Share a skill",
+   "desc": "Teach a teammate something you know how to do.",
+   "tier": "core"
+  },
+  "team-decision-log": {
+   "label": "Keep the decision log",
+   "desc": "Record decisions and named contributions in the weekly log.",
+   "tier": "core"
+  },
+  "team-chair": {
+   "label": "Chair a meeting",
+   "desc": "Run a group meeting so it ends with clear decisions and actions.",
+   "tier": "extension"
+  },
+  "team-act-feedback": {
+   "label": "Act on feedback",
+   "desc": "Change your work in response to feedback, and say what changed.",
+   "tier": "extension"
+  },
+  "team-deadline": {
+   "label": "Meet a group deadline",
+   "desc": "Get your part done in time for the rest of the group.",
+   "tier": "core"
+  },
+  "team-final": {
+   "label": "Bring it together",
+   "desc": "Combine the group's work into the final submission.",
+   "tier": "extension"
+  },
+  "team-midpoint": {
+   "label": "Lead the mid-point review",
+   "desc": "Speak for the group at the review with staff.",
+   "tier": "extension"
+  },
+  "viz-sketch": {
+   "label": "Sketch the layout first",
+   "desc": "Plan the page on paper before you build it.",
+   "tier": "core"
+  },
+  "viz-hierarchy": {
+   "label": "Lead with the key message",
+   "desc": "Give the most important finding the most visual weight.",
+   "tier": "core"
+  },
+  "report-captions": {
+   "label": "Title and caption every chart",
+   "desc": "Give each chart a title that says what it shows, and a source line.",
+   "tier": "core"
+  },
+  "lens-define": {
+   "label": "Define the age of data",
+   "desc": "Explain what is meant by the age of data, and when and why it began.",
+   "tier": "core"
+  },
+  "lens-essay": {
+   "label": "Write about the age of data",
+   "desc": "Contribute to the study of the age of data in an essay of your own.",
+   "tier": "core"
+  }
+ },
+ "trees": [
+  {
+   "id": "project",
+   "label": "The Project",
+   "sub": "From question to finished infographic",
+   "icon": "project",
+   "colour": "#14998F",
+   "colourBy": "strand",
+   "badges": [
+    {
+     "id": "launch",
+     "label": "Launch Data Project",
+     "tier": "core",
+     "x": 650,
+     "y": 890,
+     "parents": [],
+     "skills": [
+      "backup",
+      "space-setup",
+      "good-questions",
+      "define-problem",
+      "briefed",
+      "project-plan",
+      "topic-selection",
+      "what-to-measure",
+      "zip-folder"
+     ],
+     "strand": "project",
+     "stage": "setup",
+     "blurb": "Choose a topic and plan the project.",
+     "cv": "Scoped a group data project: chose a topic, defined the problem and research questions, decided what to measure and set up a project plan and shared workspace.",
+     "story": "Tell me how your group chose its topic and turned it into a question data could answer. What trade-offs did you make?",
+     "next": "Practise writing a one-paragraph project brief in plain English: it is how most workplace projects begin.",
+     "themes": [
+      "project",
+      "research"
+     ],
+     "keywords": [
+      "project scoping",
+      "research design",
+      "project planning",
+      "file management"
+     ]
+    },
+    {
+     "id": "data-gatherer",
+     "label": "Data Gatherer",
+     "tier": "core",
+     "x": 650,
+     "y": 775,
+     "parents": [
+      "launch"
+     ],
+     "skills": [
+      "data-search",
+      "extract-report",
+      "download-xlsx",
+      "download-csv"
+     ],
+     "strand": "wild",
+     "stage": "find",
+     "blurb": "Find and download published data.",
+     "cv": "Located, assessed and extracted data from published reports and official sources, converting it into analysis-ready formats.",
+     "story": "Describe how you tracked down the data your project needed. What did you do when it wasn't in the form you wanted?",
+     "next": "Get to know the main UK sources (ONS, data.gov.uk, the UK Data Service) so you know where to look first in any new role.",
+     "themes": [
+      "research",
+      "digital"
+     ],
+     "keywords": [
+      "desk research",
+      "data sourcing",
+      "official statistics",
+      "information retrieval"
+     ]
+    },
+    {
+     "id": "data-creator",
+     "label": "Data Creator",
+     "tier": "extension",
+     "x": 460,
+     "y": 800,
+     "parents": [
+      "data-gatherer"
+     ],
+     "skills": [
+      "web-db",
+      "time-series",
+      "digitize"
+     ],
+     "strand": "wild",
+     "stage": "find",
+     "blurb": "Build data that doesn't exist yet.",
+     "cv": "Created new datasets by digitising printed or visual sources, assembling time series from several releases and pulling custom extracts from online databases.",
+     "story": "Tell me about a time the data you needed didn't exist yet. How did you build it, and how did you check its accuracy?",
+     "next": "Digitise a small archival or historical source of your own: it makes a strong portfolio piece for research, heritage and archive roles.",
+     "themes": [
+      "research"
+     ],
+     "keywords": [
+      "data collection",
+      "digitisation",
+      "time-series data",
+      "database extracts"
+     ]
+    },
+    {
+     "id": "adv-data-types",
+     "label": "Advanced Data Types",
+     "tier": "extension",
+     "x": 290,
+     "y": 760,
+     "parents": [
+      "data-creator"
+     ],
+     "skills": [
+      "shapefile",
+      "twitter",
+      "word-counts",
+      "weighted-survey",
+      "json"
+     ],
+     "strand": "wild",
+     "stage": "find",
+     "blurb": "JSON, maps, text and survey weights.",
+     "cv": "Worked with non-standard data formats, including JSON, shapefiles, social-media and text data, and weighted survey data.",
+     "story": "Describe a dataset that was harder to work with than a normal spreadsheet. What did you have to learn to use it?",
+     "next": "An introductory Python or R course is the natural next step: these formats are where code starts to pay off.",
+     "themes": [
+      "research",
+      "digital"
+     ],
+     "keywords": [
+      "JSON",
+      "geospatial data",
+      "text data",
+      "survey weighting"
+     ]
+    },
+    {
+     "id": "wrangler",
+     "label": "Wrangler",
+     "tier": "core",
+     "x": 650,
+     "y": 660,
+     "parents": [
+      "data-gatherer"
+     ],
+     "skills": [
+      "discovery",
+      "structuring",
+      "cleaning",
+      "attribute-sources",
+      "field-definitions",
+      "enrich"
+     ],
+     "strand": "project",
+     "stage": "prepare",
+     "blurb": "Clean, structure and combine data.",
+     "cv": "Cleaned, structured and combined raw datasets, documenting sources and field definitions so the work could be checked and reused.",
+     "story": "Describe a problem you found while cleaning data, such as missing values, inconsistent names or a misleading field. How did you spot it, and what did you do?",
+     "next": "Keep a short data dictionary for every project: it is standard practice in analyst roles.",
+     "themes": [
+      "digital",
+      "project"
+     ],
+     "keywords": [
+      "data cleaning",
+      "data wrangling",
+      "data quality",
+      "documentation"
+     ]
+    },
+    {
+     "id": "adv-wrangler",
+     "label": "Advanced Wrangler",
+     "tier": "extension",
+     "x": 850,
+     "y": 690,
+     "parents": [
+      "wrangler"
+     ],
+     "skills": [
+      "validate",
+      "storing",
+      "process-3"
+     ],
+     "strand": "project",
+     "stage": "prepare",
+     "blurb": "Validate and integrate several datasets.",
+     "cv": "Validated and integrated three or more datasets, managing storage and versions and checking combined results for consistency.",
+     "story": "Tell me about combining several datasets. What went wrong when you joined them, and how did you find out?",
+     "next": "A free introduction to SQL would show you how organisations manage data at scale.",
+     "themes": [
+      "digital",
+      "project"
+     ],
+     "keywords": [
+      "data integration",
+      "data validation",
+      "data management"
+     ]
+    },
+    {
+     "id": "analyst-foundations",
+     "label": "Analyst Foundations",
+     "tier": "core",
+     "x": 420,
+     "y": 545,
+     "parents": [
+      "wrangler"
+     ],
+     "skills": [
+      "totalling",
+      "percentages",
+      "quick-maths",
+      "categorical",
+      "numerical"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Totals, percentages and data types.",
+     "cv": "Calculated totals and percentages accurately and distinguished between categorical and numerical data before analysing them.",
+     "story": "Tell me about a time a simple calculation mattered. How did you make sure it was right?",
+     "next": "Many graduate employers use numerical reasoning tests: practise these alongside your project work.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "numeracy",
+      "percentages",
+      "data types"
+     ]
+    },
+    {
+     "id": "common-vis",
+     "label": "Common visualisations",
+     "tier": "core",
+     "x": 880,
+     "y": 545,
+     "parents": [
+      "wrangler"
+     ],
+     "skills": [
+      "column-charts",
+      "line-graphs",
+      "pie-charts",
+      "doughnut",
+      "histograms"
+     ],
+     "strand": "viz",
+     "stage": "visualise",
+     "blurb": "Make standard charts clear.",
+     "cv": "Created clear column, line and pie charts, formatting axes, legends, colour and annotation for readability.",
+     "story": "Show me a chart you improved. What did the default version get wrong, and what did you change?",
+     "next": "Every time you make a chart, ask what you can remove: it is the quickest way to improve.",
+     "themes": [
+      "communication",
+      "digital"
+     ],
+     "keywords": [
+      "data visualisation",
+      "charting",
+      "Excel charts"
+     ]
+    },
+    {
+     "id": "summarise",
+     "label": "Summarise data",
+     "tier": "core",
+     "x": 420,
+     "y": 430,
+     "parents": [
+      "analyst-foundations"
+     ],
+     "skills": [
+      "mmm",
+      "range-pct",
+      "freq-counts"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Averages, spread and counts.",
+     "cv": "Summarised datasets with averages, ranges, percentiles and frequency counts, choosing the right measure for the data.",
+     "story": "When did choosing the median rather than the mean, or the reverse, change the story your data told?",
+     "next": "Try summarising a public dataset in five numbers and two sentences: it is a common task in analyst interviews.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "descriptive statistics",
+      "data summary"
+     ]
+    },
+    {
+     "id": "design-principles",
+     "label": "Design principles",
+     "tier": "core",
+     "x": 780,
+     "y": 430,
+     "parents": [
+      "common-vis"
+     ],
+     "skills": [
+      "audience",
+      "low-ink",
+      "remove-features",
+      "add-annotation",
+      "axis-formatting",
+      "legends",
+      "color-features",
+      "avoid-distortion"
+     ],
+     "strand": "viz",
+     "stage": "visualise",
+     "blurb": "Design for your audience.",
+     "cv": "Applied design principles, including audience, low-ink design and appropriate chart choice, to make visualisations clear and honest.",
+     "story": "Tell me about designing something for a particular audience. How did knowing who they were change your choices?",
+     "next": "Collect three charts you admire and three you don't, and write a line on why for each.",
+     "themes": [
+      "communication"
+     ],
+     "keywords": [
+      "information design",
+      "audience awareness",
+      "visual communication"
+     ]
+    },
+    {
+     "id": "compare",
+     "label": "Compare datasets",
+     "tier": "core",
+     "x": 230,
+     "y": 455,
+     "parents": [
+      "summarise"
+     ],
+     "skills": [
+      "std-dev",
+      "variance"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Compare groups fairly.",
+     "cv": "Compared datasets using measures of spread such as variance and standard deviation.",
+     "story": "Tell me about two groups or places you compared. How did you decide whether the difference was meaningful?",
+     "next": "Find out what a confidence interval is: it is the natural next step from standard deviation.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "statistical comparison",
+      "variance",
+      "standard deviation"
+     ]
+    },
+    {
+     "id": "change",
+     "label": "Change over time",
+     "tier": "core",
+     "x": 610,
+     "y": 455,
+     "parents": [
+      "summarise"
+     ],
+     "skills": [
+      "index-numbers",
+      "avg-growth",
+      "inflation",
+      "trendlines",
+      "pct-change"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Measure change over time.",
+     "cv": "Measured change over time using percentage change, average growth, index numbers, inflation adjustment and trendlines.",
+     "story": "Describe a trend you measured. How did you make sure you were comparing like with like across the years?",
+     "next": "Use the ONS inflation calculators and indices to practise real-terms comparisons on topics you care about.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "trend analysis",
+      "time-series analysis",
+      "inflation adjustment",
+      "index numbers"
+     ]
+    },
+    {
+     "id": "infographic",
+     "label": "Infographic design",
+     "tier": "core",
+     "x": 880,
+     "y": 315,
+     "parents": [
+      "design-principles"
+     ],
+     "skills": [
+      "structure-flow",
+      "viz-sketch",
+      "viz-hierarchy"
+     ],
+     "strand": "viz",
+     "stage": "visualise",
+     "blurb": "Plan and lay out an infographic.",
+     "cv": "Designed an infographic with a clear structure, visual hierarchy and flow, planned from a sketched layout.",
+     "story": "Walk me through how you planned your infographic's layout. What did you put first, and why?",
+     "next": "Keep a PDF of your infographic to share in applications and interviews.",
+     "themes": [
+      "communication"
+     ],
+     "keywords": [
+      "infographic design",
+      "visual storytelling",
+      "layout"
+     ]
+    },
+    {
+     "id": "mapping",
+     "label": "Mapping",
+     "tier": "extension",
+     "x": 1130,
+     "y": 315,
+     "parents": [
+      "chart-repertoire"
+     ],
+     "skills": [
+      "map-uk",
+      "map-thematic",
+      "map-world",
+      "map-cities"
+     ],
+     "strand": "viz",
+     "stage": "visualise",
+     "blurb": "Show data on maps.",
+     "cv": "Created thematic maps of data at city, UK and global scales.",
+     "story": "Tell me about a map you made. What did showing the data geographically reveal that a chart didn't?",
+     "next": "If map-making appeals, try QGIS, which is free and used widely in government, planning and heritage.",
+     "themes": [
+      "communication",
+      "digital"
+     ],
+     "keywords": [
+      "thematic mapping",
+      "geospatial visualisation",
+      "GIS"
+     ]
+    },
+    {
+     "id": "detect",
+     "label": "Detect relationships",
+     "tier": "core",
+     "x": 420,
+     "y": 315,
+     "parents": [
+      "compare",
+      "change"
+     ],
+     "skills": [
+      "scatter",
+      "correlation-theory",
+      "finding-r"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Test relationships between variables.",
+     "cv": "Tested relationships between variables with scatter graphs and the correlation coefficient (r), and explained the difference between correlation and causation.",
+     "story": "Tell me about a relationship you found in your data. How did you avoid claiming more than it showed?",
+     "next": "Look for a correlation reported in the news and work out what else could explain it.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "correlation analysis",
+      "statistical relationships",
+      "scatter plots"
+     ]
+    },
+    {
+     "id": "causation",
+     "label": "Causation",
+     "tier": "extension",
+     "x": 230,
+     "y": 240,
+     "parents": [
+      "detect"
+     ],
+     "skills": [
+      "contingency",
+      "regression"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Explore cause and effect.",
+     "cv": "Applied linear regression and contingency coefficients to explore causal questions, and assessed the limits of causal claims.",
+     "story": "Tell me about a time you tried to establish cause and effect. What stopped you being certain?",
+     "next": "An introductory statistics or quantitative methods course would build directly on this.",
+     "themes": [
+      "analysis"
+     ],
+     "keywords": [
+      "regression analysis",
+      "statistical modelling",
+      "causal inference"
+     ]
+    },
+    {
+     "id": "integrated",
+     "label": "Integrated report: text & data viz",
+     "tier": "core",
+     "x": 650,
+     "y": 90,
+     "parents": [
+      "analyst",
+      "infographic"
+     ],
+     "skills": [
+      "concise-text",
+      "clear-explanations",
+      "report-captions"
+     ],
+     "strand": "viz",
+     "stage": "tell",
+     "blurb": "Combine writing and charts in one piece.",
+     "cv": "Produced an integrated report combining concise written analysis with titled, captioned data visualisations for a non-specialist audience.",
+     "story": "Walk me through your final infographic. Who was it for, and what design and writing decisions did you make for them?",
+     "next": "Rewrite your report's key message as a 100-word briefing note: a format used across government, policy and business.",
+     "themes": [
+      "communication"
+     ],
+     "keywords": [
+      "report writing",
+      "data storytelling",
+      "communicating insights",
+      "concise writing"
+     ]
+    },
+    {
+     "id": "adv-storytelling",
+     "label": "Advanced data viz storytelling",
+     "tier": "extension",
+     "x": 860,
+     "y": 90,
+     "parents": [
+      "integrated"
+     ],
+     "skills": [
+      "replicate",
+      "inspiration"
+     ],
+     "strand": "viz",
+     "stage": "tell",
+     "blurb": "Learn from great visualisations.",
+     "cv": "Developed my data storytelling by recreating landmark visualisations and learning from current work.",
+     "story": "Tell me about a famous visualisation you studied or recreated. What did it teach you about your own work?",
+     "next": "Build a small portfolio of two or three visualisations with a short note on each design choice.",
+     "themes": [
+      "communication",
+      "critical"
+     ],
+     "keywords": [
+      "data storytelling",
+      "visual journalism",
+      "editorial design"
+     ]
+    },
+    {
+     "id": "analyst",
+     "label": "Analyst",
+     "tier": "core",
+     "x": 420,
+     "y": 200,
+     "parents": [
+      "detect"
+     ],
+     "skills": [
+      "data-assumptions",
+      "generate-hypothesis",
+      "identify-patterns"
+     ],
+     "strand": "analysis",
+     "stage": "analyse",
+     "blurb": "Read the patterns and test your explanations.",
+     "cv": "Identified patterns in data, framed testable hypotheses and made the assumptions behind my analysis explicit.",
+     "story": "Tell me about a finding from your project. How confident were you in it, and how did you explain its limits?",
+     "next": "Practise summarising a finding in one sentence for a non-specialist, then in one paragraph for an expert.",
+     "themes": [
+      "analysis",
+      "communication"
+     ],
+     "keywords": [
+      "analytical thinking",
+      "hypothesis generation",
+      "insight",
+      "clear explanation"
+     ]
+    },
+    {
+     "id": "chart-repertoire",
+     "label": "Chart Repertoire",
+     "tier": "core",
+     "x": 990,
+     "y": 430,
+     "parents": [
+      "common-vis"
+     ],
+     "skills": [
+      "tree-map",
+      "radar",
+      "area-chart",
+      "pyramid",
+      "word-cloud",
+      "sparklines"
+     ],
+     "strand": "viz",
+     "stage": "visualise",
+     "blurb": "More chart types, and when each one fits.",
+     "cv": "Chose from a wide range of chart types, including tree maps, radar, area and population pyramid charts, to suit the data and the question.",
+     "story": "Tell me about a time you chose a less familiar chart type. Why was it the right one?",
+     "next": "Keep a swipe file of chart types you see in the news, with a note on what each is good for.",
+     "themes": [
+      "communication"
+     ],
+     "keywords": [
+      "chart selection",
+      "data visualisation"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lens",
+   "label": "Critical Lens",
+   "sub": "On the age of data: one badge per lecture, up to your own essay",
+   "icon": "humanist",
+   "colour": "#EC6A2C",
+   "colourBy": "tree",
+   "badges": [
+    {
+     "id": "lens-w1",
+     "label": "The Age of Data",
+     "tier": "core",
+     "x": 550,
+     "y": 690,
+     "parents": [],
+     "skills": [
+      "lens-define",
+      "scale-of-data",
+      "lens-consequences"
+     ],
+     "week": 1,
+     "blurb": "Week 1: what the age of data is, and what it changes.",
+     "cv": "Placed my work in the wider context of the age of data and its consequences for society.",
+     "story": "Why does your project's topic matter now? What has changed because this data exists?",
+     "reflect": "Where in an ordinary day do you create data, and how much of it do you know about?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "contextual awareness",
+      "digital society",
+      "critical thinking"
+     ]
+    },
+    {
+     "id": "lens-w2",
+     "label": "The Data State",
+     "tier": "core",
+     "x": 550,
+     "y": 570,
+     "parents": [
+      "lens-w1"
+     ],
+     "skills": [
+      "origins-data-state",
+      "power-data",
+      "lens-surveillance"
+     ],
+     "week": 2,
+     "blurb": "Week 2: power, freedom and the birth of the data state.",
+     "cv": "Examined how states have used data to govern, and the trade-off between surveillance and freedom.",
+     "story": "Tell me about a time you weighed the benefits of collecting data against the risks to privacy.",
+     "reflect": "What do public bodies know about you, and how comfortable are you with that?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "data governance",
+      "privacy awareness",
+      "surveillance"
+     ]
+    },
+    {
+     "id": "lens-w3",
+     "label": "Algorithms and Justice",
+     "tier": "core",
+     "x": 220,
+     "y": 440,
+     "parents": [
+      "lens-w2"
+     ],
+     "skills": [
+      "data-ethics",
+      "lens-bias",
+      "lens-harm"
+     ],
+     "week": 3,
+     "blurb": "Week 3: oppressive algorithms, inequity and justice.",
+     "cv": "Evaluated how data and algorithms can encode bias and injustice, and who bears the harm.",
+     "story": "Give an example of data or an algorithm treating groups unfairly. How would you spot that in your own work?",
+     "reflect": "Has an automated decision ever affected you or someone you know? Would you know if it had?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "algorithmic bias",
+      "data ethics",
+      "equity and inclusion"
+     ]
+    },
+    {
+     "id": "lens-w4",
+     "label": "Seeing Data",
+     "tier": "core",
+     "x": 440,
+     "y": 440,
+     "parents": [
+      "lens-w2"
+     ],
+     "skills": [
+      "history-dataviz",
+      "theory-history",
+      "data-spun",
+      "lens-decode"
+     ],
+     "week": 4,
+     "blurb": "Week 4: the top 50 data visualisations of all time.",
+     "cv": "Decoded landmark visualisations to work out the data behind them, and how design can inform or mislead.",
+     "story": "Pick a famous chart. What data sits behind it, and what did its designer want you to see?",
+     "reflect": "Think of a chart that changed your mind about something. Should it have?",
+     "themes": [
+      "critical",
+      "communication"
+     ],
+     "keywords": [
+      "visual literacy",
+      "critical analysis",
+      "information design"
+     ]
+    },
+    {
+     "id": "lens-w5",
+     "label": "Ideology and Metrics",
+     "tier": "core",
+     "x": 660,
+     "y": 440,
+     "parents": [
+      "lens-w2"
+     ],
+     "skills": [
+      "what-we-measure",
+      "common-stats",
+      "lens-metric-limits"
+     ],
+     "week": 5,
+     "blurb": "Week 5: ideology and metrics.",
+     "cv": "Assessed what common metrics such as GDP capture and leave out, and the values built into them.",
+     "story": "Tell me about a measure you used in your project. What does it miss, and how did you deal with that?",
+     "reflect": "Which numbers do you use to judge your own life, such as grades, steps or followers? What do they leave out?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "metric design",
+      "critical evaluation",
+      "indicators"
+     ]
+    },
+    {
+     "id": "lens-w7",
+     "label": "Asking the People",
+     "tier": "core",
+     "x": 880,
+     "y": 440,
+     "parents": [
+      "lens-w2"
+     ],
+     "skills": [
+      "judge-survey",
+      "why-exist",
+      "lens-wording"
+     ],
+     "week": 7,
+     "blurb": "Week 7: social surveys, sex and what you ask.",
+     "cv": "Critically assessed social surveys: who is asked, how questions are worded and why the data was collected.",
+     "story": "Describe a survey you relied on. How confident were you in it, and why?",
+     "reflect": "When did you last answer a survey? Did the questions let you say what you meant?",
+     "themes": [
+      "critical",
+      "research"
+     ],
+     "keywords": [
+      "survey methods",
+      "questionnaire design",
+      "research evaluation"
+     ]
+    },
+    {
+     "id": "lens-w10",
+     "label": "AI and the Data State",
+     "tier": "core",
+     "x": 220,
+     "y": 310,
+     "parents": [
+      "lens-w3"
+     ],
+     "skills": [
+      "lens-ai-data",
+      "lens-ai-power"
+     ],
+     "week": 10,
+     "blurb": "Week 10: AI, capitalism and the future of the data state.",
+     "cv": "Considered how AI depends on data, and who gains and loses from data-driven technologies.",
+     "story": "How should someone in your future job think about using AI tools on data? What would you check?",
+     "reflect": "How do you use AI tools, and what do you check before trusting what they tell you?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "AI literacy",
+      "responsible AI",
+      "data economy"
+     ]
+    },
+    {
+     "id": "lens-w8",
+     "label": "Sorting and Classifying",
+     "tier": "core",
+     "x": 660,
+     "y": 310,
+     "parents": [
+      "lens-w5"
+     ],
+     "skills": [
+      "not-counted",
+      "lens-categories",
+      "lens-class"
+     ],
+     "week": 8,
+     "blurb": "Week 8: sorting and classifying, poverty and social class.",
+     "cv": "Questioned the categories data uses to sort people, including how poverty and social class are measured.",
+     "story": "Tell me about a category in your data that didn't fit reality neatly. What did you do?",
+     "reflect": "Which boxes have forms asked you to tick? Did any of them fit you badly?",
+     "themes": [
+      "critical"
+     ],
+     "keywords": [
+      "classification",
+      "social measurement",
+      "critical thinking"
+     ]
+    },
+    {
+     "id": "lens-w9",
+     "label": "Polling and Democracy",
+     "tier": "core",
+     "x": 880,
+     "y": 310,
+     "parents": [
+      "lens-w7"
+     ],
+     "skills": [
+      "read-poll",
+      "lens-sample"
+     ],
+     "week": 9,
+     "blurb": "Week 9: politics, polling and who you ask.",
+     "cv": "Interpreted opinion polls critically, judging samples, margins of error and representativeness.",
+     "story": "A poll says 52% support a policy. What would you want to know before believing it?",
+     "reflect": "How do polls shape what you think other people believe?",
+     "themes": [
+      "critical",
+      "research"
+     ],
+     "keywords": [
+      "polling",
+      "sampling",
+      "statistical literacy"
+     ]
+    },
+    {
+     "id": "data-humanist",
+     "label": "Data Humanist",
+     "tier": "core",
+     "x": 550,
+     "y": 170,
+     "parents": [
+      "lens-w10",
+      "lens-w4",
+      "lens-w8",
+      "lens-w9"
+     ],
+     "skills": [
+      "situate-project",
+      "situate-findings",
+      "findings-mean",
+      "recognise-alt",
+      "nuance",
+      "lens-essay"
+     ],
+     "strand": "humanist",
+     "blurb": "The peak: put your own project, and your essay, into the story of the age of data.",
+     "cv": "Situated my own data project within the history and politics of the age of data, and contributed to its study through an extended essay.",
+     "story": "How does your project, or your essay, add to our understanding of the age of data?",
+     "reflect": "What will you do differently with data now, as a citizen rather than a student?",
+     "next": "This is your distinctive edge as an arts, law or social sciences graduate: lead with it when applying for analytical roles.",
+     "themes": [
+      "critical",
+      "research"
+     ],
+     "keywords": [
+      "critical thinking",
+      "contextual analysis",
+      "extended writing",
+      "research synthesis"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tools",
+   "label": "Tools",
+   "sub": "Excel, Tableau and beyond",
+   "icon": "software",
+   "colour": "#6E5FE0",
+   "colourBy": "tree",
+   "badges": [
+    {
+     "id": "excel-l1",
+     "label": "Excel User L1",
+     "tier": "core",
+     "x": 500,
+     "y": 540,
+     "parents": [],
+     "skills": [
+      "rel-refs",
+      "cell-refs",
+      "simple-formulae",
+      "selection-shortcuts",
+      "load-save",
+      "paste-special",
+      "filters",
+      "using-sheets",
+      "tables",
+      "set-data-types",
+      "format-cell",
+      "find-replace",
+      "sort"
+     ],
+     "strand": "software",
+     "blurb": "Spreadsheet basics: tidy, sort, filter, calculate.",
+     "cv": "Organised, cleaned and formatted data in Excel using tables, filters, sorting and formulae with relative and absolute references.",
+     "story": "Think of a time a spreadsheet you inherited or built was messy or unreliable. What did you do to make it usable, and how did you check it was right?",
+     "next": "Practise the keyboard shortcuts until they are automatic: speed and accuracy in Excel are noticed in almost any office role.",
+     "themes": [
+      "digital"
+     ],
+     "keywords": [
+      "Microsoft Excel",
+      "spreadsheet management",
+      "data entry",
+      "attention to detail"
+     ]
+    },
+    {
+     "id": "excel-l2",
+     "label": "Excel User L2",
+     "tier": "core",
+     "x": 500,
+     "y": 415,
+     "parents": [
+      "excel-l1"
+     ],
+     "skills": [
+      "v-lookups",
+      "text-functions",
+      "dropdown",
+      "if-conditions",
+      "sumif",
+      "pivot-tables",
+      "convert-format",
+      "power-query"
+     ],
+     "strand": "software",
+     "blurb": "Lookups, conditions and pivot tables.",
+     "cv": "Used lookup, conditional and summary functions, pivot tables and Power Query to clean, combine and summarise datasets in Excel.",
+     "story": "When did you need an answer the raw data didn't give you directly? Which formulae or pivot tables did you use to get there?",
+     "next": "Learn XLOOKUP and INDEX/MATCH, which many workplaces now use in place of VLOOKUP.",
+     "themes": [
+      "digital",
+      "analysis"
+     ],
+     "keywords": [
+      "VLOOKUP",
+      "pivot tables",
+      "conditional formulae",
+      "data summarisation"
+     ]
+    },
+    {
+     "id": "excel-l3",
+     "label": "Excel User L3",
+     "tier": "extension",
+     "x": 330,
+     "y": 290,
+     "parents": [
+      "excel-l2"
+     ],
+     "skills": [
+      "pivot-graphs",
+      "cond-formatting",
+      "slicers",
+      "goto-special",
+      "text-to-columns",
+      "calc-pivot"
+     ],
+     "strand": "software",
+     "blurb": "Interactive and advanced Excel.",
+     "cv": "Built interactive Excel outputs with pivot charts, calculated fields, slicers and conditional formatting.",
+     "story": "Describe something you built in Excel that other people could use without your help. How did you make it easy for them?",
+     "next": "Build a one-page interactive Excel dashboard from your project data and keep it as a portfolio piece.",
+     "themes": [
+      "digital"
+     ],
+     "keywords": [
+      "advanced Excel",
+      "Excel dashboards",
+      "slicers",
+      "conditional formatting"
+     ]
+    },
+    {
+     "id": "tableau-l1",
+     "label": "Tableau User L1",
+     "tier": "extension",
+     "x": 670,
+     "y": 290,
+     "parents": [
+      "excel-l2"
+     ],
+     "skills": [
+      "tab-basic-format",
+      "tab-charts",
+      "tab-import",
+      "tab-markers",
+      "tab-measures"
+     ],
+     "strand": "software",
+     "blurb": "First charts in Tableau.",
+     "cv": "Imported data into Tableau and built charts using measures, dimensions and the Marks card.",
+     "story": "Why did you choose Tableau rather than Excel for a particular chart, and what difference did it make?",
+     "next": "Publish a chart to a free Tableau Public profile and link it from your CV or LinkedIn.",
+     "themes": [
+      "digital",
+      "communication"
+     ],
+     "keywords": [
+      "Tableau",
+      "business intelligence tools",
+      "data visualisation software"
+     ]
+    },
+    {
+     "id": "tableau-l2",
+     "label": "Tableau User L2",
+     "tier": "extension",
+     "x": 670,
+     "y": 160,
+     "parents": [
+      "tableau-l1"
+     ],
+     "skills": [
+      "tab-adv-format",
+      "tab-joins",
+      "tab-export",
+      "tab-story",
+      "tab-interactive",
+      "tab-maps"
+     ],
+     "strand": "software",
+     "blurb": "Dashboards, maps and stories in Tableau.",
+     "cv": "Created interactive Tableau dashboards, maps and stories, joining multiple datasets and exporting presentation-ready graphics.",
+     "story": "Walk me through a dashboard you built. Who was it for, and what did you want them to be able to find out for themselves?",
+     "next": "Tableau offers entry-level certifications if you want a formal credential to put on your CV.",
+     "themes": [
+      "digital",
+      "communication"
+     ],
+     "keywords": [
+      "Tableau dashboards",
+      "interactive visualisation",
+      "data joins"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "team",
+   "label": "Teamwork",
+   "sub": "Five series, three levels each",
+   "icon": "teamwork",
+   "colour": "#D9961C",
+   "colourBy": "tree",
+   "badges": [
+    {
+     "id": "team-form",
+     "label": "Form the Team",
+     "tier": "core",
+     "x": 550,
+     "y": 570,
+     "parents": [],
+     "skills": [
+      "team-formation",
+      "team-protocols"
+     ],
+     "blurb": "Form a group and agree how you'll work together.",
+     "cv": "Formed a project team and agreed ways of working, including how we would communicate and make decisions.",
+     "story": "How did your group agree to work together at the start? What would you do differently next time?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "team building",
+      "ways of working"
+     ]
+    },
+    {
+     "id": "team-collab-1",
+     "label": "Collaborate I",
+     "tier": "core",
+     "x": 150,
+     "y": 440,
+     "parents": [
+      "team-form"
+     ],
+     "skills": [
+      "identify-role",
+      "shared-task"
+     ],
+     "series": "collab",
+     "level": 1,
+     "blurb": "Take a role and do your share.",
+     "cv": "Worked in a group project with a clear role, completing shared tasks.",
+     "story": "Tell me about a time your group disagreed. What did you do, and what was the outcome?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "teamwork",
+      "collaboration"
+     ]
+    },
+    {
+     "id": "team-collab-2",
+     "label": "Collaborate II",
+     "tier": "core",
+     "x": 150,
+     "y": 310,
+     "parents": [
+      "team-collab-1"
+     ],
+     "skills": [
+      "compromise",
+      "team-share-skills"
+     ],
+     "series": "collab",
+     "level": 2,
+     "blurb": "Find compromises; share what you know.",
+     "cv": "Resolved disagreements by finding compromises, and shared my skills with teammates.",
+     "story": "Tell me about a time your group disagreed. What did you do, and what was the outcome?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "teamwork",
+      "collaboration"
+     ]
+    },
+    {
+     "id": "team-collab-3",
+     "label": "Collaborate III",
+     "tier": "extension",
+     "x": 150,
+     "y": 180,
+     "parents": [
+      "team-collab-2"
+     ],
+     "skills": [
+      "help-member"
+     ],
+     "series": "collab",
+     "level": 3,
+     "blurb": "Help a teammate who's stuck.",
+     "cv": "Supported teammates who were stuck so the whole group could move forward.",
+     "story": "Tell me about a time your group disagreed. What did you do, and what was the outcome?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "teamwork",
+      "collaboration"
+     ]
+    },
+    {
+     "id": "team-comms-1",
+     "label": "Communicate I",
+     "tier": "core",
+     "x": 350,
+     "y": 440,
+     "parents": [
+      "team-form"
+     ],
+     "skills": [
+      "action-list"
+     ],
+     "series": "comms",
+     "level": 1,
+     "blurb": "Write up the action list.",
+     "cv": "Recorded group decisions and action points in meetings.",
+     "story": "How did your group keep track of decisions? What was your part in that?",
+     "themes": [
+      "teamwork",
+      "communication"
+     ],
+     "keywords": [
+      "communication",
+      "record keeping",
+      "meeting management"
+     ]
+    },
+    {
+     "id": "team-comms-2",
+     "label": "Communicate II",
+     "tier": "core",
+     "x": 350,
+     "y": 310,
+     "parents": [
+      "team-comms-1"
+     ],
+     "skills": [
+      "progress-update",
+      "team-decision-log"
+     ],
+     "series": "comms",
+     "level": 2,
+     "blurb": "Keep everyone posted; keep the log.",
+     "cv": "Kept a team informed with regular progress updates and a weekly decision log.",
+     "story": "How did your group keep track of decisions? What was your part in that?",
+     "themes": [
+      "teamwork",
+      "communication"
+     ],
+     "keywords": [
+      "communication",
+      "record keeping",
+      "meeting management"
+     ]
+    },
+    {
+     "id": "team-comms-3",
+     "label": "Communicate III",
+     "tier": "extension",
+     "x": 350,
+     "y": 180,
+     "parents": [
+      "team-comms-2"
+     ],
+     "skills": [
+      "team-chair"
+     ],
+     "series": "comms",
+     "level": 3,
+     "blurb": "Chair the meeting.",
+     "cv": "Chaired group meetings, keeping discussion focused and decisions recorded.",
+     "story": "How did your group keep track of decisions? What was your part in that?",
+     "themes": [
+      "teamwork",
+      "communication"
+     ],
+     "keywords": [
+      "communication",
+      "record keeping",
+      "meeting management"
+     ]
+    },
+    {
+     "id": "team-feedback-1",
+     "label": "Feedback I",
+     "tier": "core",
+     "x": 550,
+     "y": 440,
+     "parents": [
+      "team-form"
+     ],
+     "skills": [
+      "ask-feedback"
+     ],
+     "series": "feedback",
+     "level": 1,
+     "blurb": "Ask for feedback.",
+     "cv": "Sought feedback on my work from teammates.",
+     "story": "Describe feedback you received on your work. What did you change because of it?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "giving and receiving feedback",
+      "reflective practice"
+     ]
+    },
+    {
+     "id": "team-feedback-2",
+     "label": "Feedback II",
+     "tier": "core",
+     "x": 550,
+     "y": 310,
+     "parents": [
+      "team-feedback-1"
+     ],
+     "skills": [
+      "offer-feedback"
+     ],
+     "series": "feedback",
+     "level": 2,
+     "blurb": "Give useful feedback.",
+     "cv": "Gave specific, constructive feedback to teammates.",
+     "story": "Describe feedback you received on your work. What did you change because of it?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "giving and receiving feedback",
+      "reflective practice"
+     ]
+    },
+    {
+     "id": "team-feedback-3",
+     "label": "Feedback III",
+     "tier": "extension",
+     "x": 550,
+     "y": 180,
+     "parents": [
+      "team-feedback-2"
+     ],
+     "skills": [
+      "team-act-feedback"
+     ],
+     "series": "feedback",
+     "level": 3,
+     "blurb": "Act on it.",
+     "cv": "Acted on feedback to improve my work, and explained what changed.",
+     "story": "Describe feedback you received on your work. What did you change because of it?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "giving and receiving feedback",
+      "reflective practice"
+     ]
+    },
+    {
+     "id": "team-deliver-1",
+     "label": "Deliver I",
+     "tier": "core",
+     "x": 750,
+     "y": 440,
+     "parents": [
+      "team-form"
+     ],
+     "skills": [
+      "responsible-part",
+      "negotiate-focus"
+     ],
+     "series": "deliver",
+     "level": 1,
+     "blurb": "Own your part of the project.",
+     "cv": "Took ownership of a distinct part of a group project, agreeing my individual focus.",
+     "story": "Tell me about a deadline that was hard to meet. How did you make sure your part was delivered?",
+     "themes": [
+      "project",
+      "teamwork"
+     ],
+     "keywords": [
+      "accountability",
+      "meeting deadlines",
+      "ownership"
+     ]
+    },
+    {
+     "id": "team-deliver-2",
+     "label": "Deliver II",
+     "tier": "core",
+     "x": 750,
+     "y": 310,
+     "parents": [
+      "team-deliver-1"
+     ],
+     "skills": [
+      "hit-targets",
+      "team-deadline"
+     ],
+     "series": "deliver",
+     "level": 2,
+     "blurb": "Hit agreed targets and deadlines.",
+     "cv": "Delivered agreed actions to deadline as part of a team.",
+     "story": "Tell me about a deadline that was hard to meet. How did you make sure your part was delivered?",
+     "themes": [
+      "project",
+      "teamwork"
+     ],
+     "keywords": [
+      "accountability",
+      "meeting deadlines",
+      "ownership"
+     ]
+    },
+    {
+     "id": "team-deliver-3",
+     "label": "Deliver III",
+     "tier": "extension",
+     "x": 750,
+     "y": 180,
+     "parents": [
+      "team-deliver-2"
+     ],
+     "skills": [
+      "team-final"
+     ],
+     "series": "deliver",
+     "level": 3,
+     "blurb": "Bring the final piece together.",
+     "cv": "Brought a group's work together into a finished final submission.",
+     "story": "Tell me about a deadline that was hard to meet. How did you make sure your part was delivered?",
+     "themes": [
+      "project",
+      "teamwork"
+     ],
+     "keywords": [
+      "accountability",
+      "meeting deadlines",
+      "ownership"
+     ]
+    },
+    {
+     "id": "team-lead-1",
+     "label": "Lead I",
+     "tier": "extension",
+     "x": 950,
+     "y": 440,
+     "parents": [
+      "team-form"
+     ],
+     "skills": [
+      "assess-track",
+      "consult"
+     ],
+     "series": "lead",
+     "level": 1,
+     "blurb": "Check the team's on track.",
+     "cv": "Monitored a team's progress against its plan, consulting colleagues on the way forward.",
+     "story": "Tell me about a time a project went off track. How did you notice, and what did you do?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "leadership",
+      "team coordination",
+      "problem-solving"
+     ]
+    },
+    {
+     "id": "team-lead-2",
+     "label": "Lead II",
+     "tier": "extension",
+     "x": 950,
+     "y": 310,
+     "parents": [
+      "team-lead-1"
+     ],
+     "skills": [
+      "group-agreement"
+     ],
+     "series": "lead",
+     "level": 2,
+     "blurb": "Build agreement.",
+     "cv": "Built agreement within a team on key decisions.",
+     "story": "Tell me about a time a project went off track. How did you notice, and what did you do?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "leadership",
+      "team coordination",
+      "problem-solving"
+     ]
+    },
+    {
+     "id": "team-lead-3",
+     "label": "Lead III",
+     "tier": "extension",
+     "x": 950,
+     "y": 180,
+     "parents": [
+      "team-lead-2"
+     ],
+     "skills": [
+      "action-plan-wrong",
+      "team-midpoint"
+     ],
+     "series": "lead",
+     "level": 3,
+     "blurb": "Steer the group through trouble.",
+     "cv": "Led a team's response when a project went off track, including at a formal progress review.",
+     "story": "Tell me about a time a project went off track. How did you notice, and what did you do?",
+     "themes": [
+      "teamwork"
+     ],
+     "keywords": [
+      "leadership",
+      "team coordination",
+      "problem-solving"
+     ]
+    }
+   ]
+  }
+ ]
+}
