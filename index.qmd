@@ -167,8 +167,6 @@ I am a historian based at the University of Bristol who writes and teaches about
 
 [Google Scholar](https://scholar.google.com/){.placeholder}
 
-[GitHub](https://github.com/codehistoria)
-
 :::
 
 ::::

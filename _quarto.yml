@@ -21,10 +21,6 @@ website:
         text: Publications
       - href: tools/index.qmd
         text: Tools
-    right:
-      - icon: github
-        href: https://github.com/codehistoria
-        aria-label: GitHub
   page-footer:
     left: "© 2026 James Freeman"
     right: "Built with [Quarto](https://quarto.org) · Hosted on GitHub Pages"
