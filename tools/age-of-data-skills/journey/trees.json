@@ -793,27 +793,27 @@
   "help-member": {
    "label": "Help team member",
    "desc": "Support a colleague who is stuck.",
-   "tier": "extension"
+   "tier": "core"
   },
   "assess-track": {
    "label": "Assess if team on track",
    "desc": "Check progress against the plan.",
-   "tier": "extension"
+   "tier": "core"
   },
   "consult": {
    "label": "Consult on ways forward",
    "desc": "Gather views before deciding.",
-   "tier": "extension"
+   "tier": "core"
   },
   "group-agreement": {
    "label": "Generate group agreement",
    "desc": "Bring the group to a shared decision.",
-   "tier": "extension"
+   "tier": "core"
   },
   "action-plan-wrong": {
    "label": "Action plan something going wrong",
    "desc": "Respond with a plan when things go off track.",
-   "tier": "extension"
+   "tier": "core"
   },
   "data-ethics": {
    "label": "Data ethics",
@@ -1233,12 +1233,12 @@
   "team-chair": {
    "label": "Chair a meeting",
    "desc": "Run a group meeting so it ends with clear decisions and actions.",
-   "tier": "extension"
+   "tier": "core"
   },
   "team-act-feedback": {
    "label": "Act on feedback",
    "desc": "Change your work in response to feedback, and say what changed.",
-   "tier": "extension"
+   "tier": "core"
   },
   "team-deadline": {
    "label": "Meet a group deadline",
@@ -1248,12 +1248,12 @@
   "team-final": {
    "label": "Bring it together",
    "desc": "Combine the group's work into the final submission.",
-   "tier": "extension"
+   "tier": "core"
   },
   "team-midpoint": {
    "label": "Lead the mid-point review",
    "desc": "Speak for the group at the review with staff.",
-   "tier": "extension"
+   "tier": "core"
   },
   "viz-sketch": {
    "label": "Sketch the layout first",
@@ -2472,7 +2472,7 @@
     {
      "id": "team-collab-3",
      "label": "Collaborate III",
-     "tier": "extension",
+     "tier": "core",
      "x": 150,
      "y": 180,
      "parents": [
@@ -2552,7 +2552,7 @@
     {
      "id": "team-comms-3",
      "label": "Communicate III",
-     "tier": "extension",
+     "tier": "core",
      "x": 350,
      "y": 180,
      "parents": [
@@ -2563,7 +2563,7 @@
      ],
      "series": "comms",
      "level": 3,
-     "blurb": "Chair the meeting.",
+     "blurb": "Chair a meeting.",
      "cv": "Chaired group meetings, keeping discussion focused and decisions recorded.",
      "story": "How did your group keep track of decisions? What was your part in that?",
      "themes": [
@@ -2629,7 +2629,7 @@
     {
      "id": "team-feedback-3",
      "label": "Feedback III",
-     "tier": "extension",
+     "tier": "core",
      "x": 550,
      "y": 180,
      "parents": [
@@ -2710,7 +2710,7 @@
     {
      "id": "team-deliver-3",
      "label": "Deliver III",
-     "tier": "extension",
+     "tier": "core",
      "x": 750,
      "y": 180,
      "parents": [
@@ -2737,7 +2737,7 @@
     {
      "id": "team-lead-1",
      "label": "Lead I",
-     "tier": "extension",
+     "tier": "core",
      "x": 950,
      "y": 440,
      "parents": [
@@ -2764,7 +2764,7 @@
     {
      "id": "team-lead-2",
      "label": "Lead II",
-     "tier": "extension",
+     "tier": "core",
      "x": 950,
      "y": 310,
      "parents": [
@@ -2790,7 +2790,7 @@
     {
      "id": "team-lead-3",
      "label": "Lead III",
-     "tier": "extension",
+     "tier": "core",
      "x": 950,
      "y": 180,
      "parents": [
