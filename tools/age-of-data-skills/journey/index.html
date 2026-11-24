@@ -179,19 +179,20 @@
   .ro-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:3rem;align-items:start}
   @media (max-width:900px){.ro-grid{grid-template-columns:minmax(0,1fr);gap:1.5rem}}
   .ro-side{position:sticky;top:1rem;border-top:2px solid var(--void);padding:1rem 0 0}
-  .ro-side h3{font-size:1.25rem;font-weight:400;margin:0 0 .5rem}
+  .ro-side h3{font-size:1.3rem;font-weight:400;margin:0 0 .6rem}
   .ro-side label{display:block;font-size:.85rem;font-weight:500;color:var(--slate);margin:0 0 .3rem}
   .ro-side .btn-row{margin-top:.6rem}
   .ro-side .small{font-size:.82rem;color:var(--slate);margin:.8rem 0 0;line-height:1.5}
   input[type=text],textarea{width:100%;font:400 .93rem/1.45 var(--sans);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:8px;padding:.45rem .65rem}
   textarea{resize:vertical;min-height:5rem}
   .ro-empty{background:#fff;border:1px dashed #b9c6be;border-radius:14px;padding:2rem;color:var(--slate);text-align:center}
-  .ro h3{font-size:1.55rem;font-weight:400;margin:2rem 0 .35rem}
+  .ro h3{font-size:1.3rem;font-weight:400;margin:2.2rem 0 .5rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
+  .ro h3:first-child{padding-top:0;border-top:0}
   .ro h3:first-child{margin-top:0}
-  .ro .lead{color:var(--slate);font-size:.93rem;margin:0 0 .9rem}
-  .ro .summary{font-family:var(--serif);font-size:1.3rem;line-height:1.45;font-weight:300;border-left:3px solid var(--core);padding:.2rem 0 .2rem 1.1rem;margin:0}
-  .theme{margin:0 0 1.1rem}
-  .theme h4{margin:0 0 .1rem;font:600 1rem/1.35 var(--sans)}
+  .ro .lead{color:var(--slate);font-size:.9rem;margin:-.2rem 0 .8rem}
+  .ro .summary{font-size:1rem;line-height:1.6;margin:0}
+  .theme{margin:0 0 1rem}
+  .theme h4{margin:0 0 .25rem;font:600 .7rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
   .theme .blurb{margin:0 0 .4rem;color:var(--slate);font-size:.86rem}
   .theme ul{margin:0;padding-left:1.15rem}
   .theme li{margin:.25rem 0}
@@ -199,18 +200,20 @@
   .theme li.dev{color:var(--slate)}
   .story{border-top:1px solid var(--rule);margin:0}
   .story:last-of-type{border-bottom:1px solid var(--rule)}
-  .story summary{cursor:pointer;padding:.7rem .1rem;font-weight:500;font-size:.95rem;list-style:none;display:flex;gap:.6rem;align-items:baseline}
+  .story summary{cursor:pointer;padding:.6rem .1rem;font-weight:500;font-size:.95rem;list-style:none;display:flex;gap:.6rem;align-items:baseline}
   .story summary::-webkit-details-marker{display:none}
   .story summary::before{content:"+";color:var(--green);font-weight:600;width:.8rem;flex:none}
   .story[open] summary::before{content:"–"}
   .story summary .b{color:var(--slate);font-size:.8rem;font-weight:400;margin-left:auto;white-space:nowrap}
   .story .inner{padding:0 .1rem 1rem 1.4rem}
-  .story .q{margin:0 0 .55rem;font-family:var(--serif);font-size:1.08rem;line-height:1.4}
+  .story .q{margin:0 0 .5rem;font-size:.92rem;line-height:1.45;color:var(--slate)}
   .story .star{font-size:.8rem;color:var(--slate);margin:.35rem 0 0}
   .chips{display:flex;flex-wrap:wrap;gap:.1rem 0;margin:0;padding:0;list-style:none;font-size:.95rem}
   .chips li:not(:last-child)::after{content:"·";color:#b9b1c4;margin:0 .55rem}
-  .next-list{list-style:none;padding:0;margin:0;border-top:2px solid var(--void)}
-  .next-list li{border-bottom:1px solid var(--rule);padding:.65rem .1rem}
+  .next-list{list-style:none;padding:0;margin:0}
+  .next-list li{display:flex;justify-content:space-between;gap:1rem;align-items:baseline;padding:.4rem 0;border-bottom:1px solid var(--rule)}
+  .next-list li span{font-size:.82rem;color:var(--slate);white-space:nowrap}
+  .nlink{border:0;background:none;padding:0;font:inherit;color:var(--green);cursor:pointer;text-align:left;text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
   .next-list li b{font-weight:600}
   .next-list .todo{color:var(--slate);font-size:.84rem;margin:.2rem 0 0}
   .next-list .how{font-size:.88rem;margin:.25rem 0 0}
@@ -311,7 +314,7 @@
     <div class="wrap">
       <div class="section-head">
         <h2 id="roTitle"><span class="step-n">2</span>Your read-out</h2>
-        <p>Turning what you've learned into a story for employers</p>
+        <p>For CVs, applications and interviews</p>
       </div>
       <div class="print-head"><h1 id="printTitle" style="font-weight:400;margin:0 0 .2rem"></h1><p id="printSub" style="margin:0 0 1rem;color:#56635C"></p></div>
       <div class="ro-grid">
@@ -320,7 +323,7 @@
           <h3>Download</h3>
           <label for="studentName">Your name (optional, shown on downloads)</label>
           <input type="text" id="studentName" autocomplete="name">
-          <p class="small" style="margin-top:.9rem"><b>Your skills</b></p>
+          <p class="small" style="margin-top:.9rem"><b>Your trees</b></p>
           <div class="btn-row">
             <button type="button" class="btn btn-sm btn-solid" id="dlPng">Trees as image</button>
             <button type="button" class="btn btn-sm" id="dlRecord">Skills record (print/PDF)</button>
@@ -332,7 +335,6 @@
             <button type="button" class="btn btn-sm" id="downloadText">Download</button>
             <button type="button" class="btn btn-sm" id="printBtn">Print or save as PDF</button>
           </div>
-          <p class="small">The statements are starting points, not finished copy. Rewrite them in your own words and add a specific example from your project: recruiters can spot generic text, and they ask about what you write.</p>
         </aside>
       </div>
     </div>
@@ -825,63 +827,55 @@ function summaryText(A){
   if (done("integrated")) s += " I applied them in a group project that took a question of our own choosing from finding data through analysis to a finished infographic.";
   return s;
 }
+/* The read-out: four short sections, nothing more */
+function nextSteps(A){
+  const out = [];
+  for (const b of A.inProg.slice(0, 3)){ const left = b.skills.filter(s => !ticked.has(s)).length; out.push({ b, text: `Finish ${b.label}`, note: `${left} skill${left === 1 ? "" : "s"} to go` }); }
+  for (const b of A.nextUp) if (out.length < 4) out.push({ b, text: `Start ${b.label}`, note: TR[b.tree].label });
+  return out;
+}
 function renderReadout(){
   const host = $("#readout"), A = analyse();
-  if (!A.skills.length){ host.innerHTML = `<div class="ro-empty">Pick a badge in the trees above and tick the skills you've learned. Your read-out will build here.</div>`; return; }
-  let h = `<h3>In a sentence or two</h3><p class="lead">A starting point for a personal statement or LinkedIn summary. Make it yours.</p><p class="summary">${esc(summaryText(A))}</p>`;
-  h += `<h3>Skills in employers' language</h3><p class="lead">Grouped the way graduate job descriptions tend to group them. Each line comes from a badge you've earned or are working towards.</p>`;
-  for (const tid of [...data.themes.map(t => t.id), "other"]){
-    const e = A.earned.filter(b => themeOf(b) === tid), p = A.inProg.filter(b => themeOf(b) === tid);
-    if (!e.length && !p.length) continue;
-    const t = data.themes.find(x => x.id === tid);
-    h += `<div class="theme"><h4>${esc(themeLabel(tid))}</h4>${t && t.blurb ? `<p class="blurb">${esc(t.blurb)}</p>` : ""}<ul>`;
-    for (const b of e) h += `<li>${esc(b.cv || b.label)} <span class="from">(${esc(b.label)}${b.tier === "stretch" ? ", stretch" : ""})</span></li>`;
-    for (const b of p){ const [k, n] = prog(b.id); h += `<li class="dev">Developing: ${esc(b.label)}, ${k} of ${n} skills so far.</li>`; }
-    h += `</ul></div>`;
+  if (!A.skills.length){ host.innerHTML = `<div class="ro-empty">Tick the skills you've learned in the trees above, and your read-out will build here.</div>`; return; }
+  let h = `<h3>Summary</h3><p class="summary">${esc(summaryText(A))}</p>`;
+  if (A.earned.length){
+    h += `<h3>What you can say</h3><p class="lead">From the badges you've earned. Put them in your own words.</p>`;
+    for (const tid of [...data.themes.map(t => t.id), "other"]){
+      const e = A.earned.filter(b => themeOf(b) === tid && b.cv); if (!e.length) continue;
+      h += `<div class="theme"><h4>${esc(themeLabel(tid))}</h4><ul>${e.map(b => `<li>${esc(b.cv)}</li>`).join("")}</ul></div>`;
+    }
   }
-  const storyBadges = A.earned.filter(b => b.story);
+  const storyBadges = A.earned.filter(b => b.story).sort((a, b) => (a.tier === "stretch") - (b.tier === "stretch"));
   if (storyBadges.length){
-    h += `<h3>Stories to prepare</h3><p class="lead">Interviewers ask for examples. For each badge, jot down a real moment from your project using Situation, Task, Action, Result. Your notes stay in this browser.</p>`;
-    storyBadges.sort((a, b) => (a.tier === "stretch") - (b.tier === "stretch")).forEach((b, i) => {
+    h += `<h3>Stories to prepare</h3><p class="lead">Note a real example for each: the situation, what you did, and the result.</p>`;
+    storyBadges.forEach((b, i) => {
       const key = b.series ? "series-" + b.series : b.id, val = progress.stories[key] || "";
-      h += `<details class="story"${i < 2 || val ? " open" : ""}><summary>${esc(b.label)}<span class="b">${esc(themeLabel(themeOf(b)))}</span></summary><div class="inner"><p class="q">${esc(b.story)}</p>`
-        + `<label class="visually-hidden" for="st-${esc(key)}">Your notes for ${esc(b.label)}</label><textarea id="st-${esc(key)}" data-story="${esc(key)}" placeholder="Situation… Task… Action… Result…">${esc(val)}</textarea>`
-        + `<p class="star">Keep the Action part about what <em>you</em> did, even in group work.</p></div></details>`;
+      h += `<details class="story"${i === 0 || val ? " open" : ""}><summary>${esc(b.label)}</summary><div class="inner"><p class="q">${esc(b.story)}</p>`
+        + `<label class="visually-hidden" for="st-${esc(key)}">Your notes for ${esc(b.label)}</label><textarea id="st-${esc(key)}" data-story="${esc(key)}" rows="3">${esc(val)}</textarea></div></details>`;
     });
   }
-  const kw = [...new Set(A.earned.flatMap(b => b.keywords || []))];
-  if (kw.length) h += `<h3>Keywords for applications</h3><p class="lead">Terms recruiters and application systems look for. Use the ones that are true of you, and match them to the wording of the job advert.</p><ul class="chips">${kw.map(k => `<li>${esc(k)}</li>`).join("")}</ul>`;
-  const nexts = [];
-  for (const b of A.inProg){ const todo = b.skills.filter(s => !ticked.has(s)).map(s => SK[s].label);
-    nexts.push(`<li><b>Finish ${esc(b.label)}</b><span class="ttag ${esc(b.tier)}">${esc(TR[b.tree].label)}</span><p class="todo">Still to tick: ${esc(todo.join(", "))}</p></li>`); }
-  for (const b of A.nextUp.slice(0, 4)) nexts.push(`<li><b>Unlocked: ${esc(b.label)}</b><span class="ttag">${esc(TR[b.tree].label)}</span>${b.blurb ? `<p class="todo">${esc(b.blurb)}</p>` : ""}</li>`);
-  for (const b of A.earned.filter(b => b.next).sort((a, c) => (c.tier === "stretch") - (a.tier === "stretch")).slice(0, 4)) nexts.push(`<li><b>Beyond the unit: ${esc(b.label)}</b><p class="how">${esc(b.next)}</p></li>`);
-  if (nexts.length) h += `<h3>Where to take it next</h3><p class="lead">In the trees, and beyond them.</p><ul class="next-list">${nexts.join("")}</ul>`;
-  if (A.hero) h += `<p class="note">You've earned every badge in all four trees: ${esc(J.hero.label)}.</p>`;
+  const nx = nextSteps(A);
+  if (nx.length) h += `<h3>Next steps</h3><ul class="next-list">${nx.map(n => `<li><button type="button" class="nlink" data-goto="${esc(n.b.id)}">${esc(n.text)}</button><span>${esc(n.note)}</span></li>`).join("")}</ul>`;
+  if (A.hero) h += `<p class="note">Every badge in all four trees: ${esc(J.hero.label)}.</p>`;
   host.innerHTML = h;
 }
 function readoutText(){
   const A = analyse(), L = [], name = progress.name.trim();
   L.push(`${J.title}${name ? ": " + name : ""}`, "");
   if (!A.skills.length){ L.push("No skills ticked yet."); return L.join("\n"); }
-  L.push(summaryText(A), "", "SKILLS IN EMPLOYERS' LANGUAGE");
-  for (const tid of [...data.themes.map(t => t.id), "other"]){
-    const e = A.earned.filter(b => themeOf(b) === tid), p = A.inProg.filter(b => themeOf(b) === tid);
-    if (!e.length && !p.length) continue;
-    L.push("", themeLabel(tid)); e.forEach(b => L.push(`- ${b.cv || b.label}`));
-    p.forEach(b => { const [k, n] = prog(b.id); L.push(`- Developing: ${b.label} (${k} of ${n} skills)`); });
+  L.push("SUMMARY", summaryText(A));
+  if (A.earned.length){
+    L.push("", "WHAT YOU CAN SAY");
+    for (const tid of [...data.themes.map(t => t.id), "other"]){
+      const e = A.earned.filter(b => themeOf(b) === tid && b.cv); if (!e.length) continue;
+      L.push("", themeLabel(tid)); e.forEach(b => L.push(`- ${b.cv}`));
+    }
   }
   const sb = A.earned.filter(b => b.story);
   if (sb.length){ L.push("", "STORIES TO PREPARE"); sb.forEach(b => { L.push("", `${b.label}: ${b.story}`); const v = (progress.stories[b.series ? "series-" + b.series : b.id] || "").trim(); if (v) L.push(v); }); }
-  const kw = [...new Set(A.earned.flatMap(b => b.keywords || []))]; if (kw.length) L.push("", "KEYWORDS", kw.join(", "));
-  const nx = [];
-  A.inProg.forEach(b => nx.push(`- Finish ${b.label}: ${b.skills.filter(s => !ticked.has(s)).map(s => SK[s].label).join(", ")}`));
-  A.earned.filter(b => b.next).slice(0, 4).forEach(b => nx.push(`- Beyond the unit (${b.label}): ${b.next}`));
-  if (nx.length) L.push("", "WHERE TO TAKE IT NEXT", ...nx);
-  L.push("", "Made with the skill trees at jamesfreemanhistorian.com/tools/age-of-data-skills/");
+  const nx = nextSteps(A); if (nx.length) L.push("", "NEXT STEPS", ...nx.map(n => `- ${n.text} (${n.note})`));
   return L.join("\n");
 }
-
 /* ===== Downloads ===== */
 const fileStem = () => "age-of-data-skills" + (progress.name.trim() ? "-" + progress.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") : "");
 function saveBlob(blob, name){ const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); }
@@ -947,6 +941,7 @@ $("#printBtn").onclick = () => printAs("readout");
 $("#copyText").onclick = async () => { try { await navigator.clipboard.writeText(readoutText()); toast("Read-out copied"); } catch(e){ toast("Couldn't copy: try Download instead"); } };
 $("#downloadText").onclick = () => saveBlob(new Blob([readoutText()], { type: "text/plain;charset=utf-8" }), fileStem() + "-readout.txt");
 let storyTimer;
+$("#readout").addEventListener("click", e => { const g = e.target.closest("[data-goto]"); if (!g) return; goToBadge(g.dataset.goto); document.querySelector("#treeBand").scrollIntoView({ behavior: "smooth" }); });
 $("#readout").addEventListener("input", e => { const id = e.target.dataset.story; if (!id) return; progress.stories[id] = e.target.value; clearTimeout(storyTimer); storyTimer = setTimeout(saveProgress, 300); });
 $("#studentName").addEventListener("input", e => { progress.name = e.target.value; saveProgress(); });
 
