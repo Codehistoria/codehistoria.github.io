@@ -8,15 +8,16 @@
 <meta name="description" content="Four skill trees for Arts in the Age of Data. Tick the skills you've learned and turn them into language for CVs, applications and interviews.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
     --forest:#0F2B22; --forest-2:#1B3F33; --mint:#BFD8CB; --paper:#F7F8F6;
     --ink:#17201C; --slate:#56635C; --rule:#D8E0DB; --green:#22694D; --amber:#B7791F;
     --void:#120F17; --deep:#1A1622; --panel:#201B29; --edge:#352E40; --dim:#8E86A0; --soft:#C9C2D6;
     --core:#7C4DDB; --lens:#EC6A2C;
-    --serif:"Newsreader",Georgia,"Times New Roman",serif;
-    --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+    --display:"Libre Caslon Display","Libre Caslon Text",Georgia,serif;
+    --sans:"Libre Franklin",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -42,8 +43,8 @@
 
   .hero{background:var(--forest);color:#fff;padding:2.75rem 0 3rem}
   .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:3.5rem;align-items:center}
-  .hero h1{font-weight:300;font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1;letter-spacing:-.035em;margin:0 0 1.1rem}
-  .hero-lede{font-family:var(--serif);font-weight:300;font-size:clamp(1.15rem,1.9vw,1.42rem);line-height:1.38;margin:0 0 1rem;max-width:44rem}
+  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,5.5vw,3.9rem);line-height:1;letter-spacing:-.012em;margin:0 0 1.1rem}
+  .hero-lede{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,1.9vw,1.42rem);line-height:1.38;margin:0 0 1rem;max-width:44rem}
   .hero-note{color:var(--mint);font-size:.86rem;margin:.8rem 0 0;max-width:38rem}
   .hero-tools{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin:1.3rem 0 0}
   .hgroup{display:inline-flex;flex-wrap:wrap;gap:.4rem}
@@ -70,7 +71,7 @@
   .tour-pop .dots i.on{background:var(--green)}
   @media (prefers-reduced-motion:reduce){.tour-spot,.tour-pop{transition:none}.hbtn.tour.new{animation:none}}
   .stat-card{background:var(--forest-2);border-radius:20px;padding:1.35rem 1.4rem 1.25rem}
-  .stat-big{font-family:var(--serif);font-weight:300;font-size:3rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
+  .stat-big{font-family:var(--serif);font-weight:400;font-size:3rem;line-height:1;letter-spacing:-.02em;font-variant-numeric:lining-nums tabular-nums}
   .stat-big small{font-size:1.1rem;color:var(--mint);letter-spacing:0;margin-left:.25rem}
   .stat-label{color:var(--mint);font-size:.88rem;margin:.35rem 0 1rem}
   .meter{height:6px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;margin:.35rem 0 .2rem}
@@ -85,7 +86,7 @@
   .section-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.4rem 1rem;margin-bottom:1.2rem}
   .section-head h2{font-weight:400;font-size:2rem;margin:0}
   .section-head p{margin:0;color:var(--slate);font-size:.95rem}
-  .step-n{font:300 1em/1 var(--serif);color:#b9b1c4;margin-right:.45rem;font-variant-numeric:lining-nums}
+  .step-n{font:400 1em/1 var(--serif);color:#b9b1c4;margin-right:.45rem;font-variant-numeric:lining-nums}
   .btn{display:inline-flex;align-items:center;gap:.4rem;font:500 .9rem/1.2 var(--sans);cursor:pointer;text-decoration:none;
     border-radius:999px;border:1px solid rgba(34,105,77,.45);color:var(--green);background:transparent;padding:.45rem 1rem;transition:background .15s,color .15s,border-color .15s}
   .btn:hover{background:var(--green);color:#fff;border-color:var(--green)}
@@ -468,7 +469,7 @@ function wrapLabel(text, maxW = 57, maxLines = 4){
   if (wrapCache.has(key)) return wrapCache.get(key);
   let res;
   for (let fs = 10.8; fs >= 8.4; fs -= .3){
-    measure.font = `600 ${fs}px Geist, system-ui, sans-serif`;
+    measure.font = `600 ${fs}px 'Libre Franklin', system-ui, sans-serif`;
     const lines = []; let cur = "";
     for (const w of String(text).split(/\s+/)){ const t = cur ? cur + " " + w : w; if (measure.measureText(t).width <= maxW || !cur) cur = t; else { lines.push(cur); cur = w; } }
     if (cur) lines.push(cur);
@@ -572,7 +573,7 @@ function linkPath(d, a, b, col, tier, glow, extra = ""){
   return s;
 }
 function treeSVG(t, opts = {}){
-  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif", L = opts.layout || layoutTree(t, exp), box = L.box;
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "'Libre Franklin', system-ui, sans-serif", L = opts.layout || layoutTree(t, exp), box = L.box;
   const PM = {}; t.badges.forEach(e => { PM[e.id] = { ...BD[e.id], x: L.pos[e.id][0], y: L.pos[e.id][1] }; if (opts.parents) PM[e.id].parents = opts.parents[e.id] || []; });
   const badges = t.badges.map(e => PM[e.id]);
   let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${box.x} ${box.y} ${box.w} ${box.h}"${exp ? ` width="${box.w}" height="${box.h}"` : ` role="group" aria-label="${esc(t.label)} skill tree"`} preserveAspectRatio="xMidYMid meet">`;
@@ -630,7 +631,7 @@ function netPos(){
 }
 function netLabel(b){
   const text = b.week ? `Wk ${b.week}: ${b.label}` : b.label;
-  measure.font = "600 18px Geist, system-ui, sans-serif";
+  measure.font = "600 18px 'Libre Franklin', system-ui, sans-serif";
   const lines = []; let cur = "";
   for (const w of text.split(/\s+/)){ const t = cur ? cur + " " + w : w; if (measure.measureText(t).width <= 150 || !cur) cur = t; else { lines.push(cur); cur = w; } }
   if (cur) lines.push(cur);
@@ -643,7 +644,7 @@ function heroLinks(){
   return L;
 }
 function heroSVG(opts = {}){
-  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "Geist, system-ui, sans-serif";
+  const exp = !!opts.export, FONT = exp ? "Helvetica, Arial, sans-serif" : "'Libre Franklin', system-ui, sans-serif";
   const pos = netPos();
   const xs = Object.values(pos).map(p => p[0]), ys = Object.values(pos).map(p => p[1]);
   const box = { x: Math.min(...xs, -160) - 190, y: Math.min(...ys, -200) - 150, w: Math.max(...xs, 160) - Math.min(...xs, -160) + 380, h: Math.max(...ys, 200) - Math.min(...ys, -200) + 240 };
@@ -1065,18 +1066,18 @@ async function downloadPng(){
   const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = outW; c.height = outH;
   x.fillStyle = "#120F17"; x.fillRect(0, 0, outW, outH);
   const A = analyse(), name = progress.name.trim(), total = Object.values(SK).filter(s => s.badge).length;
-  x.fillStyle = "#fff"; x.font = "300 56px Newsreader, Georgia, serif"; x.fillText(J.title, pad, 92);
-  x.fillStyle = "#C9C2D6"; x.font = "400 24px Geist, Helvetica, Arial, sans-serif";
+  x.fillStyle = "#fff"; x.font = "400 56px 'Libre Caslon Display', Georgia, serif"; x.fillText(J.title, pad, 92);
+  x.fillStyle = "#C9C2D6"; x.font = "400 24px 'Libre Franklin', Helvetica, Arial, sans-serif";
   x.fillText(`${name ? name + "  ·  " : ""}${A.skills.length} of ${total} skills  ·  ${allBadges().filter(b => done(b.id)).length} of ${allBadges().length} badges earned  ·  ${today()}`, pad, 132);
   x.drawImage(net, 0, headH, outW, netH);
   let y = headH + netH + gap;
   cells.forEach((cl, i) => {
     const cx = pad + (i % 2) * (cellW + gap), cy = y + (i < 2 ? 0 : row1 + gap), [k, n] = treeProgress(cl.t);
-    x.fillStyle = cl.t.colour; x.font = "700 24px Geist, Helvetica, Arial, sans-serif"; x.fillText(cl.t.label.toUpperCase(), cx, cy + 30);
-    x.fillStyle = "#8E86A0"; x.font = "400 22px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText(`${k} of ${n} badges`, cx + cellW, cy + 30); x.textAlign = "left";
+    x.fillStyle = cl.t.colour; x.font = "700 24px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.fillText(cl.t.label.toUpperCase(), cx, cy + 30);
+    x.fillStyle = "#8E86A0"; x.font = "400 22px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText(`${k} of ${n} badges`, cx + cellW, cy + 30); x.textAlign = "left";
     x.save(); x.beginPath(); x.roundRect ? x.roundRect(cx, cy + 46, cellW, cl.h, 20) : x.rect(cx, cy + 46, cellW, cl.h); x.clip(); x.drawImage(cl.im, cx, cy + 46, cellW, cl.h); x.restore();
   });
-  x.fillStyle = "#8E86A0"; x.font = "400 20px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", outW - pad, outH - 26);
+  x.fillStyle = "#8E86A0"; x.font = "400 20px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", outW - pad, outH - 26);
   c.toBlob(bl => { saveBlob(bl, fileStem() + ".png"); toast("Image downloaded"); }, "image/png");
 }
 /* ===== My path: only the badges this student has started, closed up so there are no gaps, with only their ticked skills ===== */
@@ -1107,15 +1108,15 @@ async function downloadPath(){
   const c = document.createElement("canvas"), x = c.getContext("2d"); c.width = outW; c.height = outH;
   x.fillStyle = "#120F17"; x.fillRect(0, 0, outW, outH);
   const A = analyse(), name = progress.name.trim(), earned = allBadges().filter(b => done(b.id)).length;
-  x.fillStyle = "#fff"; x.font = "300 60px Newsreader, Georgia, serif"; x.fillText(name ? `${name}: my path` : "My path", pad, 100);
-  x.fillStyle = "#C9C2D6"; x.font = "400 26px Geist, Helvetica, Arial, sans-serif";
+  x.fillStyle = "#fff"; x.font = "400 60px 'Libre Caslon Display', Georgia, serif"; x.fillText(name ? `${name}: my path` : "My path", pad, 100);
+  x.fillStyle = "#C9C2D6"; x.font = "400 26px 'Libre Franklin', Helvetica, Arial, sans-serif";
   x.fillText(`${J.title}  ·  ${A.skills.length} skills  ·  ${earned} badge${earned === 1 ? "" : "s"} earned  ·  ${today()}`, pad, 146);
   let y = headH;
   rows.forEach((r, ri) => {
     r.forEach((p, i) => {
       const cx = pad + i * (cellW + gap), w = p.layout.box.w * k, h = p.layout.box.h * k;
-      x.fillStyle = p.t.colour; x.font = "700 24px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "left"; x.fillText(p.t.label.toUpperCase(), cx, y + 30);
-      x.fillStyle = "#8E86A0"; x.font = "400 22px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right";
+      x.fillStyle = p.t.colour; x.font = "700 24px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.textAlign = "left"; x.fillText(p.t.label.toUpperCase(), cx, y + 30);
+      x.fillStyle = "#8E86A0"; x.font = "400 22px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.textAlign = "right";
       x.fillText(`${p.t.badges.filter(e => done(e.id)).length} earned · ${p.t.badges.length - p.t.badges.filter(e => done(e.id)).length} in progress`, cx + cellW, y + 30); x.textAlign = "left";
       const ox = cx + (cellW - w) / 2;
       x.save(); x.beginPath(); x.roundRect ? x.roundRect(cx, y + 46, cellW, rowH[ri] - 60, 20) : x.rect(cx, y + 46, cellW, rowH[ri] - 60); x.clip();
@@ -1125,7 +1126,7 @@ async function downloadPath(){
     });
     y += rowH[ri] + gap;
   });
-  x.fillStyle = "#8E86A0"; x.font = "400 20px Geist, Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", outW - pad, outH - 24);
+  x.fillStyle = "#8E86A0"; x.font = "400 20px 'Libre Franklin', Helvetica, Arial, sans-serif"; x.textAlign = "right"; x.fillText("jamesfreemanhistorian.com/tools/age-of-data-skills/", outW - pad, outH - 24);
   c.toBlob(bl => { saveBlob(bl, fileStem() + "-path.png"); toast("Path downloaded"); }, "image/png");
 }
 $("#dlPath").onclick = () => downloadPath().catch(() => toast("Sorry, the image couldn't be made in this browser"));

@@ -17,9 +17,10 @@ $body-color: $ink;
 $primary: $green;
 $link-color: $green;
 
-$font-family-sans-serif: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-family-sans-serif: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
 $font-family-base: $font-family-sans-serif;
-$headings-font-family: "Newsreader", Georgia, "Times New Roman", serif;
+$headings-font-family: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+$display-font-family: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
 $headings-font-weight: 400;
 $font-size-base: 1.0625rem;
 $line-height-base: 1.6;
@@ -33,7 +34,7 @@ $footer-fg: $mint;
 /*-- scss:rules --*/
 
 body { -webkit-font-smoothing: antialiased; }
-h1, h2, h3, h4 { letter-spacing: -0.015em; text-wrap: balance; }
+h1, h2, h3, h4 { letter-spacing: -0.005em; text-wrap: balance; }
 a { text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { text-decoration-thickness: 2px; }
 :focus-visible { outline: 2px solid $green; outline-offset: 3px; border-radius: 2px; }
@@ -63,15 +64,15 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; align-items: center; }
 .hero-name {
-  font-family: $headings-font-family;
-  font-weight: 300;
+  font-family: $display-font-family;
+  font-weight: 400;
   font-size: clamp(3.2rem, 7.5vw, 6.4rem);
   line-height: 0.95;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.015em;
   margin: 0 0 1.5rem;
   color: #fff;
 }
-.hero-lede { font-family: $headings-font-family; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.35; font-weight: 300; margin: 0 0 1.25rem; color: #fff; }
+.hero-lede { font-family: $headings-font-family; font-size: clamp(1.3rem, 2.2vw, 1.6rem); line-height: 1.35; font-weight: 400; margin: 0 0 1.25rem; color: #fff; }
 .hero-role { color: $mint; font-size: 0.95rem; max-width: 30rem; margin: 0 0 2rem; }
 .hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0;
   a { text-decoration: none; border: 1px solid rgba(255,255,255,0.3); border-radius: 999px; padding: 0.45rem 1rem; font-size: 0.92rem; }
@@ -82,7 +83,7 @@ a:hover { text-decoration-thickness: 2px; }
 .hemi { margin: 0; background: $forest-2; border-radius: 20px; padding: 1.5rem 1.5rem 1.25rem; }
 .hemi-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 .hemi-caption { color: $mint; font-size: 0.9rem; max-width: 16rem; }
-.hemi-year { font-family: $headings-font-family; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1; font-weight: 300; font-variant-numeric: lining-nums tabular-nums; }
+.hemi-year { font-family: $headings-font-family; font-size: clamp(2.2rem, 4vw, 3.2rem); line-height: 1; font-weight: 400; font-variant-numeric: lining-nums tabular-nums; }
 #hemicycle { width: 100%; height: auto; display: block; margin: 0.75rem 0 0.5rem; }
 #hemicycle circle { transition: cx 0.6s ease, cy 0.6s ease, fill 0.6s ease, opacity 0.4s ease; }
 .b-green { fill: #7BC043; background: #7BC043; }
@@ -140,7 +141,7 @@ a:hover { text-decoration-thickness: 2px; }
 .book { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 3rem; align-items: center; }
 .book-cover img { width: 100%; max-width: 15rem; height: auto; display: block; border-radius: 4px; box-shadow: 0 18px 40px -18px rgba($forest, 0.55); }
 .book-body > p:first-child { color: $slate; font-size: 0.95rem; margin: 0 0 0.75rem; }
-.book-body h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.08; font-weight: 300; margin: 0 0 1rem; border: 0;
+.book-body h2 { font-family: $display-font-family; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.08; font-weight: 400; margin: 0 0 1rem; border: 0;
   a { color: $ink; text-decoration: none; }
   a:hover { color: $green; text-decoration: underline; }
 }
@@ -154,7 +155,7 @@ a.pill-link:hover { background: $green; color: #fff; border-color: $green; }
 // Data and politics: statement beside three capabilities
 .band-data { background: #fff; }
 .data-pitch { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 3.5rem; }
-.data-intro h2 { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 300; line-height: 1.05; margin: 0 0 1.25rem; border: 0; }
+.data-intro h2 { font-family: $display-font-family; font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 400; line-height: 1.05; margin: 0 0 1.25rem; border: 0; }
 .data-intro p { font-size: 1.1rem; color: $ink; margin-bottom: 1.5rem; }
 .data-skills { display: flex; flex-direction: column; }
 .skill { padding: 1.15rem 0; border-top: 1px solid $rule; }
@@ -195,7 +196,7 @@ a.pill-link:hover { background: $green; color: #fff; border-color: $green; }
 .about-contact p { margin: 0 0 0.5rem; }
 
 // Inner pages
-#title-block-header .title { font-family: $headings-font-family; font-weight: 300; font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.03em; }
+#title-block-header .title { font-family: $display-font-family; font-weight: 400; font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: -0.01em; }
 #title-block-header .subtitle { color: $slate; font-family: $font-family-sans-serif; font-size: 1.1rem; }
 main.content h2 { font-size: 1.75rem; border-bottom: 0; margin-top: 2.5rem; }
 .quarto-title-meta-heading { text-transform: none !important; letter-spacing: 0; }

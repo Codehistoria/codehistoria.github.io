@@ -7,14 +7,15 @@
 <meta name="description" content="Generate coordinates for circular waffle (plum pudding) charts, with exploded pie-style groupings, ready to plot in Tableau. Runs entirely in your browser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   /* Palette and type match jamesfreemanhistorian.com (custom.scss) */
   :root{
     --forest:#0F2B22; --forest-2:#1B3F33; --mint:#BFD8CB; --paper:#F7F8F6; --tint:#ECF1EE;
     --ink:#17201C; --slate:#56635C; --rule:#D8E0DB; --green:#22694D; --amber:#B7791F;
-    --serif:"Newsreader",Georgia,"Times New Roman",serif;
-    --sans:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --serif:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+    --display:"Libre Caslon Display","Libre Caslon Text",Georgia,serif;
+    --sans:"Libre Franklin",system-ui,-apple-system,"Segoe UI",sans-serif;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -40,8 +41,8 @@
   /* Hero */
   .hero{background:var(--forest);color:#fff;padding:3.25rem 0 3.75rem}
   .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 13.5rem;gap:3.5rem;align-items:center}
-  .hero h1{font-weight:300;font-size:clamp(2.7rem,6.5vw,4.6rem);line-height:.98;letter-spacing:-.04em;margin:0 0 1.25rem}
-  .hero-lede{font-family:var(--serif);font-weight:300;font-size:clamp(1.25rem,2.1vw,1.55rem);line-height:1.35;margin:0 0 1.1rem;max-width:40rem}
+  .hero h1{font-family:var(--display);font-weight:400;font-size:clamp(2.7rem,6.5vw,4.6rem);line-height:.98;letter-spacing:-.012em;margin:0 0 1.25rem}
+  .hero-lede{font-family:var(--serif);font-weight:400;font-size:clamp(1.25rem,2.1vw,1.55rem);line-height:1.35;margin:0 0 1.1rem;max-width:40rem}
   .hero-note{color:var(--mint);font-size:.95rem;margin:0;max-width:34rem}
   .hero-art svg{width:100%;height:auto;display:block}
   @media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-art{display:none}.hero{padding:2.5rem 0 2.75rem}}
@@ -64,7 +65,7 @@
   .ctl h2{font-weight:400;font-size:1.4rem;margin:0 0 .6rem}
   .ctl label,.field-label{display:block;font-size:.9rem;font-weight:500;color:var(--slate);margin:.9rem 0 .35rem}
   .ctl h2 + label,.ctl h2 + .seg,.step-why + label,.step-why + .seg{margin-top:0}
-  .steps-intro{margin:0 0 1.5rem;font-family:var(--serif);font-weight:300;font-size:1.3rem;line-height:1.35;color:var(--ink)}
+  .steps-intro{margin:0 0 1.5rem;font-family:var(--serif);font-weight:400;font-size:1.3rem;line-height:1.35;color:var(--ink)}
   .ctl h2{display:flex;align-items:center;gap:.65rem}
   .step-n{flex:none;display:inline-flex;align-items:center;justify-content:center;width:1.85rem;height:1.85rem;border-radius:50%;
     border:1px solid rgba(34,105,77,.45);color:var(--green);font:400 1.05rem/1 var(--serif);font-variant-numeric:lining-nums}
@@ -123,7 +124,7 @@
   .chamber-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
   .chamber-caption{color:var(--mint);font-size:.9rem;max-width:15rem;line-height:1.4}
   .chamber-count{text-align:right;line-height:1}
-  .chamber-count b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,4vw,3.1rem);font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em}
+  .chamber-count b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4vw,3.1rem);font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em}
   .chamber-count span{font-size:.85rem;color:var(--mint)}
   .stage{width:100%;max-width:34rem;aspect-ratio:1/1;margin:.75rem auto .9rem}
   .stage svg{width:100%;height:100%;display:block}
