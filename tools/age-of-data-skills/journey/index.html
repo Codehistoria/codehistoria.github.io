@@ -553,7 +553,12 @@ function linkPath(d, a, b, col, tier, glow, extra = ""){
   const f = linkFill(a, b), full = done(a) && done(b), dash = DASH[tier] || "";
   let s = `<path d="${d}" fill="none" stroke="${f > 0 ? col : "#3A3344"}" stroke-opacity="${f > 0 ? .28 : 1}" stroke-width="${tier === "optional" ? 2.6 : 2.2}" stroke-linecap="round"${dash ? ` stroke-dasharray="${dash}"` : ""} pointer-events="none"${extra}/>`;
   if (full) s += `<path d="${d}" fill="none" stroke="${col}" stroke-width="3.4" stroke-linecap="round" filter="url(#${glow})" pointer-events="none"${extra}/>`;
-  else if (f > 0) s += `<path d="${d}" pathLength="1" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${f.toFixed(3)} 2" pointer-events="none"${extra}/>`;
+  else if (f > 0){
+    // each end fills from its own badge: progress on the lower badge grows up the line, progress on the upper one grows down it
+    const [ka, na] = prog(a), [kb, nb] = prog(b), fa = ka / na / 2, fb = kb / nb / 2, seg = (dash, extraAttr = "") => `<path d="${d}" pathLength="1" fill="none" stroke="${col}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${dash}" pointer-events="none"${extra}/>`;
+    if (fa > 0) s += seg(`${fa.toFixed(3)} 2`);
+    if (fb > 0) s += seg(`0 ${(1 - fb).toFixed(3)} ${fb.toFixed(3)} 2`);
+  }
   return s;
 }
 function treeSVG(t, opts = {}){
