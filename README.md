@@ -42,14 +42,10 @@ To add a tool:
 
 `tools/plum-pudding/` generates coordinates for circular waffle charts for Tableau. Excel files are read with SheetJS, loaded only when needed: the page uses `tools/plum-pudding/xlsx.full.min.js` if that file exists, and otherwise loads SheetJS 0.20.3 from the official CDN. To self-host it, download `https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js` into `tools/plum-pudding/`. Use the cdn.sheetjs.com build, not the `xlsx` package on npm, which is an older version missing security fixes.
 
-### Arts in the Age of Data skills tree
+### Arts in the Age of Data skill trees
 
-`tools/age-of-data-skills/` lets students tick the skills they've learned on the unit and builds a read-out for CVs, applications and interviews. Students' ticks and notes are saved only in their own browser (`localStorage`).
+`tools/age-of-data-skills/` lets students tick the skills they've learned on the unit across four skill trees (The Project, Critical Lens, Tools, Teamwork) and builds a read-out for CVs, applications and interviews, with reflection prompts for themselves. Students can download an image of their own path, all four trees, a skills record or a CSV, and save or load their progress as a file. Ticks and notes are saved only in their own browser (`localStorage`).
 
-Everything on the page (nodes, positions, connections, CV statements, interview prompts, themes) comes from `tools/age-of-data-skills/skills.json`. To change it, either edit that file, or open the page with `?edit` on the end of the address (`/tools/age-of-data-skills/?edit`), which adds an editor:
+Everything on the page (badges, skills, positions, connections, paths, CV lines, prompts, themes and Bristol Skills Profile tags) comes from `tools/age-of-data-skills/trees.json`. Edit it with the separate editor file (kept off this site on purpose, so students can't see it), which publishes through the GitHub API with a fine-grained token, or edit the JSON directly.
 
-- Click a node to edit it; drag to move it; use "Connect to…" to add a line, "Add" to create badges and skills.
-- Changes save as a draft in that browser only. Students keep seeing the published file.
-- "Publish" commits `skills.json` to this repo through the GitHub API, which triggers the normal site build. It needs a fine-grained personal access token limited to this repository with Contents: Read and write. Or use "Download skills.json" and commit the file yourself.
-
-Anyone can open `?edit`, but without a token they can only change a draft in their own browser.
+`/tools/age-of-data-skills/journey/` redirects to the main page.
