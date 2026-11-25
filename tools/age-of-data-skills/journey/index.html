@@ -232,11 +232,14 @@
   .ro h3.first{margin-top:.5rem;padding-top:0;border-top:0}
   .indep{font:600 .62rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--slate);border:1px dashed #9AA59F;border-radius:999px;padding:.15rem .45rem;margin-left:.3rem;white-space:nowrap;vertical-align:.1em}
   .story.you summary::before{color:#2F6E9E}
-  .theme{margin:0 0 1rem}
-  .theme h4{margin:0 0 .25rem;font:600 .7rem/1.3 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+  .theme{margin:0 0 1.3rem}
+  .theme h4{margin:0 0 .35rem;font:600 1.08rem/1.3 var(--sans);color:var(--void);display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .6rem}
+  .theme h4 .bsp{font:600 .66rem/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#2F6E9E;border:1px solid #b9cfe0;border-radius:999px;padding:.22rem .5rem;white-space:nowrap}
+  .ro .bsp-note{font-size:.82rem;color:var(--slate);margin:-.2rem 0 1rem}
+  .ro .bsp-note a{color:#2F6E9E}
   .theme .blurb{margin:0 0 .4rem;color:var(--slate);font-size:.86rem}
   .theme ul{margin:0;padding-left:1.15rem}
-  .theme li{margin:.25rem 0}
+  .theme li{margin:.2rem 0;font-size:.9rem;line-height:1.5}
   .theme li .from{color:var(--slate);font-size:.8rem}
   .theme li.dev{color:var(--slate)}
   .story{border-top:1px solid var(--rule);margin:0}
@@ -927,6 +930,7 @@ function renderStats(){
 
 /* ===== Read-out ===== */
 function themeOf(b){ return (b.themes && b.themes[0]) || "other"; }
+function profileOf(id){ const t = data.themes.find(t => t.id === id); return J.profile && t && t.profile || ""; }
 function themeLabel(id){ const t = data.themes.find(t => t.id === id); return t ? t.label : "Other skills"; }
 function analyse(){
   const order = J.trees.flatMap(t => t.badges.map(e => BD[e.id]));
@@ -968,10 +972,11 @@ function renderReadout(){
   if (!A.skills.length){ host.innerHTML = `<div class="ro-empty">Tick the skills you've learned in the trees above, and your read-out will build here.</div>`; return; }
   let h = `<h3>Summary</h3><p class="summary">${esc(summaryText(A))}</p>`;
   if (A.earned.length){
-    h += `<p class="half">For employers</p><h3 class="first">What you can say</h3><p class="lead">From the badges you've earned. Put them in your own words.</p>`;
+    h += `<p class="half">For employers</p><h3 class="first">What you can say</h3><p class="lead">From the badges you've earned. Put them in your own words.</p>`
+      + (J.profile ? `<p class="bsp-note">${esc(J.profile.note)} <a href="${esc(J.profile.url)}" target="_blank" rel="noopener">About the ${esc(J.profile.label)}</a></p>` : "");
     for (const tid of [...data.themes.map(t => t.id), "other"]){
       const e = A.earned.filter(b => themeOf(b) === tid && b.cv); if (!e.length) continue;
-      h += `<div class="theme"><h4>${esc(themeLabel(tid))}</h4><ul>${e.map(b => `<li>${esc(b.cv)}${b.tier === "stretch" ? ` <span class="indep">Independent learning</span>` : ""}</li>`).join("")}</ul></div>`;
+      h += `<div class="theme"><h4>${esc(themeLabel(tid))}${profileOf(tid) ? `<span class="bsp" title="${esc(J.profile.label)}">${esc(profileOf(tid))}</span>` : ""}</h4><ul>${e.map(b => `<li>${esc(b.cv)}${b.tier === "stretch" ? ` <span class="indep">Independent learning</span>` : ""}</li>`).join("")}</ul></div>`;
     }
   }
   const storyBadges = A.earned.filter(b => b.story).sort((a, b) => (a.tier === "stretch") - (b.tier === "stretch"));
@@ -1006,7 +1011,7 @@ function readoutText(){
     L.push("", "FOR EMPLOYERS: WHAT YOU CAN SAY");
     for (const tid of [...data.themes.map(t => t.id), "other"]){
       const e = A.earned.filter(b => themeOf(b) === tid && b.cv); if (!e.length) continue;
-      L.push("", themeLabel(tid)); e.forEach(b => L.push(`- ${b.cv}${b.tier === "stretch" ? " (independent learning)" : ""}`));
+      L.push("", themeLabel(tid) + (profileOf(tid) ? ` [${J.profile.label}: ${profileOf(tid)}]` : "")); e.forEach(b => L.push(`- ${b.cv}${b.tier === "stretch" ? " (independent learning)" : ""}`));
     }
   }
   const sb = A.earned.filter(b => b.story);

@@ -89,31 +89,38 @@
  "themes": [
   {
    "id": "digital",
-   "label": "Digital and technical skills"
+   "label": "Digital and technical skills",
+   "profile": "Ready for the future"
   },
   {
    "id": "research",
-   "label": "Research and data gathering"
+   "label": "Research and data gathering",
+   "profile": "Research skills"
   },
   {
    "id": "analysis",
-   "label": "Analytical and numerical reasoning"
+   "label": "Analytical and numerical reasoning",
+   "profile": "Knowledge handling skills"
   },
   {
    "id": "critical",
-   "label": "Critical thinking and ethical judgement"
+   "label": "Critical thinking and ethical judgement",
+   "profile": "Research skills"
   },
   {
    "id": "communication",
-   "label": "Communicating with data"
+   "label": "Communicating with data",
+   "profile": "Academic skills"
   },
   {
    "id": "teamwork",
-   "label": "Teamwork and leadership"
+   "label": "Teamwork and leadership",
+   "profile": "Work well with others"
   },
   {
    "id": "project",
-   "label": "Project management and organisation"
+   "label": "Project management and organisation",
+   "profile": "Work well independently"
   }
  ],
  "palette": {
@@ -528,27 +535,27 @@
   "tab-basic-format": {
    "label": "Basic Formatting",
    "desc": "Format titles, axes and labels in Tableau.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "tab-charts": {
    "label": "Tableau Charts",
    "desc": "Build standard chart types in Tableau.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "tab-import": {
    "label": "Import data into Tableau",
    "desc": "Connect Tableau to Excel or .csv data.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "tab-markers": {
    "label": "Tableau Markers",
    "desc": "Use the Marks card for colour, size, labels and detail.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "tab-measures": {
    "label": "Measures, dimension, attributes",
    "desc": "Know how Tableau treats categories and numbers.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "tab-adv-format": {
    "label": "Advanced Formatting",
@@ -2336,7 +2343,7 @@
     {
      "id": "tableau-l1",
      "label": "Tableau User L1",
-     "tier": "extension",
+     "tier": "optional",
      "x": 650,
      "y": 415,
      "parents": [
@@ -2832,5 +2839,10 @@
   "label": "Optional",
   "long": "Optional, in the unit",
   "note": "Part of the unit, but whether you need it depends on your interests and how you design your project."
+ },
+ "profile": {
+  "label": "Bristol Skills Profile",
+  "url": "https://www.bristol.ac.uk/students/life-in-bristol/skills/",
+  "note": "Each group is tagged with the Bristol Skills Profile skill it builds, so you can record it in My Skills."
  }
 }
