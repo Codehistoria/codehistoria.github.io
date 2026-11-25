@@ -1063,8 +1063,8 @@
    "tier": "core"
   },
   "audience": {
-   "label": "Audience",
-   "desc": "Design for the people who will read it.",
+   "label": "Accuracy vs engagement",
+   "desc": "Trade accuracy against engagement to suit your purpose and audience.",
    "tier": "core"
   },
   "low-ink": {
@@ -1089,7 +1089,7 @@
   },
   "structure-flow": {
    "label": "Structure and flow",
-   "desc": "Lead the reader through the page in a clear order.",
+   "desc": "Design a structure and flow that leads the reader through the page in a logical order.",
    "tier": "core"
   },
   "word-cloud": {
@@ -1129,7 +1129,7 @@
   },
   "history-dataviz": {
    "label": "History of Data Viz",
-   "desc": "Learn from landmark designs and designers.",
+   "desc": "Trace how visualisation moved from where, to when, to abstract and hybrid forms.",
    "tier": "core"
   },
   "replicate": {
@@ -1209,7 +1209,7 @@
   },
   "lens-sample": {
    "label": "Who was asked?",
-   "desc": "Judge whether a poll's sample represents the people it claims to.",
+   "desc": "Judge whether a poll's sample represents the people it claims to, as the 1936 and 1948 US polls failed to.",
    "tier": "core"
   },
   "lens-ai-data": {
@@ -1284,7 +1284,7 @@
   },
   "references": {
    "label": "Reference lists and notes",
-   "desc": "Cite your sources in notes and a reference list so readers can check them.",
+   "desc": "Give sources and extra detail in numbered supporting notes and a reference list.",
    "tier": "core"
   },
   "map-points": {
@@ -1296,6 +1296,26 @@
    "label": "Interactive or animated charts",
    "desc": "Build charts readers can explore, or that move to show change.",
    "tier": "extension"
+  },
+  "gestalt": {
+   "label": "How readers see patterns",
+   "desc": "Use proximity, similarity, enclosure, closure, continuity and connection so readers group things as you intend.",
+   "tier": "core"
+  },
+  "preattentive": {
+   "label": "Make the key point pop",
+   "desc": "Use colour, size or position so the main point stands out before readers start searching.",
+   "tier": "core"
+  },
+  "match-story": {
+   "label": "Match the chart to the story",
+   "desc": "Choose the visualisation that fits the kind of story you are telling.",
+   "tier": "core"
+  },
+  "data-campaigning": {
+   "label": "Data-driven campaigning",
+   "desc": "Explain how profiling, voter modelling and microtargeting work, and what they mean for democracy.",
+   "tier": "core"
   }
  },
  "trees": [
@@ -1545,7 +1565,13 @@
       "line-graphs",
       "pie-charts",
       "doughnut",
-      "histograms"
+      "histograms",
+      "low-ink",
+      "remove-features",
+      "axis-formatting",
+      "legends",
+      "color-features",
+      "add-annotation"
      ],
      "strand": "viz",
      "stage": "visualise",
@@ -1602,18 +1628,15 @@
      ],
      "skills": [
       "audience",
-      "avoid-distortion",
-      "low-ink",
-      "remove-features",
-      "axis-formatting",
-      "legends",
-      "color-features",
-      "add-annotation"
+      "gestalt",
+      "preattentive",
+      "match-story",
+      "avoid-distortion"
      ],
      "strand": "viz",
      "stage": "visualise",
-     "blurb": "Design for your audience.",
-     "cv": "Applied design principles, including audience, low-ink design and appropriate chart choice, to make visualisations clear and honest.",
+     "blurb": "Design for how your audience will read it.",
+     "cv": "Applied visualisation design principles, balancing accuracy and engagement for the audience, using how readers perceive patterns and matching each chart to its story, to make visualisations clear and honest.",
      "story": "Tell me about designing something for a particular audience. How did knowing who they were change your choices?",
      "next": "Collect three charts you admire and three you don't, and write a line on why for each.",
      "themes": [
@@ -2021,7 +2044,7 @@
     },
     {
      "id": "lens-w4",
-     "label": "Seeing Data",
+     "label": "Information is Beautiful",
      "tier": "core",
      "x": 440,
      "y": 440,
@@ -2035,7 +2058,7 @@
       "data-spun"
      ],
      "week": 4,
-     "blurb": "Week 4: the top 50 data visualisations of all time.",
+     "blurb": "Week 4: data visualisation, from where and when to abstract and hybrid.",
      "cv": "Decoded landmark visualisations to work out the data behind them, and how design can inform or mislead.",
      "story": "Pick a famous chart. What data sits behind it, and what did its designer want you to see?",
      "reflect": "Think of a chart that changed your mind about something. Should it have?",
@@ -2163,7 +2186,7 @@
     },
     {
      "id": "lens-w9",
-     "label": "Polling and Democracy",
+     "label": "Destroying Democracy?",
      "tier": "core",
      "x": 880,
      "y": 310,
@@ -2171,12 +2194,13 @@
       "lens-w7"
      ],
      "skills": [
+      "data-campaigning",
       "read-poll",
       "lens-sample"
      ],
      "week": 9,
      "blurb": "Week 9: politics, polling and who you ask.",
-     "cv": "Interpreted opinion polls critically, judging samples, margins of error and representativeness.",
+     "cv": "Assessed how data shapes democratic politics, from microtargeted campaigning to opinion polls, judging samples, margins of error and representativeness.",
      "story": "A poll says 52% support a policy. What would you want to know before believing it?",
      "reflect": "How do polls shape what you think other people believe?",
      "themes": [
