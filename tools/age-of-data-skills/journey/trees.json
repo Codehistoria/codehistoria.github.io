@@ -598,7 +598,7 @@
   "web-db": {
    "label": "Web database extracts",
    "desc": "Query an online database and download a custom extract.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "download-csv": {
    "label": "Download .csv data",
@@ -608,21 +608,16 @@
   "time-series": {
    "label": "Create time series",
    "desc": "Assemble figures from several releases into one series over time.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "digitize": {
    "label": "Digitize data",
    "desc": "Turn printed tables, charts or archives into usable data.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "shapefile": {
    "label": "Shapefile data",
    "desc": "Use geographic boundary files for mapping.",
-   "tier": "extension"
-  },
-  "twitter": {
-   "label": "Twitter data",
-   "desc": "Work with social-media posts as data.",
    "tier": "extension"
   },
   "word-counts": {
@@ -703,7 +698,7 @@
   "structuring": {
    "label": "Reshaping data",
    "desc": "Reshape data into tidy rows and columns.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "cleaning": {
    "label": "Cleaning",
@@ -733,12 +728,12 @@
   "storing": {
    "label": "Storing lots of data",
    "desc": "Manage large files and many versions.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "process-3": {
    "label": "Process 3 datasets",
    "desc": "Prepare and integrate three or more datasets.",
-   "tier": "extension"
+   "tier": "optional"
   },
   "shared-task": {
    "label": "Complete a shared task",
@@ -963,37 +958,37 @@
   "std-dev": {
    "label": "Standard deviation",
    "desc": "Measure how spread out values are.",
-   "tier": "core"
+   "tier": "optional"
   },
   "variance": {
    "label": "Variance",
    "desc": "Measure spread as the average squared distance from the mean.",
-   "tier": "core"
+   "tier": "optional"
   },
   "index-numbers": {
    "label": "Index numbers",
    "desc": "Express values relative to a base year set to 100.",
-   "tier": "core"
+   "tier": "optional"
   },
   "avg-growth": {
    "label": "Avg. % growth",
    "desc": "Calculate average growth over several periods.",
-   "tier": "core"
+   "tier": "optional"
   },
   "inflation": {
    "label": "Adjusting for inflation",
    "desc": "Compare money values across years in real terms.",
-   "tier": "core"
+   "tier": "optional"
   },
   "trendlines": {
    "label": "Trendlines",
    "desc": "Fit a line to show the direction of change.",
-   "tier": "core"
+   "tier": "optional"
   },
   "pct-change": {
    "label": "% change",
    "desc": "Calculate the percentage change between two values.",
-   "tier": "core"
+   "tier": "optional"
   },
   "scatter": {
    "label": "Scatter graphs",
@@ -1256,8 +1251,8 @@
    "tier": "core"
   },
   "viz-sketch": {
-   "label": "Sketch the layout first",
-   "desc": "Plan the page on paper before you build it.",
+   "label": "Wireframe the layout first",
+   "desc": "Plan the page as a simple wireframe of boxes before you build it.",
    "tier": "core"
   },
   "viz-hierarchy": {
@@ -1279,6 +1274,21 @@
    "label": "Write about the age of data",
    "desc": "Contribute to the study of the age of data in an essay of your own.",
    "tier": "core"
+  },
+  "references": {
+   "label": "Reference lists and notes",
+   "desc": "Cite your sources in notes and a reference list so readers can check them.",
+   "tier": "core"
+  },
+  "map-points": {
+   "label": "Create points from coordinates",
+   "desc": "Plot places as points from their latitude and longitude.",
+   "tier": "optional"
+  },
+  "interactive-viz": {
+   "label": "Interactive or animated charts",
+   "desc": "Build charts readers can explore, or that move to show change.",
+   "tier": "extension"
   }
  },
  "trees": [
@@ -1360,7 +1370,7 @@
     {
      "id": "data-creator",
      "label": "Data Creator",
-     "tier": "extension",
+     "tier": "optional",
      "x": 500,
      "y": 775,
      "parents": [
@@ -1399,14 +1409,13 @@
      "skills": [
       "weighted-survey",
       "word-counts",
-      "twitter",
       "json",
       "shapefile"
      ],
      "strand": "wild",
      "stage": "find",
      "blurb": "JSON, maps, text and survey weights.",
-     "cv": "Worked with non-standard data formats, including JSON, shapefiles, social-media and text data, and weighted survey data.",
+     "cv": "Worked with non-standard data formats, including JSON, shapefiles, text data and weighted survey data.",
      "story": "Describe a dataset that was harder to work with than a normal spreadsheet. What did you have to learn to use it?",
      "next": "An introductory Python or R course is the natural next step: these formats are where code starts to pay off.",
      "themes": [
@@ -1457,7 +1466,7 @@
     {
      "id": "adv-wrangler",
      "label": "Advanced Wrangler",
-     "tier": "extension",
+     "tier": "optional",
      "x": 800,
      "y": 660,
      "parents": [
@@ -1612,9 +1621,9 @@
     {
      "id": "compare",
      "label": "Compare datasets",
-     "tier": "core",
-     "x": 230,
-     "y": 455,
+     "tier": "optional",
+     "x": 260,
+     "y": 430,
      "parents": [
       "summarise"
      ],
@@ -1640,9 +1649,9 @@
     {
      "id": "change",
      "label": "Change over time",
-     "tier": "core",
-     "x": 610,
-     "y": 455,
+     "tier": "optional",
+     "x": 580,
+     "y": 430,
      "parents": [
       "summarise"
      ],
@@ -1686,7 +1695,7 @@
      "strand": "viz",
      "stage": "visualise",
      "blurb": "Plan and lay out an infographic.",
-     "cv": "Designed an infographic with a clear structure, visual hierarchy and flow, planned from a sketched layout.",
+     "cv": "Designed an infographic with a clear structure, visual hierarchy and flow, planned from a wireframe.",
      "story": "Walk me through how you planned your infographic's layout. What did you put first, and why?",
      "next": "Keep a PDF of your infographic to share in applications and interviews.",
      "themes": [
@@ -1709,6 +1718,7 @@
      ],
      "skills": [
       "map-thematic",
+      "map-points",
       "map-cities",
       "map-uk",
       "map-world"
@@ -1716,7 +1726,7 @@
      "strand": "viz",
      "stage": "visualise",
      "blurb": "Show data on maps.",
-     "cv": "Created thematic maps of data at city, UK and global scales.",
+     "cv": "Created thematic and point maps of data at city, UK and global scales.",
      "story": "Tell me about a map you made. What did showing the data geographically reveal that a chart didn't?",
      "next": "If map-making appeals, try QGIS, which is free and used widely in government, planning and heritage.",
      "themes": [
@@ -1733,7 +1743,7 @@
      "id": "detect",
      "label": "Detect relationships",
      "tier": "optional",
-     "x": 230,
+     "x": 260,
      "y": 315,
      "parents": [
       "compare"
@@ -1762,7 +1772,7 @@
      "id": "causation",
      "label": "Causation",
      "tier": "optional",
-     "x": 230,
+     "x": 260,
      "y": 190,
      "parents": [
       "detect"
@@ -1799,12 +1809,13 @@
      "skills": [
       "clear-explanations",
       "concise-text",
-      "report-captions"
+      "report-captions",
+      "references"
      ],
      "strand": "viz",
      "stage": "tell",
      "blurb": "Combine writing and charts in one piece.",
-     "cv": "Produced an integrated report combining concise written analysis with titled, captioned data visualisations for a non-specialist audience.",
+     "cv": "Produced an integrated, fully referenced report combining concise written analysis with titled, captioned data visualisations for a non-specialist audience.",
      "story": "Walk me through your final infographic. Who was it for, and what design and writing decisions did you make for them?",
      "next": "Rewrite your report's key message as a 100-word briefing note: a format used across government, policy and business.",
      "themes": [
@@ -1828,12 +1839,13 @@
      ],
      "skills": [
       "inspiration",
-      "replicate"
+      "replicate",
+      "interactive-viz"
      ],
      "strand": "viz",
      "stage": "tell",
      "blurb": "Learn from great visualisations.",
-     "cv": "Developed my data storytelling by recreating landmark visualisations and learning from current work.",
+     "cv": "Developed my data storytelling by recreating landmark visualisations, learning from current work and building interactive or animated charts.",
      "story": "Tell me about a famous visualisation you studied or recreated. What did it teach you about your own work?",
      "next": "Build a small portfolio of two or three visualisations with a short note on each design choice.",
      "themes": [
@@ -1853,8 +1865,7 @@
      "x": 420,
      "y": 315,
      "parents": [
-      "compare",
-      "change"
+      "summarise"
      ],
      "skills": [
       "identify-patterns",
