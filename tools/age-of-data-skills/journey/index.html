@@ -522,9 +522,11 @@ function layoutTree(t, preferred){
   const busy = (lane, y) => Object.keys(pos).some(id => laneOf[id] === lane && Math.abs(pos[id][1] - y) < ROW - 1);
   const openRow = y => { for (const id in pos) if (pos[id][1] <= y + 1) pos[id][1] -= ROW; };
   const shoots = [], q = bs.filter(b => ext(b) && !(b.parents.some(p => BD[p] && ext(BD[p]))));
-  const kids = id => bs.filter(b => ext(b) && b.parents.includes(id));
+  const desc = id => bs.filter(b => ext(b) && b.parents.includes(id)).reduce((n, c) => n + 1 + desc(c.id), 0);
+  const kids = id => bs.filter(b => ext(b) && b.parents.includes(id)).sort((a, c) => desc(a.id) - desc(c.id));   // single options first, so chains stay unbroken
   q.sort((a, c) => depth[a.id] - depth[c.id] || c.y - a.y || a.x - c.x);
   const seen = new Set(), add = b => { if (seen.has(b.id)) return; seen.add(b.id); shoots.push(b); kids(b.id).forEach(add); };
+  q.sort((a, c) => depth[a.id] - depth[c.id] || (a.parents[0] === c.parents[0] ? desc(a.id) - desc(c.id) : 0) || c.y - a.y || a.x - c.x);
   q.forEach(add); bs.filter(b => ext(b)).forEach(add);
   for (const b of shoots){
     const P = BD[b.parents.find(p => pos[p])];
@@ -533,11 +535,17 @@ function layoutTree(t, preferred){
     const ok = l => l >= 0 && l < lanes;
     let lane, y;
     if (mainLanes === 1) { lane = 1; y = ext(P) ? py - ROW : py; }
+    else if (ext(P)) { lane = pl; y = py - ROW; }                 // an option off an option stacks straight up its own column
     else if (ok(pl + dir)) { lane = pl + dir; y = py; }
     else if (!ext(P) && ok(pl - dir)) { lane = pl - dir; y = py; }
     else { lane = pl; y = py - ROW; }
     if (busy(lane, y) && y === py) y = py - ROW;          // beside is taken: go one step up on that side
-    if (busy(lane, y)) openRow(y);
+    if (busy(lane, y)){                                    // still taken: the next free slot up that column, or open a row if that is far away
+      let y2 = y; while (busy(lane, y2)) y2 -= ROW;
+      const between = Object.keys(pos).filter(id => laneOf[id] === lane && pos[id][1] > y2 && pos[id][1] < y + ROW);
+      if (y - y2 <= 2 * ROW && between.every(id => ext(BD[id]))) y = y2;   // only hop over other options, never a main badge
+      else openRow(y);
+    }
     pos[b.id] = [lane, y]; laneOf[b.id] = lane; dirOf[b.id] = lane === pl ? (dirOf[P.id] || dir) : Math.sign(lane - pl);
   }
   for (const id in pos) pos[id][0] = (pos[id][0] - (lanes - 1) / 2) * SLOT;

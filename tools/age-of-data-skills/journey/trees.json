@@ -1622,10 +1622,10 @@
      "id": "compare",
      "label": "Compare datasets",
      "tier": "optional",
-     "x": 260,
-     "y": 430,
+     "x": 250,
+     "y": 315,
      "parents": [
-      "summarise"
+      "analyst"
      ],
      "skills": [
       "variance",
@@ -1650,10 +1650,10 @@
      "id": "change",
      "label": "Change over time",
      "tier": "optional",
-     "x": 580,
-     "y": 430,
+     "x": 590,
+     "y": 315,
      "parents": [
-      "summarise"
+      "analyst"
      ],
      "skills": [
       "pct-change",
@@ -1743,8 +1743,8 @@
      "id": "detect",
      "label": "Detect relationships",
      "tier": "optional",
-     "x": 260,
-     "y": 315,
+     "x": 250,
+     "y": 200,
      "parents": [
       "compare"
      ],
@@ -1772,8 +1772,8 @@
      "id": "causation",
      "label": "Causation",
      "tier": "optional",
-     "x": 260,
-     "y": 190,
+     "x": 250,
+     "y": 90,
      "parents": [
       "detect"
      ],
